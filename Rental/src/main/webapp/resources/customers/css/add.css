@@ -1,0 +1,14 @@
+@charset "UTF-8";
+#member{
+	display: grid;
+	grid-template-columns:1fr 3fr;
+}
+
+*{
+	box-sizing: border-box;
+}
+
+#main{
+	border: 1px blue solid;
+}
+
