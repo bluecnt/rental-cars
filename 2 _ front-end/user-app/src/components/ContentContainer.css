@@ -1,0 +1,25 @@
+/*
+[SGLEE:20240205MON_151200] Created
+*/
+
+@import "~open-color/open-color.css";
+@import "./Config.css";
+
+.content {
+  padding: 1rem;
+
+  width: var(--content-width);
+  /* height: 100%; */
+
+  background-color: var(--content-back-color);
+  border: 1px solid var(--content-border-color);
+  border-radius: 8px;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  overflow: hidden;
+}

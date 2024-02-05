@@ -1,0 +1,18 @@
+/*
+[SGLEE:20240205MON_153600] Created
+*/
+
+@import "~open-color/open-color.css";
+
+:root {
+  /* page */
+
+  --page-back-color: var(--oc-gray-2);
+
+  /* content */
+
+  --content-width: 720px;
+
+  --content-border-color: var(--oc-blue-4);
+  --content-back-color: white;
+}

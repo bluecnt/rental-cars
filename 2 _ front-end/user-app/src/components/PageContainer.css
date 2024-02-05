@@ -1,0 +1,30 @@
+/*
+[SGLEE:20240205MON_151200] Created
+*/
+
+@import "~open-color/open-color.css";
+@import "./Config.css";
+
+.page {
+  padding: 1rem;
+
+  width: 100%;
+  height: 100vh;
+
+  box-sizing: border-box;
+
+  background-color: var(--page-back-color);
+
+  display: flex;
+  justify-content: center;
+
+  overflow: hidden;
+  user-select: none;
+}
+
+/* var(--content-width) 사용 불가 */
+@media (max-width: 720px) {
+  .page {
+    justify-content: start;
+  }
+}
