@@ -54,6 +54,8 @@ const App = () => {
 */
 
 const App = () => {
+  console.clear();
+
   return (
     <BrowserRouter>
       <Routes>
