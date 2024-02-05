@@ -18,6 +18,7 @@ const SplashContent = (props: SplashContentProps) => {
         height: "360px",
 
         border: "1px solid lightgray",
+        borderRadius: "8px",
 
         display: "flex",
         flexDirection: "column",
