@@ -9,7 +9,7 @@ export const _str = (
   rightAlignLength = 0
 ): string => {
   if (fillChar.length !== 1) {
-    console.error(`_str() :` + ` fillChar.length<${fillChar.length}> !== 1`);
+    console.error(`_str() : fillChar.length<${fillChar.length}> !== 1`);
     if (DebuggerOnError) debugger;
     return "";
   }
