@@ -28,7 +28,7 @@ const SplashPage = () => {
 
   useEffect(() => {
     let i = 0;
-    const tid = setInterval(() => {
+    const tid = setInterval(async () => {
       if (i <= 30) {
         setState((prev) => ({ ...prev, progbarNow: i }));
         i++;
@@ -36,13 +36,15 @@ const SplashPage = () => {
         clearInterval(tid);
 
         // 로그인 상태라면 VehicleListPage로 이동
-        if (is_login()) {
+        if (await is_login()) {
+          // [SGLEE:20240205ON_211000] 메시지 박스를 띄우면 마지막 칸은 안 채워짐
           alert("로그인 상태이므로 VehicleListPage로 이동합니다");
 
           gotoVehicleListPage();
         }
         // 그렇지 않다면 InitialPage로 이동
         else {
+          // [SGLEE:20240205ON_211000] 메시지 박스를 띄우면 마지막 칸은 안 채워짐
           alert("로그인 상태가 아니므로 InitialPage로 이동합니다");
 
           gotoInitialPage();
