@@ -1,6 +1,16 @@
+/*
 import React from "react";
 import logo from "./logo.svg";
+*/
 import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import SplashPage from "./pages/0_SplashPage";
+import InitialPage from "./pages/1_InitialPage";
+import LoginPage from "./pages/2_LoginPage";
+import RegisterPage from "./pages/3_RegisterPage";
+import VehicleListPage from "./pages/4_VehicleListPage";
+import ReservationPage from "./pages/5_ReservationPage";
+import ReservationListPage from "./pages/6_ReservationListPage";
 
 /*
 function App() {
@@ -25,6 +35,7 @@ function App() {
 }
 */
 
+/*
 const App = () => {
   return (
     <div
@@ -38,6 +49,23 @@ const App = () => {
     >
       BLUECNT RentalCars
     </div>
+  );
+};
+*/
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SplashPage />} />
+        <Route path="/initial" element={<InitialPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/vehicle-list" element={<VehicleListPage />} />
+        <Route path="/reservation" element={<ReservationPage />} />
+        <Route path="/reservation-list" element={<ReservationListPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
