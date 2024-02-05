@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bluecnt.rental.mapper.CustomersMapper">
+
+	<select id="getAll" resultType="com.bluecnt.rental.dto.CustomerDTO">
+		SELECT * FROM Customers
+	</select>
+	
+	<insert id="addCustomer" parameterType="com.bluecnt.rental.dto.CustomerDTO">
+		<selectKey keyProperty="cust_id" resultType="int" order="BEFORE">
+        	SELECT customers_seq.nextval as cust_id FROM dual
+    	</selectKey>
+		INSERT INTO Customers (
+			cust_id, 
+			join_date, 
+			user_email, 
+			user_pw, 
+			name,
+			birthday, 
+			phone_number, 
+			license_number, 
+			credit_card_company,
+			credit_card_number,
+			point,  
+			remark)
+        VALUES (
+        	#{cust_id}, 
+        	CURRENT_DATE, 
+        	#{user_email}, 
+        	#{user_pw},
+        	#{name}, 
+        	#{birthday}, 
+        	#{phone_number}, 
+        	#{license_number},
+        	#{credit_card_company},
+        	#{credit_card_number}, 
+        	#{point}, 
+        	#{remark})
+    </insert>
+	
+	<select id="getCustomerById" parameterType="com.bluecnt.rental.dto.CustomerDTO">
+		SELECT * FROM Customers WHERE cust_id = #{cust_id}
+	</select>
+	
+	<update id="updateCustomer" parameterType="com.bluecnt.rental.dto.CustomerDTO">
+	    UPDATE Customers
+	    SET
+	        user_pw = #{user_pw},
+	        name = #{name},
+	        birthday = #{birthday},
+	        phone_number = #{phone_number},
+	        license_number = #{license_number},
+	        credit_card_company = #{credit_card_company},
+	        credit_card_number = #{credit_card_number},
+	        point = #{point},
+	        remark = #{remark}
+	    WHERE cust_id = #{cust_id}
+	</update>
+	
+	<delete id="deleteCustomer" parameterType="int">
+        DELETE FROM Customers
+        WHERE cust_id = #{cust_id}
+    </delete>
+	
+</mapper>
