@@ -9,23 +9,42 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bluecnt.rental.dto.CustomerDTO;
 import com.bluecnt.rental.service.CustomersService;
+import com.bluecnt.rental.utils.PagingVO;
 
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
+@RequestMapping("/rental")
 public class CustomersController {
 	
 	@Autowired
 	CustomersService customersService;
 	
 	@GetMapping("/customers-mgmt")
-	public String getList(Model model) {
-		log.info("GET list");
-		customersService.customersList(model);
+	public String customersList(PagingVO vo, Model model,
+			  @RequestParam(value="currPage", required=false)String currPage,
+			  @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		int total = customersService.countCustomer();
+		if (currPage == null && cntPerPage == null) {
+				currPage = "1";
+				cntPerPage = "5";
+		} else if (currPage == null) {
+			currPage = "1";
+		} else if (cntPerPage == null) {
+			cntPerPage = "5";
+		}
+		vo = new PagingVO(
+				total, Integer.parseInt(currPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", vo);
+		model.addAttribute("customers", customersService.selectCustomer(vo));
+		log.info("PagingVO: " + vo);
+	    log.info("Customers: " + model.getAttribute("customers"));
+		// customersService.customersList(model);
 		return "/customers-mgmt/list";
 	}
 	
@@ -42,9 +61,10 @@ public class CustomersController {
 		log.info("POST add customer: " + dto.toString());
 		
 		// 서비스 레이어를 통해 고객 추가
+		for (int i = 0; i < 100; i++) {
 		customersService.addCustomer(dto);
-		
-		return "redirect:/customers-mgmt"; // 추가 후 목록 페이지로 리다이렉트
+		}
+		return "redirect:/rental/customers-mgmt"; // 추가 후 목록 페이지로 리다이렉트
 	}
 	
 	@GetMapping("/customers-mgmt/update/{cust_id}")
