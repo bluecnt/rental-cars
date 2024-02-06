@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 
 import com.bluecnt.rental.dto.CustomerDTO;
 import com.bluecnt.rental.mapper.CustomersMapper;
+import com.bluecnt.rental.utils.PagingVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -17,6 +18,16 @@ public class CustomersServiceImpl implements CustomersService {
 	
 	@Autowired
 	CustomersMapper customersMapper;
+	
+	@Override
+	public int countCustomer() {
+		return customersMapper.countCustomer();
+	}
+	
+	@Override
+	public List<CustomerDTO> selectCustomer(PagingVO vo) {
+		return customersMapper.selectCustomer(vo);
+	}
 	
 	@Override
 	public int addCustomer(CustomerDTO dto) {
