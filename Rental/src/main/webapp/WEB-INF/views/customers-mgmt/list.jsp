@@ -10,24 +10,19 @@
 	<!-- <script src="${pageContext.request.contextPath}/resources/customers/js/list.js"></script> --> 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/customers/css/list.css">
 </head>
-<script>
-	function selChange() {
-	    var sel = document.getElementById('cntPerPage').value;
-	    location.href="/rental/customers-mgmt?currPage=${paging.currPage}&cntPerPage="+sel;
-	}
-</script>
 <body>
 <h2>회원정보 리스트</h2>
-	<form action="<%=request.getContextPath()%>/rental/customers-mgmt" method="get">
+	<form id="searchForm" action="<%=request.getContextPath()%>/rental/customers-mgmt" method="get" style="text-align: center;">
 		<label for="카테고리"></label>
 		<select name="category" id="category">
+			<option value="">-선택-</option>
 			<option value="user_email">이메일</option>
 			<option value="name">이름</option>
 			<option value="phone_number">휴대폰</option>			
 		</select>
 		<label for="searchText"></label>
 		<input type="text" name="searchText" id="searchText">
-		<button type="submit">검색</button>
+		<button id="btn1" type="button">검색</button>
 	</form>
 	
 	<div id="outter">
@@ -96,5 +91,21 @@
 		</c:if>
 	</div>
 </div>
+<!-- 자바스크립트 -->
+<script>
+	const btn1 = document.getElementById('btn1');
+	
+	btn1.addEventListener('click', () => {
+		var category = document.getElementById("category").value;
+        var searchText = document.getElementById("searchText").value;
+		var queryString = "category=" + category + "&searchText=" + searchText;
+		location.href = "/rental/customers-mgmt?" + queryString;
+	});
+
+	function selChange() {
+	    var sel = document.getElementById('cntPerPage').value;
+	    location.href="/rental/customers-mgmt?currPage=${paging.currPage}&cntPerPage="+sel;
+	}
+</script>
 </body>
 </html>
