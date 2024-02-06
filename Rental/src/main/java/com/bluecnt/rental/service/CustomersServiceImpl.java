@@ -2,6 +2,7 @@ package com.bluecnt.rental.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ public class CustomersServiceImpl implements CustomersService {
 	
 	@Autowired
 	CustomersMapper customersMapper;
+	CustomerDTO customerDTO;
 	
 	@Override
 	public int countCustomer() {
@@ -27,6 +29,12 @@ public class CustomersServiceImpl implements CustomersService {
 	@Override
 	public List<CustomerDTO> selectCustomer(PagingVO vo) {
 		return customersMapper.selectCustomer(vo);
+	}
+	
+	@Override
+	public List<CustomerDTO> searchCustomer(@Param("PagingVO") PagingVO vo,
+			@Param("category") String category, @Param("searchText") String searchText) {
+	    return customersMapper.searchCustomer(vo, category, searchText);
 	}
 	
 	@Override
