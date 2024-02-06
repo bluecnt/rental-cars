@@ -1,5 +1,7 @@
 package com.bluecnt.rental.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,9 +28,13 @@ public class CustomersController {
 	CustomersService customersService;
 	
 	@GetMapping("/customers-mgmt")
-	public String customersList(PagingVO vo, Model model,
-			  @RequestParam(value="currPage", required=false)String currPage,
-			  @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+	public String customersList(
+		PagingVO vo, Model model,
+		@RequestParam(value="category", required=false) String category,
+	    @RequestParam(value="searchText", required=false, defaultValue="") String searchText,
+	    @RequestParam(value="currPage", required=false) String currPage,
+	    @RequestParam(value="cntPerPage", required=false) String cntPerPage) {
+		log.info(category);
 		int total = customersService.countCustomer();
 		if (currPage == null && cntPerPage == null) {
 				currPage = "1";
@@ -38,13 +44,28 @@ public class CustomersController {
 		} else if (cntPerPage == null) {
 			cntPerPage = "5";
 		}
+		
 		vo = new PagingVO(
 				total, Integer.parseInt(currPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", vo);
-		model.addAttribute("customers", customersService.selectCustomer(vo));
+		
+		if ("user_email".equals(category) && !searchText.isEmpty()) { // searchText 칸이 비어있지 않을 때
+			model.addAttribute("customers", customersService.searchCustomer(vo, category, searchText));
+	        log.info("user_email일때" + model);
+		} else if ("name".equals(category) && !searchText.isEmpty()) {
+			model.addAttribute("customers", customersService.searchCustomer(vo, category, searchText));
+			log.info("name일때" + model);
+		} else if ("phone_number".equals(category) && !searchText.isEmpty()) {
+			model.addAttribute("customers", customersService.searchCustomer(vo, category, searchText));
+			log.info("phone_number일때" + model);
+	    } else { // searchText 칸이 비어있을 때
+	        model.addAttribute("customers", customersService.selectCustomer(vo));
+	    }
+		
+		log.info("category:" + category);
+		log.info("searchText:" + searchText);
 		log.info("PagingVO: " + vo);
-	    log.info("Customers: " + model.getAttribute("customers"));
-		// customersService.customersList(model);
+		log.info("Customers: " + model.getAttribute("customers"));
 		return "/customers-mgmt/list";
 	}
 	
@@ -61,9 +82,7 @@ public class CustomersController {
 		log.info("POST add customer: " + dto.toString());
 		
 		// 서비스 레이어를 통해 고객 추가
-		for (int i = 0; i < 100; i++) {
 		customersService.addCustomer(dto);
-		}
 		return "redirect:/rental/customers-mgmt"; // 추가 후 목록 페이지로 리다이렉트
 	}
 	
