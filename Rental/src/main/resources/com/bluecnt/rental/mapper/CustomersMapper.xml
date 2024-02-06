@@ -3,7 +3,26 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bluecnt.rental.mapper.CustomersMapper">
-
+	
+	<!-- 총 고객 숫자 출력 -->
+	<select id="countCustomer" resultType="int">
+		SELECT COUNT (*) FROM Customers
+	</select>
+	
+	<!-- 페이징 처리 후 고객정보 조회 -->
+	<select id="selectCustomer" resultType="com.bluecnt.rental.dto.CustomerDTO">
+		SELECT *
+	    FROM (
+	        SELECT ROWNUM RN, A.*
+	        FROM (
+	            SELECT *
+	            FROM Customers
+	            ORDER BY cust_id DESC
+        	) A
+		)
+    	WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
 	<select id="getAll" resultType="com.bluecnt.rental.dto.CustomerDTO">
 		SELECT * FROM Customers
 	</select>
