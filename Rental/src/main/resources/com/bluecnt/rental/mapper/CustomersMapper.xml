@@ -23,6 +23,32 @@
     	WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
+	<!-- 페이징 처리 후 카테고리선택 및 직접입력조회 -->
+	<select id="searchCustomer" resultType="com.bluecnt.rental.dto.CustomerDTO">
+	    SELECT *
+	    FROM (
+	        SELECT ROWNUM RN, A.*
+	        FROM (
+	            SELECT *
+	            FROM Customers
+	            WHERE
+	            <choose>
+	                <when test="category == 'user_email'">
+	                    user_email LIKE '%' || #{searchText} || '%'
+	                </when>
+	                <when test="category == 'name'">
+	                    name LIKE '%' || #{searchText} || '%'
+	                </when>
+	                <when test="category == 'phone_number'">
+	                    phone_number LIKE '%' || #{searchText} || '%'
+	                </when>
+	            </choose>
+	            ORDER BY cust_id DESC
+	        ) A
+	    )
+	    WHERE RN BETWEEN #{PagingVO.start} AND #{PagingVO.end}
+	</select>
+	
 	<select id="getAll" resultType="com.bluecnt.rental.dto.CustomerDTO">
 		SELECT * FROM Customers
 	</select>
