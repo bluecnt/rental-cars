@@ -1,7 +1,7 @@
 // [SGLEE:20240205MON_145600] Created
 
-import { RegisterDTO } from "../../pages/3_RegisterPage";
 import LoginDTO from "../dto/LoginDTO";
+import { RegisterDTO } from "../dto/RegisterDTO";
 
 // # 로그인 상태 얻기
 export const is_login = async (): Promise<boolean> => {
@@ -17,6 +17,8 @@ export const do_login = async (dto: LoginDTO): Promise<string> => {
 
 // # 회원가입 하기
 export const do_register = async (dto: RegisterDTO): Promise<string> => {
+  console.log(dto.toString());
+
   return ""; // 성공
   //return "이미 가입한 이메일 주소입니다!";
   //return "이미 가입한 휴대폰 번호 입니다!";
