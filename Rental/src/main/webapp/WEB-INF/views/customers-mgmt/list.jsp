@@ -46,12 +46,14 @@
 			<th>가입일</th>
 			<th>이름</th>
 			<th>생년월일</th>
-			<th>휴대폰</th>
+			<th>휴대번호</th>
 			<th>면허번호</th>
 			<th>카드사</th>
 			<th>카드번호</th>
 			<th>마일리지</th>			
 			<th>비고</th>
+			<th>수정</th>
+			<th>삭제</th>
 		</tr>
 		<c:forEach items="${customers}" var="customer">
 		<tr>
@@ -68,6 +70,8 @@
 			<td>${customer.credit_card_number}</td>
 			<td>${customer.point}</td>
 			<td>${customer.remark}</td>
+			<td><button class="updateBtn" type="button">수정</button></td>
+			<td><button class="deleteBtn" type="button">삭제</button></td>
 		</tr>
 		</c:forEach>
 	</table>
@@ -106,6 +110,21 @@
 	    var sel = document.getElementById('cntPerPage').value;
 	    location.href="/rental/customers-mgmt?currPage=${paging.currPage}&cntPerPage="+sel;
 	}
+	
+	const updateBtns = document.querySelectorAll('.updateBtn');
+	updateBtns.forEach(button => {
+	    button.addEventListener('click', () => {
+	        const custIdCell = button.parentElement.parentElement.querySelector('td:first-child');
+	        const custId = custIdCell && custIdCell.innerText ? custIdCell.innerText.trim() : null;
+	        
+	        if (custId) {
+	            const updateUrl = "<%= request.getContextPath()%>/rental/customers-mgmt/update/" + custId;
+	            location.href = updateUrl;
+	        } else {
+	            console.error("고객 ID를 찾을 수 없습니다.");
+	        }
+	    });
+	});
 </script>
 </body>
 </html>
