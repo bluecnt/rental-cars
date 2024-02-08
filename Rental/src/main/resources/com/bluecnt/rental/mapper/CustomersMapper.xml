@@ -49,9 +49,12 @@
 	    WHERE RN BETWEEN #{PagingVO.start} AND #{PagingVO.end}
 	</select>
 	
-	<select id="getAll" resultType="com.bluecnt.rental.dto.CustomerDTO">
-		SELECT * FROM Customers
-	</select>
+	<!-- 고객정보 수정 페이지에서 단일 고객정보를 가져오는 쿼리 -->
+    <select id="getCustomerById" resultType="com.bluecnt.rental.dto.CustomerDTO">
+        SELECT *
+        FROM customers
+        WHERE cust_id = #{CustomerDTO.cust_id}
+    </select>
 	
 	<insert id="addCustomer" parameterType="com.bluecnt.rental.dto.CustomerDTO">
 		<selectKey keyProperty="cust_id" resultType="int" order="BEFORE">
@@ -84,10 +87,6 @@
         	#{point}, 
         	#{remark})
     </insert>
-	
-	<select id="getCustomerById" parameterType="com.bluecnt.rental.dto.CustomerDTO">
-		SELECT * FROM Customers WHERE cust_id = #{cust_id}
-	</select>
 	
 	<update id="updateCustomer" parameterType="com.bluecnt.rental.dto.CustomerDTO">
 	    UPDATE Customers
