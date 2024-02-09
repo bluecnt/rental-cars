@@ -19,14 +19,14 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
-@RequestMapping("/rental")
+@RequestMapping("/customers-mgmt")
 public class CustomersController {
 	
 	@Autowired
 	CustomersService customersService;
 	CustomerDTO dto;
 	
-	@GetMapping("/customers-mgmt")
+	@GetMapping("")
 	public String customersList(
 		PagingVO vo, Model model,
 		@RequestParam(value="category", required=false) String category,
@@ -64,12 +64,12 @@ public class CustomersController {
 		log.info("category:" + category);
 		log.info("searchText:" + searchText);
 		log.info("PagingVO: " + vo);
-		log.info("Customers: " + model.getAttribute("customers"));
+		log.info("Customers: " + model.getAttribute("customers"));		
 		return "/customers-mgmt/list";
 	}
 	
 	// 고객정보 표시
-	@GetMapping("/customers-mgmt/update/{cust_id}")
+	@GetMapping("/update/{cust_id}")
 	public String getUpdateForm(@PathVariable int cust_id, Model model) {
 	    // 해당 cust_id에 해당하는 고객 정보를 서비스로부터 가져와서 모델에 추가합니다.
 	    model.addAttribute("customer", customersService.getCustomerById(cust_id));
@@ -80,13 +80,13 @@ public class CustomersController {
 	}
 	
 	// 고객정보 수정하기
-    @PutMapping("/customers-mgmt/update/{cust_id}")
+    @PutMapping("/update/{cust_id}")
     public String updateCustomer(@PathVariable int cust_id, @ModelAttribute CustomerDTO dto) {
     	 return "redirect:/customers-mgmt/update/" + cust_id;
     }
     
     // 고객추가 양식페이지
-    @GetMapping("/customers-mgmt/add")
+    @GetMapping("/add")
     public String getAddForm(Model model) {
     	model.addAttribute("customer", new CustomerDTO()); // 빈 CustomerDTO를 모델에 추가
     	log.info("GET add customer form");
@@ -94,7 +94,7 @@ public class CustomersController {
     }
     
     // 고객추가하기
-    @PostMapping("/customers-mgmt/add")
+    @PostMapping("/add")
     public String addCustomer(CustomerDTO dto) {
     	log.info("POST add customer: " + dto.toString());
     	
