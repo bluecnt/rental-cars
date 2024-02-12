@@ -125,6 +125,23 @@
 	        }
 	    });
 	});
+	
+	const deleteBtns = document.querySelectorAll('.deleteBtn');
+    deleteBtns.forEach(button => {
+        button.addEventListener('click', () => {
+            const custIdCell = button.parentElement.parentElement.querySelector('td:first-child');
+            const custId = custIdCell && custIdCell.innerText ? custIdCell.innerText.trim() : null;
+            
+            if (custId) {
+                if (confirm("정말로 삭제하시겠습니까?")) {
+                    const deleteUrl = "<%= request.getContextPath()%>/rental/customers-mgmt/delete/" + custId;
+                    location.href = deleteUrl;
+                }
+            } else {
+                console.error("고객 ID를 찾을 수 없습니다.");
+            }
+        });
+    });
 </script>
 </body>
 </html>
