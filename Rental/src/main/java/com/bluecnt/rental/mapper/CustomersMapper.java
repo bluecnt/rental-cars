@@ -1,7 +1,6 @@
 package com.bluecnt.rental.mapper;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -20,9 +19,9 @@ public interface CustomersMapper {
 	// 고객정보수정 페이지에서 단일고객정보를 보여주는 기능
 	public List<CustomerDTO> getCustomerById(int cust_id);
 	// 고객정보수정 
-	void updateCustomer(CustomerDTO dto);
+	public void updateCust(CustomerDTO dto);
 	// 고객정보삭제
-	void deleteCustomer(int cust_id); 
+	int deleteCustomer(@Param("cust_id") int cust_id);
 	// 고객정보추가
 	int addCustomer(CustomerDTO dto);
 }
