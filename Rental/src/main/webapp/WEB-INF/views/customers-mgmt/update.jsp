@@ -44,58 +44,53 @@
 		</tr>
 		</c:forEach>
 	</table>
-	<form action="/rental/customers-mgmt/update/{cust_id}" method="post">
 	  <c:forEach items="${customer}" var="customer">
-        <input type="hidden" name="join_date" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>" />
-        <br>
-        <label for="user_email">메일주소: ${customer.user_email}</label>
-        <br>
-        <label for="user_pw">비밀번호: ${customer.user_pw}</label>
-        <br>
-        <input type="password" id="user_pw" name="user_pw"/>
-	    <button type="submit">변경</button>
-        <br>
-        <label for="name">고객이름: ${customer.name}</label>
-        <br>
-        <input type="text" id="name" name="name"/>
-        <button type="submit">수정</button>
-        <br>
-        <label for="birthday">생년월일: ${customer.birthday}</label>
-        <br>
-        <input type="text" id="birthday" name="birthday"/>
-        <button type="submit">수정</button>
-        <br>
-        <label for="phone_number">휴대번호: ${customer.phone_number}</label>
-        <br>
-        <input type="text" id="phone_number" name="phone_number"/>
-        <button type="submit">수정</button>
-        <br>
-        <label for="license_number">면허번호: ${customer.license_number}</label>
-        <br>
-        <input type="text" id="license_number" name="license_number"/>
-        <button type="submit">수정</button>
-        <br>
-        <label for="credit_card_company">카드회사: ${customer.credit_card_company}</label>
-        <br>
-        <input type="text" id="credit_card_company" name="credit_card_company"/>
-        <button type="submit">변경</button>
-        <br>
-        <label for="credit_card_number">카드번호: ${customer.credit_card_number}</label>
-        <br>
-        <input type="text" id="credit_card_number" name="credit_card_number"/>
-        <button type="submit">변경</button>
-        <br>
-        <label for="point">마일리지: ${customer.point}</label>
-        <br>
-        <input type="text" id="point" name="point"/>
-        <button type="submit">추가</button>
-        <br>
-        <label for="remark">기타사항: ${customer.remark}</label>
-        <br>
-        <input type="text" id="remark" name="remark"/>
-        <button type="submit">수정</button>
-        <br>
-      </c:forEach>
-    </form>
+		<form action="/rental/customers-mgmt/update/${cust_id}" method="post">
+	        <input type="hidden" name="join_date" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>" />
+	        <br>
+	        <label for="user_email">메일주소: ${customer.user_email}</label>
+	        <br>
+	        <label for="user_pw">비밀번호: ${customer.user_pw}</label>
+	        <br>
+	        <input type="password" id="user_pw" name="user_pw" value="${customer.user_pw}"/>
+	    	<button type="submit">변경</button>
+	        <br>
+	        <label for="name">고객이름: ${customer.name}</label>
+	        <br>
+	        <input type="text" id="name" name="name" value="${customer.name}"/>
+	        <button type="submit">수정</button>
+	        <br>
+	        <label for="phone_number">휴대번호: ${customer.phone_number}</label>
+	        <br>
+	        <input type="text" id="phone_number" name="phone_number" value="${customer.phone_number}"/>
+	        <button type="submit">수정</button>
+	        <br>
+	        <label for="license_number">면허번호: ${customer.license_number}</label>
+	        <br>
+	        <input type="text" id="license_number" name="license_number" value="${customer.license_number}"/>
+	        <button type="submit">수정</button>
+	        <br>
+	        <label for="credit_card_company">카드회사: ${customer.credit_card_company}</label>
+	        <br>
+	        <input type="text" id="credit_card_company" name="credit_card_company" value="${customer.credit_card_company}"/>
+	        <button type="submit">변경</button>
+	        <br>
+	        <label for="credit_card_number">카드번호: ${customer.credit_card_number}</label>
+	        <br>
+	        <input type="text" id="credit_card_number" name="credit_card_number" value="${customer.credit_card_number}"/>
+	        <button type="submit">변경</button>
+	        <br>
+	        <label for="point">마일리지: ${customer.point}</label>
+	        <br>
+	        <input type="number" id="point" name="point" value="${customer.point}"/>
+	        <button type="submit">변경</button>
+	        <br>
+	        <label for="remark">기타사항: ${customer.remark}</label>
+	        <br>
+	        <input type="text" id="remark" name="remark" value="${customer.remark}"/>
+	        <button type="submit">수정</button>
+	        <br>
+    	</form>
+    </c:forEach>
 </body>
 </html>
