@@ -1,0 +1,74 @@
+/* 
+[SGLEE:20240213TUE_140200] Created
+*/
+
+@import "./../common/Config.css";
+
+.container {
+  padding: 0;
+  width: 480px;
+
+  border: 1px solid var(--content-border-color);
+  background-color: var(--content-back-color);
+  border-radius: 6px;
+
+  position: absolute;
+  z-index: 1010;
+
+  overflow: hidden;
+}
+
+.title {
+  padding: 0.5rem;
+
+  background-color: var(--oc-blue-0);
+
+  font-weight: bold;
+}
+
+.body {
+  padding: 0.5rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.rent-datetime {
+  /* border: 1px solid blue; */
+
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.rent-datetime-title {
+  /* border: 1px solid red; */
+
+  color: var(--oc-blue-9);
+}
+
+.rent-datetime-content-date {
+  /* border: 1px solid red; */
+
+  display: flex;
+
+  cursor: pointer;
+}
+
+.rent-datetime-content-time {
+  /* border: 1px solid red; */
+
+  display: flex;
+
+  cursor: pointer;
+}
+
+.footer {
+  /* border: 1px solid red; */
+
+  padding: 0.5rem;
+
+  display: flex;
+  justify-content: center;
+}

@@ -24,3 +24,18 @@
 
   overflow: hidden;
 }
+
+.content-dimmed {
+  width: var(--content-width);
+
+  background-color: black;
+
+  position: absolute;
+  z-index: 1000;
+
+  opacity: 0.5;
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
