@@ -11,6 +11,9 @@ import RegisterPage from "./pages/3_RegisterPage";
 import VehicleListPage from "./pages/4_VehicleListPage";
 import ReservationPage from "./pages/5_ReservationPage";
 import ReservationListPage from "./pages/6_ReservationListPage";
+import { createContext } from "vm";
+import { useContext } from "react";
+import React from "react";
 
 /*
 function App() {

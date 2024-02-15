@@ -18,6 +18,7 @@ import TimeSelector from "../components/4_VehicleListPage/5_TimeSelector";
 import NaverMapMarker from "../modules/naver-map/NaverMapMarker";
 import VehicleListTimeBar from "../components/4_VehicleListPage/2_VehicleListTimeBar";
 import VehicleListAddrBar from "../components/4_VehicleListPage/0_VehicleListAddrBar";
+import { get_vehicle_list } from "../modules/rest-clients/vehicle-list";
 
 interface VehicleListPageState {
   addr: string;
@@ -42,6 +43,9 @@ const VehicleListPage = () => {
     console.warn(`다음 조건으로 차량 리스트 요청 중..`);
     console.warn(`대여 시간: ${_dateTimeToStr(startTime)}`);
     console.warn(`반납 시간: ${_dateTimeToStr(endTime)}`);
+
+    const pl = await get_vehicle_list(startTime, endTime);
+    console.log(pl);
   };
 
   useEffect(() => {
@@ -85,6 +89,7 @@ const VehicleListPage = () => {
 
   const handleClickMarker = (marker: NaverMapMarker) => {
     alert(marker.Location?.AddrRoad);
+    //console.log(marker.Location?.toString());
   };
 
   const handleClickReserveListBtn = () => {
