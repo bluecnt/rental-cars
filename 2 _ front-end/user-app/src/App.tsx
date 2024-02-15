@@ -14,6 +14,8 @@ import ReservationListPage from "./pages/6_ReservationListPage";
 import { createContext } from "vm";
 import { useContext } from "react";
 import React from "react";
+import { MyContextProvider } from "./contexts/MyContext";
+import MyContextConsumer from "./contexts/MyContextConsumer";
 
 /*
 function App() {
@@ -56,6 +58,7 @@ const App = () => {
 };
 */
 
+/*
 const App = () => {
   console.clear();
 
@@ -71,6 +74,17 @@ const App = () => {
         <Route path="/reservation-list" element={<ReservationListPage />} />
       </Routes>
     </BrowserRouter>
+  );
+};
+*/
+
+const App = () => {
+  console.clear();
+
+  return (
+    <MyContextProvider>
+      <MyContextConsumer />
+    </MyContextProvider>
   );
 };
 
