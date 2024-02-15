@@ -2,7 +2,9 @@
 
 @import "./../common//Config.css";
 
-.container {
+.vl-container {
+  margin-bottom: 5rem;
+
   padding: 0;
   width: 480px;
   height: 400px;
@@ -11,13 +13,18 @@
   background-color: var(--content-back-color);
   border-radius: 6px;
 
+  position: absolute;
+  z-index: 1010;
+
+  align-self: flex-end;
+
+  overflow: hidden;
+
   display: flex;
   flex-direction: column;
-
-  z-index: 1010;
 }
 
-.title {
+.vl-title {
   padding: 0.5rem;
 
   background-color: var(--oc-blue-0);
@@ -25,7 +32,7 @@
   font-weight: bold;
 }
 
-.body {
+.vl-body {
   border: 1px solid green;
 
   padding: 2rem;

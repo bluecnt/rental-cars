@@ -50,18 +50,30 @@ const VehicleList = (props: VehicleListProps) => {
 
   const vehicle_list = pl?.vehicles.map((vehicle) => {
     return (
-      <div onClick={handleClickVehicle} data-vehicle-id={vehicle.vehicle_id}>
-        <div>차량 이름: {vehicle.name}</div>
-        <div>가능 여부: {vehicle.usable ? "true" : "false"}</div>
-        <hr></hr>
+      <div
+        key={vehicle.vehicle_id}
+        onClick={handleClickVehicle}
+        data-vehicle-id={vehicle.vehicle_id}
+        style={{
+          border: "1px solid blue",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <div style={{ backgroundColor: "lightblue" }}>
+          차량 이름: {vehicle.name}
+        </div>
+        <div style={{ backgroundColor: "lightgreen" }}>
+          가능 여부: {vehicle.usable ? "true" : "false"}
+        </div>
       </div>
     );
   });
 
   return (
-    <div className="container">
-      <div className="title">차량 선택</div>
-      <div className="body">
+    <div className="vl-container">
+      <div className="vl-title">차량 선택</div>
+      <div className="vl-body">
         {/* 주차장 */}
         <div>
           <div>{pl?.name}</div>
@@ -70,7 +82,15 @@ const VehicleList = (props: VehicleListProps) => {
         <hr></hr>
 
         {/* 차량 리스트 */}
-        <div>{vehicle_list}</div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
+          }}
+        >
+          {vehicle_list}
+        </div>
       </div>
     </div>
   );

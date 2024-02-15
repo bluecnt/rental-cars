@@ -21,8 +21,6 @@ import VehicleListAddrBar from "../components/4_VehicleListPage/0_VehicleListAdd
 import { get_vehicle_list } from "../modules/rest-clients/vehicle-list";
 import { DataContext } from "../contexts/DataContext";
 import VehicleList from "../components/4_VehicleListPage/6_VehicleList";
-import { ParkingLotsDTO } from "../modules/dto/ParkingLotDTO";
-import { VehicleDTO } from "../modules/dto/VehicleDTO";
 
 interface VehicleListPageState {
   addr: string;
