@@ -1,7 +1,6 @@
 package com.bluecnt.rental.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -20,9 +19,9 @@ public interface CustomersService {
 	// 고객정보수정 페이지에서 단일고객정보를 보여주는 기능
 	public List<CustomerDTO> getCustomerById(int cust_id);
 	// 고객정보수정 
-	int updateCustomer(CustomerDTO dto);
+	public void updateCust(CustomerDTO dto);
 	// 고객정보삭제
-	int deleteCustomer(int cust_id); 
+	int deleteCustomer(@Param("cust_id") int cust_id);
 	// 고객정보추가
 	int addCustomer(CustomerDTO dto);
 	

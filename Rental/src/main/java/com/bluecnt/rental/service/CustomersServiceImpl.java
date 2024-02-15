@@ -1,7 +1,6 @@
 package com.bluecnt.rental.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ public class CustomersServiceImpl implements CustomersService {
 	
 	@Autowired
 	CustomersMapper customersMapper;
-	CustomerDTO customerDTO;
 	
 	// 고객 총 인원
 	@Override
@@ -48,15 +46,21 @@ public class CustomersServiceImpl implements CustomersService {
 	
 	// 고객정보수정
 	@Override
-	public int updateCustomer(CustomerDTO dto) {
-		return 0;
+	public void updateCust(CustomerDTO dto) {
+		customersMapper.updateCust(dto);
 	}
 	
 	// 고객정보삭제
 	@Override
-	public int deleteCustomer(int cust_id) {
-		return 0;
+	public int deleteCustomer(@Param("cust_id") int cust_id) {
+	    try {
+	        return customersMapper.deleteCustomer(cust_id);
+	    } catch (Exception e) {
+	        log.error("Error deleting customer: " + e.getMessage());
+	        return 0; // 삭제 실패
+	    }
 	}
+
 	
 	// 고객정보추가
 	@Override

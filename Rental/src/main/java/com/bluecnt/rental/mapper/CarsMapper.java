@@ -2,9 +2,9 @@ package com.bluecnt.rental.mapper;
 
 import java.util.List;
 
-import com.bluecnt.rental.dto.CarsDTO;
+import com.bluecnt.rental.dto.VehicleDTO;
 
 public interface CarsMapper {
 	
-	List<CarsDTO> getAll();
+	List<VehicleDTO> getAll();
 }

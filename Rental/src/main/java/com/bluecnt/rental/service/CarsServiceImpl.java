@@ -6,9 +6,6 @@ import org.springframework.ui.Model;
 
 import com.bluecnt.rental.mapper.CarsMapper;
 
-import lombok.extern.log4j.Log4j;
-
-@Log4j
 @Service
 public class CarsServiceImpl implements CarsService {
 	

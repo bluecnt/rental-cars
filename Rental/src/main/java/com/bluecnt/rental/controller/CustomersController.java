@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bluecnt.rental.dto.CustomerDTO;
-import com.bluecnt.rental.mapper.CustomersMapper;
 import com.bluecnt.rental.service.CustomersService;
 import com.bluecnt.rental.utils.PagingVO;
 
@@ -24,7 +23,6 @@ public class CustomersController {
 	
 	@Autowired
 	CustomersService customersService;
-	CustomersMapper customersMapper;
 	CustomerDTO dto;
 	
 	@GetMapping("/customers-mgmt")
@@ -89,7 +87,7 @@ public class CustomersController {
         return "redirect:/rental/customers-mgmt/update/" + cust_id;
     }
     
-    // 고객삭제
+    // 고객정보 삭제하기
     @GetMapping("/customers-mgmt/delete/{cust_id}")
     public String deleteCustomer(@PathVariable int cust_id) {
         customersService.deleteCustomer(cust_id);

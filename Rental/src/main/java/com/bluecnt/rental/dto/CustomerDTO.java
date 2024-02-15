@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CustomerDTO {
 	
-	private Integer cust_id;
+	private Integer cust_id; 
 	private String join_date;
 	private String user_email;  // user_email 필드 추가
 	private String user_pw;  // user_pw 필드 추가
@@ -17,5 +17,4 @@ public class CustomerDTO {
 	private String credit_card_number;
 	private Integer point; 
 	private String remark;
-
 }

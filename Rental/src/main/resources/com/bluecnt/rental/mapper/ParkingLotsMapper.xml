@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bluecnt.rental.mapper.ParkingLotsMapper">
+	
+	<!-- 총 주차장 숫자 출력 -->
+	<select id="countParkingLots" resultType="int">
+		SELECT COUNT (*) FROM ParkingLots
+	</select>
+	
+	<!-- 페이징 처리 후 주차장정보 조회 -->
+	<select id="selectParkingLots" resultType="com.bluecnt.rental.dto.ParkingLotDTO">
+		SELECT *
+	    FROM (
+	        SELECT ROWNUM RN, A.*
+	        FROM (
+	            SELECT *
+	            FROM ParkingLots
+	            ORDER BY pl_id DESC
+        	) A
+		)
+    	WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- 페이징 처리 후 카테고리선택 및 직접입력조회 -->
+	<select id="searchParkingLots" resultType="com.bluecnt.rental.dto.ParkingLotDTO">
+	    SELECT *
+	    FROM (
+	        SELECT ROWNUM RN, A.*
+	        FROM (
+	            SELECT *
+	            FROM ParkingLots
+	            WHERE
+	            <choose>
+	                <when test="category == 'name'">
+	                    name LIKE '%' || #{searchText} || '%'
+	                </when>
+	                <when test="category == 'address'">
+	                    address LIKE '%' || #{searchText} || '%'
+	                </when>
+	            </choose>
+	            ORDER BY pl_id DESC
+	        ) A
+	    )
+	    WHERE RN BETWEEN #{PagingVO.start} AND #{PagingVO.end}
+	</select>
+	
+	<!-- 주차장정보 수정 페이지에서 단일 주차장정보를 가져오는 쿼리 -->
+    <select id="getParkingLotById" resultType="com.bluecnt.rental.dto.ParkingLotDTO">
+        SELECT *
+        FROM ParkingLots
+        WHERE pl_id = #{ParkingLotDTO.pl_id}
+    </select>
+	
+	<update id="updateParkingLot" parameterType="com.bluecnt.rental.dto.ParkingLotDTO">
+	    UPDATE ParkingLots
+	    SET
+	        name = #{name},
+	        address = #{address},
+	        latitude = #{latitude, jdbcType=INTEGER},
+	        longitude = #{longitude, jdbcType=INTEGER},
+	        desc = #{desc}
+	    WHERE pl_id = #{pl_id}
+	</update>
+	
+	<insert id="addParkingLot" parameterType="com.bluecnt.rental.dto.ParkingLotDTO">
+		<selectKey keyProperty="pl_id" resultType="int" order="BEFORE">
+        	SELECT parkinglots_seq.nextval as pl_id FROM dual
+    	</selectKey>
+		INSERT INTO ParkingLots (
+			pl_id, 
+			reg_date, 
+			name,
+			address, 
+			latitude, 
+			longitude, 
+			pl_desc,
+			remark)
+        VALUES (
+        	#{pl_id}, 
+        	CURRENT_DATE, 
+        	#{name}, 
+        	#{address}, 
+        	#{latitude}, 
+        	#{longitude}, 
+        	#{pl_desc},
+        	#{remark})
+    </insert>
+	
+	<delete id="deleteParkingLot" parameterType="int">
+        DELETE FROM ParkingLots
+        WHERE pl_id = #{pl_id}
+    </delete>
+	
+</mapper>

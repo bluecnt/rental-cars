@@ -6,18 +6,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원목록</title>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/customers/css/list.css">
+<title>주차장목록</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/parking-lots/css/list.css">
 </head>
 <body>
-<h2>회원정보 리스트</h2>
-	<form id="searchForm" action="<%=request.getContextPath()%>/rental/customers-mgmt" method="get" style="text-align: center;">
+<h2>주차장정보 리스트</h2>
+	<form id="searchForm" action="<%=request.getContextPath()%>/rental/parking-lots-mgmt" method="get" style="text-align: center;">
 		<label for="카테고리"></label>
 		<select name="category" id="category">
 			<option value="">-선택-</option>
-			<option value="user_email">이메일</option>
 			<option value="name">이름</option>
-			<option value="phone_number">휴대폰</option>			
+			<option value="address">주소</option>			
 		</select>
 		<label for="searchText"></label>
 		<input type="text" name="searchText" id="searchText">
@@ -38,37 +37,31 @@
 			</select>
 	</div>
 
+	<h2>주차장</h2>
 	<table border="1">
 		<tr>
-			<th>고객번호</th>
-			<th>이메일</th>
-			<th>가입일</th>
+			<th>번호</th>
+			<th>등록일</th>
 			<th>이름</th>
-			<th>생년월일</th>
-			<th>휴대번호</th>
-			<th>면허번호</th>
-			<th>카드사</th>
-			<th>카드번호</th>
-			<th>마일리지</th>			
-			<th>비고</th>
+			<th>주소</th>
+			<th>위도(y)</th>
+			<th>경도(x)</th>
+			<th>설명</th>
+			<th>비고</th>			
 			<th>수정</th>
 			<th>삭제</th>
 		</tr>
-		<c:forEach items="${customers}" var="customer">
+		<c:forEach items="${parkinglots}" var="parkinglot">
 		<tr>
-			<td>${customer.cust_id}</td>
-			<td>${customer.user_email}</td>
-			<fmt:parseDate value="${customer.join_date}" var="joinDate" pattern="yyyy-MM-dd HH:mm:ss"/> 
-	 			<td><fmt:formatDate value="${joinDate}" pattern="yy/MM/dd"/></td>
-			<td>${customer.name}</td>
-			<fmt:parseDate value="${customer.birthday}" var="birthDay" pattern="yyyy-MM-dd HH:mm:ss"/> 
-	 			<td><fmt:formatDate value="${birthDay}" pattern="yy/MM/dd"/></td>
-			<td>${customer.phone_number}</td>
-			<td>${customer.license_number}</td>
-			<td>${customer.credit_card_company}</td>
-			<td>${customer.credit_card_number}</td>
-			<td>${customer.point}</td>
-			<td>${customer.remark}</td>
+			<td>${parkinglot.pl_id}</td>
+			<fmt:parseDate value="${parkinglot.reg_date}" var="regDate" pattern="yyyy-MM-dd HH:mm:ss"/> 
+	 			<td><fmt:formatDate value="${regDate}" pattern="yy/MM/dd"/></td>
+			<td>${parkinglot.name}</td>
+			<td>${parkinglot.address}</td>
+			<td>${parkinglot.latitude}</td>
+			<td>${parkinglot.longitude}</td>
+			<td>${parkinglot.pl_desc}</td>
+			<td>${parkinglot.remark}</td>
 			<td><button class="updateBtn" type="button">수정</button></td>
 			<td><button class="deleteBtn" type="button">삭제</button></td>
 		</tr>
@@ -77,7 +70,7 @@
 	
 	<div style="display: block; text-align: center;">		
 		<c:if test="${paging.startPage != 1 }">
-			<a href="<%=request.getContextPath()%>/rental/customers-mgmt?currPage=${paging.startPage - 1}&cntPerPage=${paging.cntPerPage}">&lt;</a>
+			<a href="<%=request.getContextPath()%>/rental/parking-lots-mgmt?currPage=${paging.startPage - 1}&cntPerPage=${paging.cntPerPage}">&lt;</a>
 		</c:if>
 		<c:forEach begin="${paging.startPage}" end="${paging.endPage }" var="p">
 			<c:choose>
@@ -85,15 +78,15 @@
 					<b>${p}</b>
 				</c:when>
 				<c:when test="${p != paging.currPage}">
-					<a href="<%=request.getContextPath()%>/rental/customers-mgmt?currPage=${p}&cntPerPage=${paging.cntPerPage}">${p}</a>
+					<a href="<%=request.getContextPath()%>/rental/parking-lots-mgmt?currPage=${p}&cntPerPage=${paging.cntPerPage}">${p}</a>
 				</c:when>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${paging.endPage != paging.lastPage}">
-			<a href="<%=request.getContextPath()%>/rental/customers-mgmt?currPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+			<a href="<%=request.getContextPath()%>/rental/parking-lots-mgmt?currPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 		</c:if>
 	</div>
 </div>
-	<script src="${pageContext.request.contextPath}/resources/customers/js/list.js"></script> 
+	<script src="${pageContext.request.contextPath}/resources/parking-lots/js/list.js"></script> 
 </body>
 </html>

@@ -44,50 +44,37 @@
 		</tr>
 		</c:forEach>
 	</table>
-	  <c:forEach items="${customer}" var="customer">
-		<form action="/rental/customers-mgmt/update/${cust_id}" method="post">
-	        <input type="hidden" name="join_date" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>" />
+	  <c:forEach items="${parkinglots}" var="parkinglot">
+		<form action="/rental/parking-lots-mgmt/update/${pl_id}" method="post">
+	        <input type="hidden" name="reg_date" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>" />
+	        <label for="name">이름: ${parkinglot.name}</label>
 	        <br>
-	        <label for="user_email">메일주소: ${customer.user_email}</label>
-	        <br>
-	        <label for="user_pw">비밀번호: ${customer.user_pw}</label>
-	        <br>
-	        <input type="password" id="user_pw" name="user_pw" value="${customer.user_pw}"/>
-	    	<button type="submit">변경</button>
-	        <br>
-	        <label for="name">고객이름: ${customer.name}</label>
-	        <br>
-	        <input type="text" id="name" name="name" value="${customer.name}"/>
+	        <input type="text" id="name" name="name" value="${parkinglot.name}"/>
 	        <button type="submit">수정</button>
 	        <br>
-	        <label for="phone_number">휴대번호: ${customer.phone_number}</label>
+	        <label for="address">주소: ${parkinglot.address}</label>
 	        <br>
-	        <input type="text" id="phone_number" name="phone_number" value="${customer.phone_number}"/>
+	        <input type="text" id="address" name="address" value="${parkinglot.address}"/>
 	        <button type="submit">수정</button>
 	        <br>
-	        <label for="license_number">면허번호: ${customer.license_number}</label>
+	        <label for="latitude">위도: ${parkinglot.latitude}</label>
 	        <br>
-	        <input type="text" id="license_number" name="license_number" value="${customer.license_number}"/>
+	        <input type="number" id="latitude" name="latitude" value="${parkinglot.latitude}"/>
 	        <button type="submit">수정</button>
 	        <br>
-	        <label for="credit_card_company">카드회사: ${customer.credit_card_company}</label>
+	        <label for="longitude">경도: ${parkinglot.longitude}</label>
 	        <br>
-	        <input type="text" id="credit_card_company" name="credit_card_company" value="${customer.credit_card_company}"/>
+	        <input type="number" id="longitude" name="longitude" value="${parkinglot.longitude}"/>
 	        <button type="submit">변경</button>
 	        <br>
-	        <label for="credit_card_number">카드번호: ${customer.credit_card_number}</label>
+	        <label for="desc">설명: ${parkinglot.desc}</label>
 	        <br>
-	        <input type="text" id="credit_card_number" name="credit_card_number" value="${customer.credit_card_number}"/>
+	        <input type="text" id="desc" name="desc" value="${parkinglot.desc}"/>
 	        <button type="submit">변경</button>
 	        <br>
-	        <label for="point">마일리지: ${customer.point}</label>
+	        <label for="remark">비고: ${parkinglot.remark}</label>
 	        <br>
-	        <input type="number" id="point" name="point" value="${customer.point}"/>
-	        <button type="submit">변경</button>
-	        <br>
-	        <label for="remark">기타사항: ${customer.remark}</label>
-	        <br>
-	        <input type="text" id="remark" name="remark" value="${customer.remark}"/>
+	        <input type="text" id="remark" name="remark" value="${parkinglot.remark}"/>
 	        <button type="submit">수정</button>
 	        <br>
     	</form>

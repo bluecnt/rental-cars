@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <h2>회원가입</h2>
+    <h2>고객정보 추가</h2>
     <form action="/rental/customers-mgmt/add" method="post">
         <input type="hidden" name="join_date" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>" />
         <br>
@@ -36,13 +36,13 @@
         <label for="credit_card_number">카드 번호: </label>
         <input type="text" id="credit_card_number" name="credit_card_number" value="1234-5678-9012-3456" required />
         <br>
-        <label for="point">마일리지: </label>
-        <input type="text" id="point" name="point" value="1000" required />
+        <label for="point">포인트: </label>
+        <input type="number" id="point" name="point" value="1000" required />
         <br>
         <label for="remark">기타사항: </label>
         <input type="text" id="remark" name="remark" value="더미 데이터입니다." required />
         <br>
-        <button type="submit">가입신청</button>
+        <button type="submit">정보추가</button>
     </form>
 
 </body>

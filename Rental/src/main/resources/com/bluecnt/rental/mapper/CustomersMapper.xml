@@ -56,6 +56,20 @@
         WHERE cust_id = #{CustomerDTO.cust_id}
     </select>
 	
+	<update id="updateCust" parameterType="com.bluecnt.rental.dto.CustomerDTO">
+	    UPDATE Customers
+	    SET
+	        user_pw = #{user_pw},
+	        name = #{name},
+	        phone_number = #{phone_number},
+	        license_number = #{license_number},
+	        credit_card_company = #{credit_card_company},
+	        credit_card_number = #{credit_card_number},
+	        point = #{point, jdbcType=INTEGER},
+	        remark = #{remark}
+	    WHERE cust_id = #{cust_id}
+	</update>
+	
 	<insert id="addCustomer" parameterType="com.bluecnt.rental.dto.CustomerDTO">
 		<selectKey keyProperty="cust_id" resultType="int" order="BEFORE">
         	SELECT customers_seq.nextval as cust_id FROM dual
@@ -87,21 +101,6 @@
         	#{point}, 
         	#{remark})
     </insert>
-	
-	<update id="updateCustomer" parameterType="com.bluecnt.rental.dto.CustomerDTO">
-	    UPDATE Customers
-	    SET
-	        user_pw = #{user_pw},
-	        name = #{name},
-	        birthday = #{birthday},
-	        phone_number = #{phone_number},
-	        license_number = #{license_number},
-	        credit_card_company = #{credit_card_company},
-	        credit_card_number = #{credit_card_number},
-	        point = #{point},
-	        remark = #{remark}
-	    WHERE cust_id = #{cust_id}
-	</update>
 	
 	<delete id="deleteCustomer" parameterType="int">
         DELETE FROM Customers

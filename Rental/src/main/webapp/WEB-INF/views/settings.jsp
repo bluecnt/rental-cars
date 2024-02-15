@@ -1,41 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
-	<table border="1">
-		<tr>
-			<td><button class="tableCreate" type="button">테이블 생성하기</button></td>
-			<td><button class="seqCreate" type="button">시퀀스 생성하기</button></td>
-			<td><button class="tableInit" type="button">테이블 초기화</button></td>
-			<td><button class="seqInit" type="button">시퀀스 초기화</button></td>
-		</tr>
-	</table>
-	
-	<script>
-	    document.getElementById('tableCreate').addEventListener('click', function() {
-	        // 테이블 생성하는 코드 추가
-	        alert("테이블을 생성합니다.");
-	    });
-	
-	    document.getElementById('seqCreate').addEventListener('click', function() {
-	        // 시퀀스 생성하는 코드 추가
-	        alert("시퀀스를 생성합니다.");
-	    });
-	
-	    document.getElementById('tableInit').addEventListener('click', function() {
-	        // 테이블 초기화하는 코드 추가
-	        alert("테이블을 초기화합니다.");
-	    });
-	
-	    document.getElementById('seqInit').addEventListener('click', function() {
-	        // 시퀀스 초기화하는 코드 추가
-	        alert("시퀀스를 초기화합니다.");
-	    });
-	</script>
+<body>	
+		<h2>Customer 테이블 및 시퀀스 세팅</h2>
+		<form id="createCustomersTSForm" action="/rental/settings/createCustomersTS" method="POST">
+    		<button id="createCustomersTS" type="submit"> Customers테이블 및 시퀀스 생성</button>
+		</form>
+		<form id="initCustomersTSForm" action="/rental/settings/initCustomersTS" method="POST">
+    		<button id="initCustomersTS" type="submit"> Customers테이블 및 시퀀스 초기화</button>
+		</form>
+		<form id="deleteCustomersTSForm" action="/rental/settings/deleteCustomersTS" method="POST">
+    		<button id="deleteCustomersTS" type="submit"> Customers테이블 및 시퀀스 삭제</button>
+		</form>
+		
+		<h2>ParkingLots 테이블 및 시퀀스 세팅</h2>
+		<form id="createParkingLotsTSForm" action="/rental/settings/createParkingLotsTS" method="POST">
+    		<button id="createParkingLotsTS" type="submit"> ParkingLots테이블 및 시퀀스 생성</button>
+		</form>
+		<form id="initParkingLotsTSForm" action="/rental/settings/initParkingLotsTS" method="POST">
+    		<button id="initParkingLotsTS" type="submit"> ParkingLots테이블 및 시퀀스 초기화</button>
+		</form>
+		<form id="deleteParkingLotsTSForm" action="/rental/settings/deleteParkingLotsTS" method="POST">
+    		<button id="deleteParkingLotsTS" type="submit"> ParkingLots테이블 및 시퀀스 삭제</button>
+		</form>
+		<br>
+		
+	<script src="${pageContext.request.contextPath}/resources/settings/js/settings.js"></script>
 </body>
 </html>
