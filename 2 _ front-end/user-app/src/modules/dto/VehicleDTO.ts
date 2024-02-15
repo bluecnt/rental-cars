@@ -13,6 +13,8 @@ export class VehicleDTO {
   desc = "";
   //
   remark = "";
+  //
+  usable = false;
 
   constructor(
     vehicle_id = -1,
@@ -24,7 +26,9 @@ export class VehicleDTO {
     price_per_hour = 0,
     price_per_km = 0,
     desc = "",
-    remark = ""
+    remark = "",
+    //
+    usable = false
   ) {
     this.vehicle_id = vehicle_id;
     //
@@ -38,13 +42,15 @@ export class VehicleDTO {
     this.desc = desc;
     //
     this.remark = remark;
+    //
+    this.usable = usable;
   }
 
   toStirng(): string {
     return (
       `${this.vehicle_id} / ${this.reg_date} / ${this.name} / ${this.img} /` +
       `${this.plate_number} / ${this.options} / ${this.price_per_hour} / ${this.price_per_km} /` +
-      `${this.desc} / ${this.remark}`
+      `${this.desc} / ${this.remark} / ${this.usable}`
     );
   }
 }

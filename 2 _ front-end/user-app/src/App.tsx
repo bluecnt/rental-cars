@@ -16,6 +16,7 @@ import { useContext } from "react";
 import React from "react";
 import { MyContextProvider } from "./contexts/MyContext";
 import MyContextConsumer from "./contexts/MyContextConsumer";
+import { DataContextProvider } from "./contexts/DataContext";
 
 /*
 function App() {
@@ -58,26 +59,27 @@ const App = () => {
 };
 */
 
-/*
 const App = () => {
   console.clear();
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<SplashPage />} />
-        <Route path="/initial" element={<InitialPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/vehicle-list" element={<VehicleListPage />} />
-        <Route path="/reservation" element={<ReservationPage />} />
-        <Route path="/reservation-list" element={<ReservationListPage />} />
-      </Routes>
-    </BrowserRouter>
+    <DataContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<SplashPage />} />
+          <Route path="/initial" element={<InitialPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/vehicle-list" element={<VehicleListPage />} />
+          <Route path="/reservation" element={<ReservationPage />} />
+          <Route path="/reservation-list" element={<ReservationListPage />} />
+        </Routes>
+      </BrowserRouter>
+    </DataContextProvider>
   );
 };
-*/
 
+/*
 const App = () => {
   console.clear();
 
@@ -87,5 +89,6 @@ const App = () => {
     </MyContextProvider>
   );
 };
+*/
 
 export default App;

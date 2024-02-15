@@ -37,7 +37,9 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
       5000,
       200,
       "desc",
-      "remark"
+      "remark",
+      //
+      true
     );
 
     const v1 = new VehicleDTO(
@@ -50,7 +52,9 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
       6000,
       210,
       "desc",
-      "remark"
+      "remark",
+      //
+      true
     );
 
     const v2 = new VehicleDTO(
@@ -63,7 +67,9 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
       7000,
       220,
       "desc",
-      "remark"
+      "remark",
+      //
+      true
     );
 
     const vehicles0 = new Array<VehicleDTO>();
@@ -76,10 +82,12 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
       new Date(),
       "구리역",
       "경기도 구리시 건원대로34번길 32-29 구리역사",
-      127.1436109,
       37.6033337,
+      127.1436109,
       "desc",
       "remark",
+      //
+      3,
       vehicles0
     );
 
@@ -100,7 +108,9 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
       10000,
       300,
       "desc",
-      "remark"
+      "remark",
+      //
+      false
     );
 
     const v1 = new VehicleDTO(
@@ -113,7 +123,9 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
       11000,
       310,
       "desc",
-      "remark"
+      "remark",
+      //
+      false
     );
 
     const v2 = new VehicleDTO(
@@ -126,7 +138,9 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
       1200,
       320,
       "desc",
-      "remark"
+      "remark",
+      //
+      false
     );
 
     const vehicles1 = new Array<VehicleDTO>();
@@ -135,14 +149,16 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
     vehicles1.push(v2);
 
     const pl1 = new ParkingLotsDTO(
-      0,
+      1,
       new Date(),
-      "구리역",
-      "경기도 구리시 건원대로34번길 32-29 구리역사",
-      127.1436109,
+      "도농역",
+      "경기도 남양주시 경춘로 433",
       37.6033337,
+      127.1436109,
       "desc",
       "remark",
+      //
+      0,
       vehicles1
     );
 

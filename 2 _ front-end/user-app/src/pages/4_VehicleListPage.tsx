@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import PageContainer from "../components/common/PageContainer";
 import ContentContainer from "../components/common/ContentContainer";
 import VehicleListMap from "../components/4_VehicleListPage/1_VehicleListMap";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import NaverMapLocation from "../modules/naver-map/NaverMapLocation";
 import {
   _addTime,
@@ -19,12 +19,18 @@ import NaverMapMarker from "../modules/naver-map/NaverMapMarker";
 import VehicleListTimeBar from "../components/4_VehicleListPage/2_VehicleListTimeBar";
 import VehicleListAddrBar from "../components/4_VehicleListPage/0_VehicleListAddrBar";
 import { get_vehicle_list } from "../modules/rest-clients/vehicle-list";
+import { DataContext } from "../contexts/DataContext";
+import VehicleList from "../components/4_VehicleListPage/6_VehicleList";
+import { ParkingLotsDTO } from "../modules/dto/ParkingLotDTO";
+import { VehicleDTO } from "../modules/dto/VehicleDTO";
 
 interface VehicleListPageState {
   addr: string;
   rentStartTime: Date;
   rentEndTime: Date;
   dimmedChild?: ReactNode;
+
+  parkingLotId?: number;
 }
 const VehicleListPage = () => {
   const rentStartTime = _next30Min();
@@ -33,6 +39,7 @@ const VehicleListPage = () => {
     rentStartTime: rentStartTime,
     rentEndTime: _addTime(rentStartTime, 4, 0, 0),
   });
+  const dataCtx = useContext(DataContext);
   const nav = useNavigate();
 
   // ⭐ 차량 목록 요청
@@ -45,7 +52,11 @@ const VehicleListPage = () => {
     console.warn(`반납 시간: ${_dateTimeToStr(endTime)}`);
 
     const pl = await get_vehicle_list(startTime, endTime);
-    console.log(pl);
+    // console.log(pl);
+    if (Array.isArray(pl)) dataCtx.actions.setParkingLots(pl);
+    else {
+      //
+    }
   };
 
   useEffect(() => {
@@ -85,11 +96,16 @@ const VehicleListPage = () => {
 
   const handleChangeAddr = (loc: NaverMapLocation) => {
     setState((prev) => ({ ...prev, addr: loc.Addr, dimmedChild: undefined }));
+
+    setState((prev) => ({ ...prev, parkingLotId: undefined }));
   };
 
   const handleClickMarker = (marker: NaverMapMarker) => {
-    alert(marker.Location?.AddrRoad);
+    //alert(marker.Location?.AddrRoad);
     //console.log(marker.Location?.toString());
+
+    const pl_id = marker.Sn;
+    setState((prev) => ({ ...prev, parkingLotId: pl_id }));
   };
 
   const handleClickReserveListBtn = () => {
@@ -128,6 +144,17 @@ const VehicleListPage = () => {
     }));
   };
 
+  const handleSelectVehicle = (plId: number, vehicleId: number) => {
+    const pl = dataCtx.state.parkingLots.find((pl) => pl.pl_id === plId);
+    const vehicle = pl?.vehicles.find(
+      (vehicle) => vehicle.vehicle_id === vehicleId
+    );
+
+    if (pl && vehicle) {
+      alert(pl.name + " => " + vehicle.name);
+    }
+  };
+
   return (
     <PageContainer>
       <ContentContainer id="content-container" dimmedChild={state.dimmedChild}>
@@ -146,6 +173,13 @@ const VehicleListPage = () => {
           onClickRentTime={handleClickRentTime}
         />
       </ContentContainer>
+
+      {state.parkingLotId !== undefined && (
+        <VehicleList
+          parkingLotId={state.parkingLotId}
+          onSelectVehicle={handleSelectVehicle}
+        />
+      )}
     </PageContainer>
   );
 };

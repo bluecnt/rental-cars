@@ -5,6 +5,8 @@
 @import "./../common/Config.css";
 
 .container {
+  margin-bottom: 4rem;
+
   padding: 0;
   width: 480px;
 
@@ -16,6 +18,8 @@
   z-index: 1010;
 
   overflow: hidden;
+
+  align-self: end;
 }
 
 .title {

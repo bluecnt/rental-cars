@@ -107,9 +107,12 @@ class NaverMapView {
 
   // + Public methods
 
-  static getInstance(params: NaverMapViewParams): NaverMapView {
-    if (!NaverMapView.mInstance)
-      NaverMapView.mInstance = new NaverMapView(params);
+  static getInstance(params?: NaverMapViewParams): NaverMapView {
+    if (!NaverMapView.mInstance) {
+      if (params === undefined)
+        throw new Error(`[NaverMapView.getInstance()] params is undefined!`);
+      else NaverMapView.mInstance = new NaverMapView(params);
+    }
 
     return NaverMapView.mInstance;
   }

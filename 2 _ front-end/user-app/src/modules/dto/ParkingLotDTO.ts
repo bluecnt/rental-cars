@@ -14,6 +14,7 @@ export class ParkingLotsDTO {
   //
   remark = "";
   //
+  vehicle_usable_count = 0;
   vehicles: VehicleDTO[] = [];
 
   constructor(
@@ -26,6 +27,7 @@ export class ParkingLotsDTO {
     desc = "",
     remark = "",
     //
+    vehicle_usable_count = 0,
     vehicles: VehicleDTO[] = []
   ) {
     this.pl_id = pl_id;
@@ -39,6 +41,7 @@ export class ParkingLotsDTO {
     //
     this.remark = remark;
     //
+    this.vehicle_usable_count = vehicle_usable_count;
     this.vehicles = vehicles;
   }
 
