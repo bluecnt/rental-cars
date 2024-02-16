@@ -4,6 +4,7 @@ import { ReactNode, createContext, useState } from "react";
 import { ParkingLotsDTO } from "../modules/dto/ParkingLotDTO";
 
 interface DataContextState {
+  mapCenterAddr: string;
   parkingLots: ParkingLotsDTO[];
 }
 
@@ -20,6 +21,7 @@ interface DataContextProviderProps {
 
 const DataContextTypeInit: DataContextType = {
   state: {
+    mapCenterAddr: "건원대로 34번길 32-29", // 구리역
     parkingLots: [],
   },
   actions: {

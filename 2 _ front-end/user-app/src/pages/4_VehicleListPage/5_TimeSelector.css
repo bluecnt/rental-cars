@@ -2,7 +2,7 @@
 [SGLEE:20240213TUE_140200] Created
 */
 
-@import "./../common/Config.css";
+@import "./../../components/common/Config.css";
 
 .container {
   padding: 0;
@@ -10,16 +10,19 @@
 
   border: 1px solid var(--content-border-color);
   background-color: var(--content-back-color);
-  border-radius: 6px;
+  border-radius: 8px;
+
+  overflow: hidden;
 
   position: absolute;
-  z-index: 1010;
+  justify-self: center;
+  align-self: center;
 
   display: flex;
   flex-direction: column;
 }
 
-.title {
+.header {
   padding: 0.5rem;
 
   background-color: var(--oc-blue-0);

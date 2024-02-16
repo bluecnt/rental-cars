@@ -3,12 +3,14 @@
 import { useNavigate } from "react-router-dom";
 import PageContainer from "../components/common/PageContainer";
 import ContentContainer from "../components/common/ContentContainer";
-import { useEffect, useState } from "react";
-import SplashContent from "../components/SplashContent";
+import { ReactNode, useEffect, useState } from "react";
+import SplashContent from "./0_SplashPage/SplashContent";
 import { is_login } from "../modules/rest-clients/users";
+import { Button } from "react-bootstrap";
 
 interface SplashPageState {
   progbarNow: number;
+  moreContent?: ReactNode;
 }
 
 const SplashPage = () => {
@@ -23,44 +25,65 @@ const SplashPage = () => {
   };
 
   const [state, setState] = useState<SplashPageState>({
-    progbarNow: 0,
+    progbarNow: 1,
   });
 
   useEffect(() => {
-    let i = 0;
+    let i = state.progbarNow;
     const tid = setInterval(async () => {
       if (i <= 30) {
-        setState((prev) => ({ ...prev, progbarNow: i }));
-        i++;
+        setState((prev) => ({ ...prev, progbarNow: i++ }));
       } else {
         clearInterval(tid);
 
+        if (true) {
+          const moreContent = (
+            <div
+              style={{
+                padding: "1rem 4rem 1rem 4rem",
+                display: "flex",
+                justifyContent: "center",
+                gap: "2rem",
+              }}
+            >
+              <Button onClick={gotoVehicleListPage} style={{ flex: "1" }}>
+                차량 목록 페이지
+              </Button>
+              <Button onClick={gotoInitialPage} style={{ flex: "1" }}>
+                초기 페이지
+              </Button>
+            </div>
+          );
+          setState((prev) => ({ ...prev, moreContent }));
+        }
+
         // 로그인 상태라면 VehicleListPage로 이동
         if (await is_login()) {
-          // [SGLEE:20240205ON_211000] 메시지 박스를 띄우면 마지막 칸은 안 채워짐
-          alert("로그인 상태이므로 VehicleListPage로 이동합니다");
-
-          gotoVehicleListPage();
+          // gotoVehicleListPage();
         }
         // 그렇지 않다면 InitialPage로 이동
         else {
-          // [SGLEE:20240205ON_211000] 메시지 박스를 띄우면 마지막 칸은 안 채워짐
-          alert("로그인 상태가 아니므로 InitialPage로 이동합니다");
-
-          gotoInitialPage();
+          // gotoInitialPage();
         }
       }
     }, 100);
+
+    console.log("[SplashPage] mounted");
   }, []);
+
+  useEffect(() => {
+    console.log("[SplashPage] rendered");
+  });
 
   return (
     <PageContainer>
       <ContentContainer>
-        <SplashContent progbarNow={state.progbarNow}>
+        <SplashContent
+          progbarNow={state.progbarNow}
+          moreContent={state.moreContent}
+        >
           <div
             style={{
-              // border: "1px solid green",
-
               display: "flex",
               justifyContent: "end",
             }}

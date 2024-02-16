@@ -1,5 +1,7 @@
 // [SGLEE:20240205MON_121200] Created
 
+import "./2_LoginPage/2_LoginPage.css";
+
 import { useNavigate } from "react-router-dom";
 import PageContainer from "../components/common/PageContainer";
 import ContentContainer from "../components/common/ContentContainer";
@@ -8,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { _focus, _getValue, _setValue } from "../modules/utils/BlueHtmlElem";
 import { do_login } from "../modules/rest-clients/users";
 import LoginDTO from "../modules/dto/LoginDTO";
+import BsModal from "../modules/bootstrap/BsModal";
 
 interface LoginPageState {
   modalTitle: string;
@@ -100,69 +103,42 @@ const LoginPage = () => {
   return (
     <PageContainer>
       <ContentContainer>
-        <Modal
+        <BsModal
+          title={state.modalTitle}
+          text={state.modalText}
           show={state.modalShow}
-          backdrop="static"
-          keyboard={false}
-          centered
-        >
-          <Modal.Header>
-            <Modal.Title>{state.modalTitle}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>{state.modalText}</Modal.Body>
-          <Modal.Footer>
-            <Button onClick={handleClickModalOkBtn}>확인</Button>
-          </Modal.Footer>
-        </Modal>
-
-        <Alert variant="info">⬇️ 패널 더블 클릭 시 내용을 채우거나 비움</Alert>
+          cancelBtnText=""
+          onClickOkBtn={handleClickModalOkBtn}
+        />
 
         <div
-          style={{
-            padding: "2rem 8rem 2rem 8rem",
-
-            width: "640px",
-            height: "360px",
-
-            border: "1px solid lightgray",
-            borderRadius: "8px",
-
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            gap: "1rem",
-          }}
+          className="login-content-container"
           onDoubleClick={handleDblClickPanel}
         >
-          <div
-            style={
-              {
-                // border: "1px solid blue",
-              }
-            }
-          >
+          <Alert variant="info">
+            ⬇️ 패널 더블 클릭 시 내용을 채우거나 비움
+          </Alert>
+
+          {/* 이메일 주소 */}
+          <div>
             <FormControl
               id="user_email"
               placeholder="이메일 주소를 입력하세요"
             />
           </div>
-          <div
-            style={
-              {
-                // border: "1px solid blue",
-              }
-            }
-          >
+
+          {/* 비밀번호 */}
+          <div>
             <FormControl
               id="user_pw"
               type="password"
               placeholder="비밀번호를 입력하세요"
             />
           </div>
+
+          {/* 로그인 */}
           <div
             style={{
-              // border: "1px solid blue",
-
               display: "flex",
             }}
           >

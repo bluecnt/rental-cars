@@ -13,7 +13,6 @@ type OnChangeAddrEvent = (loc: NaverMapLocation) => void;
 type OnClickMarkerEvent = (marker: NaverMapMarker) => void;
 
 interface VehicleListMapProps {
-  addr: string;
   onChangeAddr: OnChangeAddrEvent;
   onClickMarker: OnClickMarkerEvent;
 }
@@ -66,12 +65,13 @@ const VehicleListMap = (props: VehicleListMapProps) => {
 
     const asyncFunc = async () => {
       const locGuriStation = await NaverMapLocation.fromAddr(
-        //"건원대로 34번길 32-29"
-        props.addr
+        dataCtx.state.mapCenterAddr
       );
       const view = NaverMapView.getInstance({
         mapElem: "map",
         centerLoc: locGuriStation,
+        zoomControl: false,
+        mapTypeControl: false,
         onClick: (sender, loc, item) => {
           if (!loc) return;
 
@@ -102,10 +102,9 @@ const VehicleListMap = (props: VehicleListMapProps) => {
     <div
       id="map"
       style={{
-        // backgroundColor: "lightblue",
-
-        alignSelf: "stretch",
-        flex: "1",
+        // alignSelf: "stretch",
+        // flex: "1",
+        margin: "-1rem",
       }}
     />
   );

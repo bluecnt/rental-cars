@@ -3,9 +3,7 @@
 export const _$ = (sel: string): HTMLElement | null => {
   const el = document.querySelector<HTMLElement>(sel);
   if (el === null) {
-    console.error(`[_$()] Invalid selector('${sel}')!`);
-
-    debugger;
+    throw new Error(`[_$()] Invalid selector('${sel}')!`);
   }
 
   return el;
@@ -39,26 +37,25 @@ export const _setValue = (id: string, value: string) => {
   }
 };
 
-type _ElemRect = {
-  x: number;
-  y: number;
-  w: number;
-  h: number;
+export type _ElemRect = {
+  x?: number;
+  y?: number;
+  w?: number;
+  h?: number;
 };
 
-export const _getElemRect = (id: string): _ElemRect => {
-  const el = _$(`#${id}`);
-  const r = el?.getBoundingClientRect();
-
-  const x = Math.round(r?.x as number);
-  const y = Math.round(r?.y as number);
-  const w = Math.round(r?.width as number);
-  const h = Math.round(r?.height as number);
+export const _getElemRect = (el: HTMLElement): _ElemRect => {
+  const rc = el.getBoundingClientRect();
+  const x = Math.round(rc?.x as number);
+  const y = Math.round(rc?.y as number);
+  const w = Math.round(rc?.width as number);
+  const h = Math.round(rc?.height as number);
   return { x, y, w, h };
 };
 
-export const _setElemSize = (id: string, w?: number, h?: number) => {
-  const el = _$(`#${id}`);
-  if (w !== undefined && el?.style) el.style.width = `${w}px`;
-  if (h !== undefined && el?.style) el.style.height = `${h}px`;
+export const _setElemRect = (el: HTMLElement, rc: _ElemRect) => {
+  if (rc.x !== undefined) el.style.left = `${rc.x}px`;
+  if (rc.y !== undefined) el.style.top = `${rc.y}px`;
+  if (rc.w !== undefined) el.style.width = `${rc.w}px`;
+  if (rc.h !== undefined) el.style.height = `${rc.h}px`;
 };

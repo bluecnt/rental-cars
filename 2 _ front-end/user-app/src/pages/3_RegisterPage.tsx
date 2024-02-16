@@ -1,13 +1,16 @@
 // [SGLEE:20240205MON_121200] Created
 
+import "./3_RegisterPage/3_RegisterPage.css";
+
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { _focus, _getValue, _setValue } from "../modules/utils/BlueHtmlElem";
 import PageContainer from "../components/common/PageContainer";
 import ContentContainer from "../components/common/ContentContainer";
-import { Alert, Button, FormControl, Modal } from "react-bootstrap";
+import { Alert, Button, FormControl } from "react-bootstrap";
 import { do_register } from "../modules/rest-clients/users";
 import { RegisterDTO } from "../modules/dto/RegisterDTO";
+import BsModal from "../modules/bootstrap/BsModal";
 
 interface ModalTag {
   requestOk: boolean;
@@ -177,45 +180,31 @@ const RegisterPage = () => {
   return (
     <PageContainer>
       <ContentContainer>
-        <Modal
+        <BsModal
+          title={state.modalTitle}
+          text={state.modalText}
           show={state.modalShow}
-          backdrop="static"
-          keyboard={false}
-          centered
-        >
-          <Modal.Header>
-            <Modal.Title>{state.modalTitle}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>{state.modalText}</Modal.Body>
-          <Modal.Footer>
-            <Button onClick={handleClickModalOkBtn}>확인</Button>
-          </Modal.Footer>
-        </Modal>
-
-        <Alert variant="info">⬇️ 패널 더블 클릭 시 내용을 채우거나 비움</Alert>
+          cancelBtnText=""
+          onClickOkBtn={handleClickModalOkBtn}
+        />
 
         <div
-          style={{
-            padding: "4rem 8rem 4rem 8rem",
-
-            width: "640px",
-
-            border: "1px solid lightgray",
-            borderRadius: "8px",
-
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            gap: "1rem",
-          }}
+          className="register-content-container"
           onDoubleClick={handleDblClickPanel}
         >
+          <Alert variant="info">
+            ⬇️ 패널 더블 클릭 시 내용을 채우거나 비움
+          </Alert>
+
+          {/* 이메일 주소 */}
           <div>
             <FormControl
               id="user_email"
               placeholder="이메일 주소를 입력하세요"
             />
           </div>
+
+          {/* 비밀번호 */}
           <div>
             <FormControl
               id="user_pw"
@@ -223,30 +212,42 @@ const RegisterPage = () => {
               placeholder="비밀번호를 입력하세요"
             />
           </div>
+
+          {/* 이름 */}
           <div>
             <FormControl id="name" placeholder="이름을 입력하세요" />
           </div>
+
+          {/* 생년월일 */}
           <div>
             <FormControl
               id="birthday"
               placeholder="생년월일(YYYY-MM-DD)을 입력하세요"
             />
           </div>
+
+          {/* 휴대폰 번호 */}
           <div>
             <FormControl
               id="phone_number"
               placeholder="휴대폰 번호(010-0000-0000) 입력하세요"
             />
           </div>
+
+          {/* 면허 번호 */}
           <div>
             <FormControl
               id="license_number"
               placeholder="면허 번호(00-00-000000-00) 입력하세요"
             />
           </div>
+
+          {/* 카드사 */}
           <div>
             <FormControl id="card_company" placeholder="카드사를 입력하세요" />
           </div>
+
+          {/* 카드 번호 */}
           <div>
             <FormControl
               id="card_number"
@@ -254,6 +255,7 @@ const RegisterPage = () => {
             />
           </div>
 
+          {/* 회원가입 */}
           <div style={{ display: "flex" }}>
             <Button style={{ flex: "1" }} onClick={handleClickRegBtn}>
               회원가입

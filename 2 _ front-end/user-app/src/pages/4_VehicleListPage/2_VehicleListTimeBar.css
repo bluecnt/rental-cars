@@ -5,36 +5,34 @@
 @import "~open-color/open-color.css";
 
 .time-cntr {
+  margin: 0.5rem 0.5rem 1.5rem 0.5rem;
   padding: 0.5rem;
 
   border: 1px solid var(--oc-blue-3);
   border-radius: 4px;
+  background-color: white;
 
-  align-self: stretch;
+  position: absolute;
+  width: calc(100% - 1rem);
+  justify-self: flex-end;
+  align-self: flex-end;
+  z-index: 1001;
 
   display: flex;
+
+  cursor: pointer;
 }
 
-.time {
+.time-label {
   /* border: 1px solid green; */
-
-  /* padding-left: 1rem; */
 
   font-weight: bold;
 }
 
-.cntr {
-  /* border: 1px solid red; */
-
-  padding-left: 0.5rem;
-
-  /* margin-left: auto; */
-}
-
-.rent-time {
+.time-rent-time {
   /* border: 1px solid blue; */
 
-  color: var(--oc-blue-9);
+  margin-left: auto;
 
-  cursor: pointer;
+  color: var(--oc-blue-9);
 }

@@ -2,8 +2,9 @@
 import React from "react";
 import logo from "./logo.svg";
 */
-import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import { DataContextProvider } from "./contexts/DataContext";
 import SplashPage from "./pages/0_SplashPage";
 import InitialPage from "./pages/1_InitialPage";
 import LoginPage from "./pages/2_LoginPage";
@@ -11,12 +12,6 @@ import RegisterPage from "./pages/3_RegisterPage";
 import VehicleListPage from "./pages/4_VehicleListPage";
 import ReservationPage from "./pages/5_ReservationPage";
 import ReservationListPage from "./pages/6_ReservationListPage";
-import { createContext } from "vm";
-import { useContext } from "react";
-import React from "react";
-import { MyContextProvider } from "./contexts/MyContext";
-import MyContextConsumer from "./contexts/MyContextConsumer";
-import { DataContextProvider } from "./contexts/DataContext";
 
 /*
 function App() {
@@ -88,6 +83,14 @@ const App = () => {
       <MyContextConsumer />
     </MyContextProvider>
   );
+};
+*/
+
+/*
+const App = () => {
+  console.clear();
+
+  return <GridLayoutTest1 />;
 };
 */
 

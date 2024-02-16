@@ -169,7 +169,7 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
     // 1초 걸린다고 가정
     setTimeout(() => {
       resolve(pl);
-    }, 1000);
+    }, 2000);
   });
 };
 

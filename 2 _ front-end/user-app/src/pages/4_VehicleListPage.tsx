@@ -5,7 +5,6 @@
 import { useNavigate } from "react-router-dom";
 import PageContainer from "../components/common/PageContainer";
 import ContentContainer from "../components/common/ContentContainer";
-import VehicleListMap from "../components/4_VehicleListPage/1_VehicleListMap";
 import { ReactNode, useContext, useEffect, useState } from "react";
 import NaverMapLocation from "../modules/naver-map/NaverMapLocation";
 import {
@@ -13,29 +12,41 @@ import {
   _dateTimeToStr,
   _next30Min,
 } from "../modules/utils/BlueTime";
-import { _getElemRect, _setElemSize } from "../modules/utils/BlueHtmlElem";
-import TimeSelector from "../components/4_VehicleListPage/5_TimeSelector";
+import TimeSelector from "./4_VehicleListPage/5_TimeSelector";
 import NaverMapMarker from "../modules/naver-map/NaverMapMarker";
-import VehicleListTimeBar from "../components/4_VehicleListPage/2_VehicleListTimeBar";
-import VehicleListAddrBar from "../components/4_VehicleListPage/0_VehicleListAddrBar";
 import { get_vehicle_list } from "../modules/rest-clients/vehicle-list";
 import { DataContext } from "../contexts/DataContext";
-import VehicleList from "../components/4_VehicleListPage/6_VehicleList";
+import VehicleListAddrBar from "./4_VehicleListPage/0_VehicleListAddrBar";
+import VehicleListMap from "./4_VehicleListPage/1_VehicleListMap";
+import VehicleListTimeBar from "./4_VehicleListPage/2_VehicleListTimeBar";
+import Dimmer from "../components/common/Dimmer";
+import VehicleSelector from "./4_VehicleListPage/6_VehicleSelector";
 
 interface VehicleListPageState {
   addr: string;
   rentStartTime: Date;
   rentEndTime: Date;
-  dimmedChild?: ReactNode;
 
-  parkingLotId?: number;
+  showLoadingSpinner: boolean;
+
+  dimmerChild: ReactNode;
+
+  vehicleSelectorPlId: number;
 }
 const VehicleListPage = () => {
+  const DataCtx = useContext(DataContext);
+
   const rentStartTime = _next30Min();
   const [state, setState] = useState<VehicleListPageState>({
-    addr: "건원대로 34번길 32-29", // 구리역
+    addr: DataCtx.state.mapCenterAddr,
     rentStartTime: rentStartTime,
     rentEndTime: _addTime(rentStartTime, 4, 0, 0),
+
+    showLoadingSpinner: false,
+
+    dimmerChild: undefined,
+
+    vehicleSelectorPlId: -1,
   });
   const dataCtx = useContext(DataContext);
   const nav = useNavigate();
@@ -49,27 +60,21 @@ const VehicleListPage = () => {
     console.warn(`대여 시간: ${_dateTimeToStr(startTime)}`);
     console.warn(`반납 시간: ${_dateTimeToStr(endTime)}`);
 
+    //showLoadingSpinner(true);
+
     const pl = await get_vehicle_list(startTime, endTime);
     // console.log(pl);
-    if (Array.isArray(pl)) dataCtx.actions.setParkingLots(pl);
-    else {
+    if (Array.isArray(pl)) {
+      dataCtx.actions.setParkingLots(pl);
+    } else {
       //
     }
+
+    //showLoadingSpinner(false);
   };
 
   useEffect(() => {
     console.log("[VehicleListPage] mounted");
-
-    const updateContentDimmedLayerSize = () => {
-      const r = _getElemRect("content-container");
-      _setElemSize("content-dimmed", undefined, r.h);
-    };
-
-    window.addEventListener("resize", (e) => {
-      updateContentDimmedLayerSize();
-    });
-
-    updateContentDimmedLayerSize();
 
     const asyncFunc = async () => {
       //
@@ -92,54 +97,103 @@ const VehicleListPage = () => {
     nav("/reservation-list");
   };
 
-  const handleChangeAddr = (loc: NaverMapLocation) => {
-    setState((prev) => ({ ...prev, addr: loc.Addr, dimmedChild: undefined }));
+  const setAddrBarText = (text: string) => {
+    setState((prev) => ({ ...prev, addr: text }));
+  };
 
-    setState((prev) => ({ ...prev, parkingLotId: undefined }));
+  /*
+  const showLoadingSpinner = (show: boolean) => {
+    const dimmedChild = show ? (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "center",
+        }}
+      >
+        <Spinner animation="border" variant="primary" />
+      </div>
+    ) : undefined;
+
+    setState((prev) => ({
+      ...prev,
+      dimmedChild,
+      showLoadingSpinner: show,
+    }));
+  };
+  */
+
+  const showDimmer = (child: ReactNode) => {
+    setState((prev) => ({ ...prev, dimmerChild: child }));
+  };
+
+  const showTimeSelector = (show: boolean) => {
+    const child = show ? (
+      <TimeSelector
+        startTime={state.rentStartTime}
+        endTime={state.rentEndTime}
+        onClickOk={handleClickTimeSelectorOk}
+      />
+    ) : undefined;
+    showDimmer(child);
+  };
+
+  const showVehicleSelector = (plId: number) => {
+    setState((prev) => ({
+      ...prev,
+      vehicleSelectorPlId: plId,
+    }));
+
+    // const child =
+    //   plId > -1 ? (
+    //     <VehicleList
+    //       parkingLotId={plId}
+    //       onSelectVehicle={handleSelectVehicle}
+    //     />
+    //   ) : undefined;
+    // showDimmer(child);
+  };
+
+  const setRentTime = (startTime: Date, endTime: Date) => {
+    setState((prev) => ({
+      ...prev,
+      rentStartTime: startTime,
+      rentEndTime: endTime,
+    }));
+  };
+
+  const handleChangeAddr = (loc: NaverMapLocation) => {
+    const addr = loc.AddrRoad !== "" ? loc.AddrRoad : loc.Addr;
+    setAddrBarText(addr);
+    showVehicleSelector(-1);
   };
 
   const handleClickMarker = (marker: NaverMapMarker) => {
     //alert(marker.Location?.AddrRoad);
     //console.log(marker.Location?.toString());
 
-    const pl_id = marker.Sn;
-    setState((prev) => ({ ...prev, parkingLotId: pl_id }));
+    const plId = marker.Sn;
+    showVehicleSelector(plId);
   };
 
   const handleClickReserveListBtn = () => {
     gotoReservationListPage();
   };
 
-  const handleClickRentTimeOk = async (startTime: Date, endTime: Date) => {
+  const handleClickTimeSelectorOk = async (startTime: Date, endTime: Date) => {
     // console.log(`startTime: ${_dateTimeToStr(startTime)}`);
     // console.log(`endTime:   ${_dateTimeToStr(endTime)}`);
 
     //
-    await requestVehicleList(startTime, endTime);
+    //await requestVehicleList(startTime, endTime);
     //
 
-    setState((prev) => ({
-      ...prev,
-      rentStartTime: startTime,
-      rentEndTime: endTime,
-      dimmedChild: undefined,
-    }));
+    showTimeSelector(false);
   };
 
   const handleClickRentTime = () => {
-    // const dimmed = _$("#content-dimmed");
-    // if (dimmed?.style) dimmed.style.display = "flex";
-
-    setState((prev) => ({
-      ...prev,
-      dimmedChild: (
-        <TimeSelector
-          startTime={state.rentStartTime}
-          endTime={state.rentEndTime}
-          onClickOk={handleClickRentTimeOk}
-        />
-      ),
-    }));
+    showVehicleSelector(-1);
+    showTimeSelector(true);
   };
 
   const handleSelectVehicle = (plId: number, vehicleId: number) => {
@@ -155,29 +209,36 @@ const VehicleListPage = () => {
 
   return (
     <PageContainer>
-      <ContentContainer id="content-container" dimmedChild={state.dimmedChild}>
+      <ContentContainer>
+        <VehicleListMap
+          onChangeAddr={handleChangeAddr}
+          onClickMarker={handleClickMarker}
+        />
+
         <VehicleListAddrBar
           addr={state.addr}
           onClickReserveListBtn={handleClickReserveListBtn}
         />
-        <VehicleListMap
-          addr={state.addr}
-          onChangeAddr={handleChangeAddr}
-          onClickMarker={handleClickMarker}
-        />
+
         <VehicleListTimeBar
           rentStartTime={state.rentStartTime}
           rentEndTime={state.rentEndTime}
           onClickRentTime={handleClickRentTime}
         />
-      </ContentContainer>
 
-      {state.parkingLotId !== undefined && (
-        <VehicleList
-          parkingLotId={state.parkingLotId}
-          onSelectVehicle={handleSelectVehicle}
+        {state.vehicleSelectorPlId > -1 && (
+          <VehicleSelector
+            parkingLotId={state.vehicleSelectorPlId}
+            onSelectVehicle={handleSelectVehicle}
+          />
+        )}
+
+        <Dimmer
+          targetSizeElemId="content-container"
+          zIndex={1010}
+          children={state.dimmerChild}
         />
-      )}
+      </ContentContainer>
     </PageContainer>
   );
 };

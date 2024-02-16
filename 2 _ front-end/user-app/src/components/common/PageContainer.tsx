@@ -1,15 +1,30 @@
 // [SGLEE:20240205MON_145800] Created
 
-import { ReactNode } from "react";
-
 import "./PageContainer.css";
 
-export interface PageContainerProps {
+import { _toggleFullScreen } from "../../modules/utils/BluePage";
+import { ReactNode } from "react";
+
+interface PageContainerProps {
   children: ReactNode;
 }
 
 const PageContainer = (props: PageContainerProps) => {
-  return <div className="page">{props.children}</div>;
+  const handleDblClickPage = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    const t = e.currentTarget as HTMLDivElement;
+
+    if (t === e.target) {
+      _toggleFullScreen();
+    }
+  };
+
+  return (
+    <div className="page" onDoubleClick={handleDblClickPage}>
+      {props.children}
+    </div>
+  );
 };
 
 export default PageContainer;

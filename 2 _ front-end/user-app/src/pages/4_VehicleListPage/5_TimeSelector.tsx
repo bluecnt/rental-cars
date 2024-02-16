@@ -1,5 +1,6 @@
-import { Button } from "react-bootstrap";
 import "./5_TimeSelector.css";
+
+import { Button } from "react-bootstrap";
 import { useState } from "react";
 import {
   _dateToStr,
@@ -86,7 +87,7 @@ const TimeSelector = (props: TimeSelectProps) => {
 
   return (
     <div className="container">
-      <div className="title">이용 시간 설정</div>
+      <div className="header">이용 시간 설정</div>
       <div className="body">
         {/* 대여 일시 */}
         <div className="rent-datetime">

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // [SGLEE:20240215WED_172400] Created
 
-import "./6_VehicleList.css";
+import "./6_VehicleSelector.css";
 import { useContext, useEffect } from "react";
 import { DataContext } from "../../contexts/DataContext";
 
@@ -72,7 +72,7 @@ const VehicleList = (props: VehicleListProps) => {
 
   return (
     <div className="vl-container">
-      <div className="vl-title">차량 선택</div>
+      <div className="vl-header">차량 선택</div>
       <div className="vl-body">
         {/* 주차장 */}
         <div>

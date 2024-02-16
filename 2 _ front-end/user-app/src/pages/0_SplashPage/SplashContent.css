@@ -1,0 +1,49 @@
+/*
+[SGLEE:20240216FRI_223700] Created
+*/
+
+/* @import "./../common/Config.css"; */
+@import "~open-color/open-color.css";
+
+.splash-content-container {
+  padding: 1rem;
+
+  width: 640px;
+  height: 360px;
+
+  border: 1px solid var(--oc-blue-2);
+  border-radius: 8px;
+  background-color: var(--oc-blue-0);
+
+  justify-self: center;
+  align-self: center;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.splash-content-header {
+  border: "1px solid blue";
+
+  font-size: 2rem;
+  color: blue;
+  font-weight: bold;
+}
+
+.splash-content-body {
+  border: "1px solid blue";
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: darkblue;
+  font-size: 4rem;
+  font-weight: bold;
+
+  flex: 1;
+}
+
+.splash-content-footer {
+}
