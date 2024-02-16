@@ -1,20 +1,17 @@
 package com.bluecnt.rental.dto;
 
-import java.util.Date;
-
 import lombok.Data;
 
 @Data
 public class VehicleDTO {
-	private String car_id;
-	private Date reg_date;
-	private Integer pl_id;
+	private Integer vehicle_id;
+	private String reg_date;
 	private String name;
-	private String img;
+	private String v_img;
 	private String plate_number;
 	private String options;
 	private Integer price_per_hour;
 	private Integer price_per_km;
-	private String desc;
+	private String v_desc;
 	private String remark;
 }

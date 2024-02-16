@@ -27,15 +27,15 @@ public class CustomersServiceImpl implements CustomersService {
 	
 	// 페이징 처리된 고객정보조회
 	@Override
-	public List<CustomerDTO> selectCustomer(PagingVO vo) {
-		return customersMapper.selectCustomer(vo);
+	public List<CustomerDTO> selectCustomers(PagingVO vo) {
+		return customersMapper.selectCustomers(vo);
 	}
 	
 	// 페이징 처리된 카테고리, 검색에 해당하는 고객정보조회
 	@Override
-	public List<CustomerDTO> searchCustomer(@Param("PagingVO") PagingVO vo,
+	public List<CustomerDTO> searchCustomers(@Param("PagingVO") PagingVO vo,
 			@Param("category") String category, @Param("searchText") String searchText) {
-	    return customersMapper.searchCustomer(vo, category, searchText);
+	    return customersMapper.searchCustomers(vo, category, searchText);
 	}
 	
 	// 고객정보수정 페이지에서 단일고객정보를 보여주는 기능

@@ -18,22 +18,22 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
-@RequestMapping("/rental")
+@RequestMapping("/parking-lots-mgmt")
 public class ParkingLotsController {
 	
 	@Autowired
 	ParkingLotsService parkinglotsService;
 	ParkingLotDTO dto;
 	
-	@GetMapping("/parking-lots-mgmt")
-	public String parkingLotsList(
+	@GetMapping("")
+	public String parkinglotsList(
 		PagingVO vo, Model model,
 		@RequestParam(value="category", required=false) String category,
 	    @RequestParam(value="searchText", required=false, defaultValue="") String searchText,
 	    @RequestParam(value="currPage", required=false) String currPage,
 	    @RequestParam(value="cntPerPage", required=false) String cntPerPage) {
 		log.info(category);
-		int total = parkinglotsService.countParkingLots();
+		int total = parkinglotsService.countParkingLot();
 		if (currPage == null && cntPerPage == null) {
 				currPage = "1";
 				cntPerPage = "5";
@@ -65,45 +65,45 @@ public class ParkingLotsController {
 	}
 	
 	// 주차장정보 표시
-	@GetMapping("/parking-lots-mgmt/update/{pl_id}")
+	@GetMapping("/update/{pl_id}")
 	public String getUpdateForm(@PathVariable int pl_id, Model model) {
-	    // 해당 pl_id에 해당하는 고객 정보를 서비스로부터 가져와서 모델에 추가합니다.
-	    model.addAttribute("parkinglot", parkinglotsService.getParkingLotById(pl_id));
+	    // 해당 pl_id에 해당하는 주차장 정보를 서비스로부터 가져와서 모델에 추가합니다.
+	    model.addAttribute("parkinglots", parkinglotsService.getParkingLotById(pl_id));
 	    
 	    // 로깅을 통해 주차장 정보를 확인합니다.
-	    log.info("ParkingLot: " + model.getAttribute("parkinglot"));
-	    return "parking-lots-mgmt/update"; 
+	    log.info("parkinglots: " + model.getAttribute("parkinglots"));
+	    return "/parking-lots-mgmt/update"; 
 	}
 	
 	// 주차장정보 수정하기
-    @PostMapping("/parking-lots-mgmt/update/{pl_id}")
+    @PostMapping("/update/{pl_id}")
     public String updateParkingLot(@PathVariable int pl_id, 
     		@ModelAttribute ParkingLotDTO dto, Model model) {
     	parkinglotsService.updateParkingLot(dto);
         log.info("업뎃dto: " + dto);
-        return "redirect:/rental/parking-lots-mgmt/update/" + pl_id;
+        return "redirect:/parking-lots-mgmt/update/" + pl_id;
     }
     
-    // 주차장삭제
-    @GetMapping("/parking-lots-mgmt/delete/{pl_id}")
+    // 주차장정보 삭제하기
+    @GetMapping("/delete/{pl_id}")
     public String deleteParkingLot(@PathVariable int pl_id) {
-        parkinglotsService.deleteParkingLot(pl_id);
+    	parkinglotsService.deleteParkingLot(pl_id);
         log.info("삭제한 pl_id: " + pl_id);
-        return "redirect:/rental/parking-lots-mgmt";
+        return "redirect:/parking-lots-mgmt";
     }
     
     // 주차장추가 양식페이지
-    @GetMapping("/parking-lots-mgmt/add")
+    @GetMapping("/add")
     public String getAddForm(Model model) {
-    	model.addAttribute("parkinglot", new ParkingLotDTO()); // 빈 ParkingLotDTO를 모델에 추가
-    	log.info("GET add parkinglot form");
+    	model.addAttribute("parkinglots", new ParkingLotDTO()); // 빈 ParkingLotDTO를 모델에 추가
+    	log.info("GET add parkinglots form");
     	return "/parking-lots-mgmt/add";
     }
     
     // 주차장추가하기 
-    @PostMapping("/parking-lots-mgmt/add")
+    @PostMapping("/add")
     public String addParkingLot(ParkingLotDTO dto) {
-    	log.info("POST add ParkingLot: " + dto.toString());
+    	log.info("POST add parkinglot: " + dto.toString());
     	
     	// 추가할 주차장 숫자를 count에서 설정할 수 있다
     	int count = 10;
@@ -111,16 +111,16 @@ public class ParkingLotsController {
     	// 주차장 정보를 생성하여 DTO에 설정
     	for (int i = 0; i < count; i++) {
     	dto.setReg_date("2024-02-14");
-        dto.setName("ParkingLot " + i);
-        dto.setAddress("구리시 교문동");
+        dto.setName("PL" + i + "구리" + 10 + i );
+        dto.setAddress("구리시 이젠" + i + "동");
         dto.setLatitude(i);
-        dto.setLongitude(i);
-        dto.setPl_desc("" + i);
+        dto.setLongitude(i+1);
+        dto.setPl_desc("기타" + i);
         dto.setRemark("Remark " + i);
         parkinglotsService.addParkingLot(dto);
     	}
     	
-    	return "redirect:/rental/parking-lots-mgmt"; // 추가 후 목록 페이지로 리다이렉트
+    	return "redirect:/parking-lots-mgmt"; // 추가 후 목록 페이지로 리다이렉트
     }
     
 }

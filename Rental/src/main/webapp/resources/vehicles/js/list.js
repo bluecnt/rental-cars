@@ -6,41 +6,42 @@ const deleteBtns = document.querySelectorAll('.deleteBtn');
 		var category = document.getElementById("category").value;
         var searchText = document.getElementById("searchText").value;
 		var queryString = "category=" + category + "&searchText=" + searchText;
-		location.href = "/rental/customers-mgmt?" + queryString;
+		location.href = "/rental/vehicles-mgmt?" + queryString;
 	});
 	
 	function selChange() {
 	    var sel = document.getElementById('cntPerPage').value;
 		var currPage = (new URLSearchParams(window.location.search)).get('currPage');
-	    location.href=`/rental/customers-mgmt?currPage=${currPage}&cntPerPage=${sel}`;
+	    location.href=`/rental/vehicles-mgmt?currPage=${currPage}&cntPerPage=${sel}`;
 	}
 	
 	updateBtns.forEach(button => {
 	    button.addEventListener('click', () => {
-	        const custIdCell = button.parentElement.parentElement.querySelector('td:first-child');
-	        const custId = custIdCell && custIdCell.innerText ? custIdCell.innerText.trim() : null;
+	        const vehicleIdCell = button.parentElement.parentElement.querySelector('td:first-child');
+	        const vehicleId = vehicleIdCell && vehicleIdCell.innerText ? vehicleIdCell.innerText.trim() : null;
 	        
-	        if (custId) {
-	            const updateUrl = "/rental/customers-mgmt/update/" + custId;
+	        if (vehicleId) {
+	            const updateUrl = "/rental/vehicles-mgmt/update/" + vehicleId;
 	            location.href = updateUrl;
 	        } else {
-	            console.error("고객 ID를 찾을 수 없습니다.");
+	            console.error("차량 ID를 찾을 수 없습니다.");
 	        }
 	    });
 	});
 	
+
     deleteBtns.forEach(button => {
         button.addEventListener('click', () => {
-            const custIdCell = button.parentElement.parentElement.querySelector('td:first-child');
-            const custId = custIdCell && custIdCell.innerText ? custIdCell.innerText.trim() : null;
+            const vehicleIdCell = button.parentElement.parentElement.querySelector('td:first-child');
+            const vehicleId = vehicleIdCell && vehicleIdCell.innerText ? vehicleIdCell.innerText.trim() : null;
             
-            if (custId) {
+            if (vehicleId) {
                 if (confirm("정말로 삭제하시겠습니까?")) {
-                    const deleteUrl = "/rental/customers-mgmt/delete/" + custId;
+                    const deleteUrl = "/rental/vehicles-mgmt/delete/" + vehicleId;
                     location.href = deleteUrl;
                 }
             } else {
-                console.error("고객 ID를 찾을 수 없습니다.");
+                console.error("차량 ID를 찾을 수 없습니다.");
             }
         });
     });

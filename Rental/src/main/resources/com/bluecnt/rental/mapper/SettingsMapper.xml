@@ -3,8 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bluecnt.rental.mapper.SettingsMapper">
-
-	<!-- Customers 테이블 생성 쿼리 -->
+	
+	<!-- ////////////////// 고객관리 쿼리문 ////////////////// -->
+	<!-- Customers테이블 생성 쿼리 -->
     <update id="createCustomersTable">
         CREATE TABLE Customers (
             cust_id NUMBER PRIMARY KEY,
@@ -49,6 +50,7 @@
 	    DROP SEQUENCE Customers_seq
 	</delete>
 	
+	<!-- ////////////////// 주차장관리 쿼리문 ////////////////// -->
 	<!-- ParkingLots 테이블 생성 쿼리 -->
     <update id="createParkingLotsTable">
         CREATE TABLE ParkingLots (
@@ -81,13 +83,57 @@
 	</update>
 
 	<!-- ParkingLots 테이블 삭제 쿼리 -->
-	<delete id="deleteCustomersTable">
-	    DROP TABLE Customers
+	<delete id="deleteParkingLotsTable">
+	    DROP TABLE ParkingLots
 	</delete>
 	
 	<!-- ParkingLots 시퀀스 삭제 쿼리 -->
-	<delete id="deleteCustomersSeq">
-	    DROP SEQUENCE Customers_seq
+	<delete id="deleteParkingLotsSeq">
+	    DROP SEQUENCE ParkingLots_seq
+	</delete>
+	
+	<!-- ////////////////// 차량관리 쿼리문 ////////////////// -->
+	<!-- Vehicles 테이블 생성 쿼리 -->
+    <update id="createVehiclesTable">
+        CREATE TABLE Vehicles (
+            vehicle_id NUMBER PRIMARY KEY,
+            reg_date DATE,
+            name VARCHAR2(100),
+            v_img VARCHAR2(255),
+            plate_number VARCHAR(255),
+            options VARCHAR(255),
+            price_per_hour NUMBER,
+            price_per_km NUMBER,
+            v_desc VARCHAR2(255),
+            remark VARCHAR2(255)
+        )
+	</update>
+	
+	<!-- Vehicles 시퀀스 생성 쿼리 -->
+    <update id="createVehiclesSeq">
+        CREATE SEQUENCE vehicles_seq 
+        START WITH 1 
+        INCREMENT BY 1
+    </update>
+	
+	<!-- Vehicles 테이블 초기화 쿼리 -->
+    <update id="initVehiclesTable">
+        TRUNCATE TABLE Vehicles
+    </update>
+    
+    <!-- Vehicles 시퀀스 초기화 쿼리 -->
+    <update id="initVehiclesSeq">
+    	DROP SEQUENCE vehicles_seq
+	</update>
+
+	<!-- Vehicles 테이블 삭제 쿼리 -->
+	<delete id="deleteVehiclesTable">
+	    DROP TABLE Vehicles
+	</delete>
+	
+	<!-- Vehicles 시퀀스 삭제 쿼리 -->
+	<delete id="deleteVehiclesSeq">
+	    DROP SEQUENCE Vehicles_seq
 	</delete>
 	
 </mapper>

@@ -10,7 +10,7 @@ import com.bluecnt.rental.utils.PagingVO;
 public interface ParkingLotsMapper {
 	
 	// 주차장 총 갯수
-	public int countParkingLots();
+	public int countParkingLot();
 	// 페이징 처리된 주차장정보조회
 	public List<ParkingLotDTO> selectParkingLots(PagingVO vo);
 	// 페이징 처리된 카테고리, 검색에 해당하는 주차장 정보조회

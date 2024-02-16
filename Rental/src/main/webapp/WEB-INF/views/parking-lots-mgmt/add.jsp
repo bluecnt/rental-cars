@@ -24,11 +24,11 @@
         <label for="longitude">경도: </label>
         <input type="number" id="longitude" name="longitude" value="0" required />
         <br>
-        <label for="pl_desc">desc: </label>
-        <input type="text" id="pl_desc" name="pl_desc" value="특이사항" required />
+        <label for="pl_desc">설명: </label>
+        <input type="text" id="pl_desc" name="pl_desc" value="설명" required />
         <br>
-        <label for="remark">비고: </label>
-        <input type="text" id="remark" name="remark" value="비고사항" required />
+        <label for="remark">기타: </label>
+        <input type="text" id="remark" name="remark" value="비고" required />
         <br>
         <button type="submit">정보추가</button>
     </form>

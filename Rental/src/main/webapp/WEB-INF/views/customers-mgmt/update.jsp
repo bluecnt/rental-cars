@@ -14,7 +14,7 @@
     <h2>고객 정보 업데이트</h2>
     <table border="1">
 		<tr>
-			<th>고객번호</th>
+			<th>No</th>
 			<th>이메일</th>
 			<th>가입일</th>
 			<th>이름</th>
@@ -80,17 +80,18 @@
 	        <input type="text" id="credit_card_number" name="credit_card_number" value="${customer.credit_card_number}"/>
 	        <button type="submit">변경</button>
 	        <br>
-	        <label for="point">마일리지: ${customer.point}</label>
+	        <label for="point">포인트: ${customer.point}</label>
 	        <br>
 	        <input type="number" id="point" name="point" value="${customer.point}"/>
 	        <button type="submit">변경</button>
 	        <br>
-	        <label for="remark">기타사항: ${customer.remark}</label>
+	        <label for="remark">기타: ${customer.remark}</label>
 	        <br>
 	        <input type="text" id="remark" name="remark" value="${customer.remark}"/>
 	        <button type="submit">수정</button>
 	        <br>
     	</form>
     </c:forEach>
+    <a href="/rental/customers-mgmt">목록으로 돌아가기</a>
 </body>
 </html>

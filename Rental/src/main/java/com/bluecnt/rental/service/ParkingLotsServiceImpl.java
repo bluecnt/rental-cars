@@ -21,8 +21,8 @@ public class ParkingLotsServiceImpl implements ParkingLotsService {
 	
 	// 고객 총 인원
 	@Override
-	public int countParkingLots() {
-		return parkingLotsMapper.countParkingLots();
+	public int countParkingLot() {
+		return parkingLotsMapper.countParkingLot();
 	}
 	
 	// 페이징 처리된 고객정보조회

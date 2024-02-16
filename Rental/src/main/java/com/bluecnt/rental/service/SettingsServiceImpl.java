@@ -57,5 +57,29 @@ public class SettingsServiceImpl implements SettingsService {
     public void deleteParkingLotsSeq() {
     	settingsMapper.deleteParkingLotsSeq();
     }
+    
+    // Vehicles Table & Sequence 
+    public void createVehiclesTable() {
+        settingsMapper.createVehiclesTable();
+    }
+
+    public void createVehiclesSeq() {
+        settingsMapper.createVehiclesSeq();
+    }
+
+    public void initVehiclesTable() {
+        settingsMapper.initVehiclesTable();
+    }
+    public void initVehiclesSeq() {
+        settingsMapper.initVehiclesSeq();
+    }
+    
+    public void deleteVehiclesTable() {
+    	settingsMapper.deleteVehiclesTable();
+    }
+    public void deleteVehiclesSeq() {
+    	settingsMapper.deleteVehiclesSeq();
+    }
+
 
 }

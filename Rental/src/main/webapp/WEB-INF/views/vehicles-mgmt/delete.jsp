@@ -7,15 +7,15 @@
     <title>Delete Customer</title>
 </head>
 <body>
-    <h3>Delete Customer</h3>
+    <h3>Delete Vehicle</h3>
 
-    <form action="/rental/customers-mgmt/delete" method="post">
-        <label for="cust_id">Customer ID:</label>
-        <input type="text" id="cust_id" name="cust_id" required>
+    <form action="/rental/vehicles-mgmt/delete" method="post">
+        <label for="vehicle_id">Vehicle ID: </label>
+        <input type="text" id="vehicle_id" name="vehicle_id" required>
 
         <input type="hidden" name="_method" value="DELETE">
 
-        <button type="submit">회원삭제</button>
+        <button type="submit">차량삭제</button>
     </form>
 
 </body>

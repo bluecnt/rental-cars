@@ -9,13 +9,13 @@
 <body>
     <h3>Delete Parking-Lots</h3>
 
-    <form action="/rental/parking-lots/delete" method="post">
+    <form action="/rental/parking-lots-mgmt/delete" method="post">
         <label for="pl_id">Parking-Lots ID:</label>
         <input type="text" id="pl_id" name="pl_id" required>
 
         <input type="hidden" name="_method" value="DELETE">
 
-        <button type="submit">주차장삭제</button>
+        <button type="submit">주차장 삭제</button>
     </form>
 
     <a href="/rental/parking-lots-mgmt">목록으로 돌아가기</a>

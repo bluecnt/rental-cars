@@ -18,14 +18,14 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
-@RequestMapping("/rental")
+@RequestMapping("/customers-mgmt")
 public class CustomersController {
 	
 	@Autowired
 	CustomersService customersService;
 	CustomerDTO dto;
 	
-	@GetMapping("/customers-mgmt")
+	@GetMapping("")
 	public String customersList(
 		PagingVO vo, Model model,
 		@RequestParam(value="category", required=false) String category,
@@ -48,16 +48,16 @@ public class CustomersController {
 		model.addAttribute("paging", vo);
 		
 		if ("user_email".equals(category) && !searchText.isEmpty()) { // searchText 칸이 비어있지 않을 때
-			model.addAttribute("customers", customersService.searchCustomer(vo, category, searchText));
+			model.addAttribute("customers", customersService.searchCustomers(vo, category, searchText));
 	        log.info("user_email일때" + model);
 		} else if ("name".equals(category) && !searchText.isEmpty()) {
-			model.addAttribute("customers", customersService.searchCustomer(vo, category, searchText));
+			model.addAttribute("customers", customersService.searchCustomers(vo, category, searchText));
 			log.info("name일때" + model);
 		} else if ("phone_number".equals(category) && !searchText.isEmpty()) {
-			model.addAttribute("customers", customersService.searchCustomer(vo, category, searchText));
+			model.addAttribute("customers", customersService.searchCustomers(vo, category, searchText));
 			log.info("phone_number일때" + model);
 	    } else { // searchText 칸이 비어있을 때
-	        model.addAttribute("customers", customersService.selectCustomer(vo));
+	        model.addAttribute("customers", customersService.selectCustomers(vo));
 	    }
 		
 		log.info("category:" + category);
@@ -68,35 +68,35 @@ public class CustomersController {
 	}
 	
 	// 고객정보 표시
-	@GetMapping("/customers-mgmt/update/{cust_id}")
+	@GetMapping("/update/{cust_id}")
 	public String getUpdateForm(@PathVariable int cust_id, Model model) {
 	    // 해당 cust_id에 해당하는 고객 정보를 서비스로부터 가져와서 모델에 추가합니다.
 	    model.addAttribute("customer", customersService.getCustomerById(cust_id));
 	    
 	    // 로깅을 통해 고객 정보를 확인합니다.
 	    log.info("Customer: " + model.getAttribute("customer"));
-	    return "customers-mgmt/update"; 
+	    return "/customers-mgmt/update"; 
 	}
 	
 	// 고객정보 수정하기
-    @PostMapping("/customers-mgmt/update/{cust_id}")
+    @PostMapping("/update/{cust_id}")
     public String updateCustomer(@PathVariable int cust_id, 
     		@ModelAttribute CustomerDTO dto, Model model) {
         customersService.updateCust(dto);
         log.info("업뎃dto: " + dto);
-        return "redirect:/rental/customers-mgmt/update/" + cust_id;
+        return "redirect:/customers-mgmt/update/" + cust_id;
     }
     
     // 고객정보 삭제하기
-    @GetMapping("/customers-mgmt/delete/{cust_id}")
+    @GetMapping("/delete/{cust_id}")
     public String deleteCustomer(@PathVariable int cust_id) {
         customersService.deleteCustomer(cust_id);
         log.info("삭제한 cust_id: " + cust_id);
-        return "redirect:/rental/customers-mgmt";
+        return "redirect:/customers-mgmt";
     }
     
     // 고객추가 양식페이지
-    @GetMapping("/customers-mgmt/add")
+    @GetMapping("/add")
     public String getAddForm(Model model) {
     	model.addAttribute("customer", new CustomerDTO()); // 빈 CustomerDTO를 모델에 추가
     	log.info("GET add customer form");
@@ -104,7 +104,7 @@ public class CustomersController {
     }
     
     // 고객추가하기 
-    @PostMapping("/customers-mgmt/add")
+    @PostMapping("/add")
     public String addCustomer(CustomerDTO dto) {
     	log.info("POST add customer: " + dto.toString());
     	
@@ -114,11 +114,11 @@ public class CustomersController {
     	// 고객 정보를 생성하여 DTO에 설정
     	for (int i = 0; i < count; i++) {
     	dto.setJoin_date("2024-02-14");
-        dto.setUser_email("example" + i + "@domain.com");
+        dto.setUser_email("abcd" + i + "@domain.com");
         dto.setUser_pw("password" + i);
-        dto.setName("Customer " + i);
+        dto.setName("CU12 " + i + i);
         dto.setBirthday("2000-01-01");
-        dto.setPhone_number("010-4567-8900");
+        dto.setPhone_number("010" + i);
         dto.setLicense_number("ABC123456");
         dto.setCredit_card_company("Company" + i);
         dto.setCredit_card_number("1234-5678-9012-3451");
@@ -127,7 +127,7 @@ public class CustomersController {
         customersService.addCustomer(dto);
     	}
     	
-    	return "redirect:/rental/customers-mgmt"; // 추가 후 목록 페이지로 리다이렉트
+    	return "redirect:/customers-mgmt"; // 추가 후 목록 페이지로 리다이렉트
     }
     
 }

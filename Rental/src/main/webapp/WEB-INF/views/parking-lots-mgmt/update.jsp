@@ -14,7 +14,7 @@
     <h2>고객 정보 업데이트</h2>
     <table border="1">
 		<tr>
-			<th>고객번호</th>
+			<th>No</th>
 			<th>이메일</th>
 			<th>가입일</th>
 			<th>이름</th>
@@ -23,28 +23,25 @@
 			<th>면허번호</th>
 			<th>카드사</th>
 			<th>카드번호</th>
-			<th>마일리지</th>			
-			<th>기타사항</th>
+			<th>설명</th>			
+			<th>기타</th>
 		</tr>
-		<c:forEach items="${customer}" var="customer">
+		<c:forEach items="${parkinglots}" var="parkinglot">
 		<tr>
-			<td>${customer.cust_id}</td>
-			<td>${customer.user_email}</td>
+			<td>${parkinglot.pl_id}</td>
+			<td>${parkinglot.user_email}</td>
 			<fmt:parseDate value="${customer.join_date}" var="joinDate" pattern="yyyy-MM-dd HH:mm:ss"/> 
 	 			<td><fmt:formatDate value="${joinDate}" pattern="yy/MM/dd"/></td>
-			<td>${customer.name}</td>
-			<fmt:parseDate value="${customer.birthday}" var="birthDay" pattern="yyyy-MM-dd HH:mm:ss"/> 
-	 			<td><fmt:formatDate value="${birthDay}" pattern="yy/MM/dd"/></td>
-			<td>${customer.phone_number}</td>
-			<td>${customer.license_number}</td>
-			<td>${customer.credit_card_company}</td>
-			<td>${customer.credit_card_number}</td>
-			<td>${customer.point}</td>
-			<td>${customer.remark}</td>
+			<td>${parkinglot.name}</td>
+			<td>${parkinglot.latitude}</td>
+			<td>${parkinglot.longitude}</td>
+			<td>${parkinglot.credit_card_company}</td>
+			<td>${parkinglot.pl_desc}</td>
+			<td>${parkinglot.remark}</td>
 		</tr>
 		</c:forEach>
 	</table>
-	  <c:forEach items="${parkinglots}" var="parkinglot">
+	<c:forEach items="${parkinglots}" var="parkinglot">
 		<form action="/rental/parking-lots-mgmt/update/${pl_id}" method="post">
 	        <input type="hidden" name="reg_date" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>" />
 	        <label for="name">이름: ${parkinglot.name}</label>

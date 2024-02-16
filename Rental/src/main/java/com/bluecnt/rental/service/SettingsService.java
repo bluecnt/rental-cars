@@ -17,5 +17,13 @@ public interface SettingsService {
     public void initParkingLotsSeq(); 
     public void deleteParkingLotsTable();
     public void deleteParkingLotsSeq();
+    
+    // Vehicles
+    public void createVehiclesTable();
+    public void createVehiclesSeq();
+    public void initVehiclesTable(); 
+    public void initVehiclesSeq(); 
+    public void deleteVehiclesTable();
+    public void deleteVehiclesSeq();
 	
 }

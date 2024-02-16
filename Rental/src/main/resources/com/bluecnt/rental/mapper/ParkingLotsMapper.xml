@@ -5,7 +5,7 @@
 <mapper namespace="com.bluecnt.rental.mapper.ParkingLotsMapper">
 	
 	<!-- 총 주차장 숫자 출력 -->
-	<select id="countParkingLots" resultType="int">
+	<select id="countParkingLot" resultType="int">
 		SELECT COUNT (*) FROM ParkingLots
 	</select>
 	
@@ -60,7 +60,7 @@
 	        address = #{address},
 	        latitude = #{latitude, jdbcType=INTEGER},
 	        longitude = #{longitude, jdbcType=INTEGER},
-	        desc = #{desc}
+	        pl_desc = #{pl_desc}
 	    WHERE pl_id = #{pl_id}
 	</update>
 	

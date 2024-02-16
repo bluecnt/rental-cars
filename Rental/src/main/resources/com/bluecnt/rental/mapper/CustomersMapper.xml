@@ -10,7 +10,7 @@
 	</select>
 	
 	<!-- 페이징 처리 후 고객정보 조회 -->
-	<select id="selectCustomer" resultType="com.bluecnt.rental.dto.CustomerDTO">
+	<select id="selectCustomers" resultType="com.bluecnt.rental.dto.CustomerDTO">
 		SELECT *
 	    FROM (
 	        SELECT ROWNUM RN, A.*
@@ -24,7 +24,7 @@
 	</select>
 	
 	<!-- 페이징 처리 후 카테고리선택 및 직접입력조회 -->
-	<select id="searchCustomer" resultType="com.bluecnt.rental.dto.CustomerDTO">
+	<select id="searchCustomers" resultType="com.bluecnt.rental.dto.CustomerDTO">
 	    SELECT *
 	    FROM (
 	        SELECT ROWNUM RN, A.*

@@ -7,21 +7,21 @@ const initParkingLotsTS = document.getElementById('initParkingLotsTS');
 const deleteParkingLotsTS = document.getElementById('deleteParkingLotsTS');
 
     createCustomersTS.addEventListener('click', () => {   
-        location.href = "/rental/settings"
+        location.href = "/settings"
     });
     initCustomersTS.addEventListener('click', () => {   
-        location.href = "/rental/settings"
+        location.href = "/settings"
     });
     deleteCustomersTS.addEventListener('click', () => {   
-        location.href = "/rental/settings"
+        location.href = "/settings"
     });
     
     createParkingLotsTS.addEventListener('click', () => {   
-        location.href = "/rental/settings"
+        location.href = "/settings"
     });
     initParkingLotsTS.addEventListener('click', () => {   
-        location.href = "/rental/settings"
+        location.href = "/settings"
     });
     deleteParkingLotsTS.addEventListener('click', () => {   
-        location.href = "/rental/settings"
+        location.href = "/settings"
     });

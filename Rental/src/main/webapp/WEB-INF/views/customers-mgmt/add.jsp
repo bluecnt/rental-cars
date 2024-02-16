@@ -9,7 +9,7 @@
 <body>
 
     <h2>고객정보 추가</h2>
-    <form action="/rental/customers-mgmt/add" method="post">
+    <form action="/add" method="post">
         <input type="hidden" name="join_date" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>" />
         <br>
         <label for="user_email">이메일 주소: </label>
@@ -39,7 +39,7 @@
         <label for="point">포인트: </label>
         <input type="number" id="point" name="point" value="1000" required />
         <br>
-        <label for="remark">기타사항: </label>
+        <label for="remark">기타: </label>
         <input type="text" id="remark" name="remark" value="더미 데이터입니다." required />
         <br>
         <button type="submit">정보추가</button>

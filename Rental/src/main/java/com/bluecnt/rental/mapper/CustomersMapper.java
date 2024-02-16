@@ -12,9 +12,9 @@ public interface CustomersMapper {
 	// 고객 총 인원
 	public int countCustomer();
 	// 페이징 처리된 고객정보조회
-	public List<CustomerDTO> selectCustomer(PagingVO vo);
+	public List<CustomerDTO> selectCustomers(PagingVO vo);
 	// 페이징 처리된 카테고리, 검색에 해당하는 고객정보조회
-	public List<CustomerDTO> searchCustomer(@Param("PagingVO") PagingVO vo,
+	public List<CustomerDTO> searchCustomers(@Param("PagingVO") PagingVO vo,
 			@Param("category") String category, @Param("searchText") String searchText);
 	// 고객정보수정 페이지에서 단일고객정보를 보여주는 기능
 	public List<CustomerDTO> getCustomerById(int cust_id);

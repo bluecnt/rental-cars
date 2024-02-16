@@ -12,18 +12,18 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
-@RequestMapping("/rental")
+@RequestMapping("/settings")
 public class SettingsController {
     
     @Autowired
     SettingsService settingsService;
     
-    @GetMapping("/settings")
+    @GetMapping("")
     public String showSettingsPage() {
         return "/settings";
     }
     
-    @PostMapping("/settings/createCustomersTS")
+    @PostMapping("/createCustomersTS")
     public String createCustomersTS() {
         try {
             settingsService.createCustomersTable();
@@ -32,10 +32,10 @@ public class SettingsController {
         } catch (Exception e) {
             log.error("고객 테이블과 시퀀스 생성 중 오류가 발생했습니다: " + e.getMessage());
         }
-        return "redirect:/rental/settings";
+        return "redirect:/settings";
     }
     
-    @PostMapping("/settings/initCustomersTS")
+    @PostMapping("/initCustomersTS")
     public String initCustomersTS() {
         try {
             settingsService.initCustomersTable();
@@ -45,10 +45,10 @@ public class SettingsController {
         } catch (Exception e) {
             log.error("고객 테이블과 시퀀스 초기화 중 오류가 발생했습니다: " + e.getMessage());
         }
-        return "redirect:/rental/settings";
+        return "redirect:/settings";
     }
     
-    @PostMapping("/settings/deleteCustomersTS")
+    @PostMapping("/deleteCustomersTS")
     public String deleteCustomersTS() {
         try {
             settingsService.deleteCustomersTable();
@@ -57,10 +57,10 @@ public class SettingsController {
         } catch (Exception e) {
             log.error("고객 테이블과 시퀀스 삭제 중 오류가 발생했습니다: " + e.getMessage());
         }
-        return "redirect:/rental/settings";
+        return "redirect:/settings";
     }
     
-    @PostMapping("/settings/createParkingLotsTS")
+    @PostMapping("/createParkingLotsTS")
     public String createParkingLotsTS() {
         try {
             settingsService.createParkingLotsTable();
@@ -69,10 +69,10 @@ public class SettingsController {
         } catch (Exception e) {
             log.error("주차장 테이블과 시퀀스 생성 중 오류가 발생했습니다: " + e.getMessage());
         }
-        return "redirect:/rental/settings";
+        return "redirect:/settings";
     }
     
-    @PostMapping("/settings/initCustomersTS")
+    @PostMapping("/initParkingLotsTS")
     public String initParkingLotsTS() {
         try {
             settingsService.initParkingLotsTable();
@@ -82,10 +82,10 @@ public class SettingsController {
         } catch (Exception e) {
             log.error("주차장 테이블과 시퀀스 초기화 중 오류가 발생했습니다: " + e.getMessage());
         }
-        return "redirect:/rental/settings";
+        return "redirect:/settings";
     }
     
-    @PostMapping("/settings/deleteParkingLotsTS")
+    @PostMapping("/deleteParkingLotsTS")
     public String deleteParkingLotsTS() {
         try {
             settingsService.deleteParkingLotsTable();
@@ -94,7 +94,44 @@ public class SettingsController {
         } catch (Exception e) {
             log.error("주차장 테이블과 시퀀스 삭제 중 오류가 발생했습니다: " + e.getMessage());
         }
-        return "redirect:/rental/settings";
+        return "redirect:/settings";
+    }
+    
+    @PostMapping("/createVehiclesTS")
+    public String createVehiclesTS() {
+        try {
+            settingsService.createVehiclesTable();
+            settingsService.createVehiclesSeq();
+            log.info("Vehicles 테이블과 시퀀스를 생성했습니다!");
+        } catch (Exception e) {
+            log.error("Vehicles 테이블과 시퀀스 생성 중 오류가 발생했습니다: " + e.getMessage());
+        }
+        return "redirect:/settings";
+    }
+    
+    @PostMapping("/initVehiclesTS")
+    public String initVehiclesTS() {
+        try {
+            settingsService.initVehiclesTable();
+            settingsService.initVehiclesSeq();
+            settingsService.createVehiclesSeq();
+            log.info("Vehicles 테이블과 시퀀스를 초기화했습니다!");
+        } catch (Exception e) {
+            log.error("Vehicles 테이블과 시퀀스 초기화 중 오류가 발생했습니다: " + e.getMessage());
+        }
+        return "redirect:/settings";
+    }
+    
+    @PostMapping("/deleteVehiclesTS")
+    public String deleteVehiclesTS() {
+        try {
+            settingsService.deleteVehiclesTable();
+            settingsService.deleteVehiclesSeq();
+            log.info("Vehicles 테이블과 시퀀스를 삭제했습니다.");
+        } catch (Exception e) {
+            log.error("Vehicles 테이블과 시퀀스 삭제 중 오류가 발생했습니다: " + e.getMessage());
+        }
+        return "redirect:/settings";
     }
     
 }
