@@ -5,6 +5,9 @@ import "./6_VehicleSelector.css";
 import { useContext, useEffect } from "react";
 import { DataContext } from "../../contexts/DataContext";
 
+import gn7Img from "./../../images/vehicles/gn7.jpg";
+import { _makeCurrencyStr } from "../../modules/utils/BlueString";
+
 type SelectVehicleEvent = (plId: number, vehicleId: number) => void;
 
 interface VehicleSelectorProps {
@@ -12,29 +15,20 @@ interface VehicleSelectorProps {
   onSelectVehicle: SelectVehicleEvent;
 }
 
-// interface VehicleListState {
-//   pl_name: string;
-// }
-
 const VehicleSelector = (props: VehicleSelectorProps) => {
   const dataCtx = useContext(DataContext);
-  // const [state, setState] = useState<VehicleListState>({
-  //   pl_name: "",
-  // });
 
   useEffect(() => {
-    console.log("[VehicleList] mounted");
+    // console.log("[VehicleList] mounted");
   }, []);
 
   useEffect(() => {
-    console.log("[VehicleList] rendered");
+    // console.log("[VehicleList] rendered");
   });
 
   const pl = dataCtx.state.parkingLots.find(
     (value) => value.pl_id === props.parkingLotId
   );
-
-  console.log(pl);
 
   const handleClickVehicle = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -43,8 +37,6 @@ const VehicleSelector = (props: VehicleSelectorProps) => {
     const vehicleIdDData = t.dataset.vehicleId;
     const vehicleId = Number(vehicleIdDData);
 
-    //console.log(vehicleId);
-
     props.onSelectVehicle(pl ? pl.pl_id : -1, vehicleId);
   };
 
@@ -52,19 +44,36 @@ const VehicleSelector = (props: VehicleSelectorProps) => {
     return (
       <div
         key={vehicle.vehicle_id}
-        onClick={handleClickVehicle}
+        className="vehicle-container"
         data-vehicle-id={vehicle.vehicle_id}
-        style={{
-          border: "1px solid blue",
-          display: "flex",
-          flexDirection: "column",
-        }}
+        onClick={handleClickVehicle}
       >
-        <div style={{ backgroundColor: "lightblue" }}>
-          차량 이름: {vehicle.name}
+        {/* 차량 이미지 */}
+        <div className="vehicle-img">
+          {/* 차량 이미지 */}
+          <div>
+            {/* <img src="./images/vehicles/gn7.jpg" width={64}></img> */}
+            <img src={gn7Img} width={64} />
+          </div>
+
+          {/* 주행 단가 */}
+          <div className="vehicle-price-per-km">
+            {vehicle.price_per_km}&nbsp;원/km
+          </div>
         </div>
-        <div style={{ backgroundColor: "lightgreen" }}>
-          가능 여부: {vehicle.usable ? "true" : "false"}
+
+        {/* 차량 정보 */}
+        <div className="vehicle-info">
+          {/* 차량 이름 */}
+          <div>
+            <b>{vehicle.name}</b>
+          </div>
+          {/* 차량 옵션 */}
+          <div className="vehicle-opts">{vehicle.options}</div>
+          {/* 대여 비용 */}
+          <div className="vehicle-price">
+            <b>{_makeCurrencyStr(4 * vehicle.price_per_hour)}</b>원
+          </div>
         </div>
       </div>
     );
@@ -75,22 +84,13 @@ const VehicleSelector = (props: VehicleSelectorProps) => {
       <div className="vl-header">차량 선택</div>
       <div className="vl-body">
         {/* 주차장 */}
-        <div>
-          <div>{pl?.name}</div>
+        <div className="vl-body-parking-lot">
+          <b>{pl?.name}</b>&nbsp;
+          {/* ({pl?.address}) */}
         </div>
-
-        <hr></hr>
 
         {/* 차량 리스트 */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1rem",
-          }}
-        >
-          {vehicle_list}
-        </div>
+        <div className="vl-body-vehicle-list">{vehicle_list}</div>
       </div>
     </div>
   );

@@ -166,10 +166,10 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
   }
 
   return new Promise((resolve, reject) => {
-    // 1초 걸린다고 가정
+    // 100ms 걸린다고 가정
     setTimeout(() => {
       resolve(pl);
-    }, 2000);
+    }, 100);
   });
 };
 

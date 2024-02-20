@@ -88,9 +88,9 @@ const VehicleListMap = (props: VehicleListMapProps) => {
         const loc = await NaverMapLocation.fromAddr(pl.address);
         const m = view.addMarker(loc, pl.pl_id);
         if (pl.vehicle_usable_count === 0) {
-          m.ImageUrl = "./images/marker-gray.png";
+          m.ImageUrl = "./images/markers/marker-gray.png";
         } else {
-          m.ImageUrl = "./images/marker-blue.png";
+          m.ImageUrl = "./images/markers/marker-blue.png";
         }
       });
     };

@@ -107,7 +107,7 @@ const LoginPage = () => {
           title={state.modalTitle}
           text={state.modalText}
           show={state.modalShow}
-          cancelBtnText=""
+          cancelBtnText="" // 취소 버튼 사용 안 함
           onClickOkBtn={handleClickModalOkBtn}
         />
 

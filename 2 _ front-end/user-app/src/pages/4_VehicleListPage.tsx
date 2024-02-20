@@ -21,17 +21,16 @@ import VehicleListMap from "./4_VehicleListPage/1_VehicleListMap";
 import VehicleListTimeBar from "./4_VehicleListPage/2_VehicleListTimeBar";
 import Dimmer from "../components/common/Dimmer";
 import VehicleSelector from "./4_VehicleListPage/6_VehicleSelector";
+import { Spinner } from "react-bootstrap";
 
 interface VehicleListPageState {
   addr: string;
   rentStartTime: Date;
   rentEndTime: Date;
 
-  showLoadingSpinner: boolean;
-
   dimmerChild: ReactNode;
-
   vehicleSelectorPlId: number;
+  showLoadingSpinner: boolean;
 }
 const VehicleListPage = () => {
   const DataCtx = useContext(DataContext);
@@ -51,28 +50,6 @@ const VehicleListPage = () => {
   const dataCtx = useContext(DataContext);
   const nav = useNavigate();
 
-  // ⭐ 차량 목록 요청
-  const requestVehicleList = async (startTime?: Date, endTime?: Date) => {
-    if (startTime === undefined) startTime = state.rentStartTime;
-    if (endTime === undefined) endTime = state.rentEndTime;
-
-    console.warn(`다음 조건으로 차량 리스트 요청 중..`);
-    console.warn(`대여 시간: ${_dateTimeToStr(startTime)}`);
-    console.warn(`반납 시간: ${_dateTimeToStr(endTime)}`);
-
-    //showLoadingSpinner(true);
-
-    const pl = await get_vehicle_list(startTime, endTime);
-    // console.log(pl);
-    if (Array.isArray(pl)) {
-      dataCtx.actions.setParkingLots(pl);
-    } else {
-      //
-    }
-
-    //showLoadingSpinner(false);
-  };
-
   useEffect(() => {
     console.log("[VehicleListPage] mounted");
 
@@ -89,6 +66,8 @@ const VehicleListPage = () => {
     console.log("[VehicleListPage] rendered");
   });
 
+  //------------------------------------------------------------------
+
   // const gotoReservationPage = () => {
   //   nav("/reservation");
   // };
@@ -97,31 +76,43 @@ const VehicleListPage = () => {
     nav("/reservation-list");
   };
 
+  //------------------------------------------------------------------
+
+  // ⭐ 차량 목록 요청
+  const requestVehicleList = async (startTime?: Date, endTime?: Date) => {
+    if (startTime === undefined) startTime = state.rentStartTime;
+    if (endTime === undefined) endTime = state.rentEndTime;
+
+    console.warn(`다음 조건으로 차량 리스트 요청 중..`);
+    console.warn(`대여 시간: ${_dateTimeToStr(startTime)}`);
+    console.warn(`반납 시간: ${_dateTimeToStr(endTime)}`);
+
+    showLoadingSpinner(true);
+
+    const pl = await get_vehicle_list(startTime, endTime);
+    // console.log(pl);
+    if (Array.isArray(pl)) {
+      dataCtx.actions.setParkingLots(pl);
+    } else {
+      //
+    }
+
+    showLoadingSpinner(false);
+  };
+
+  //------------------------------------------------------------------
+
   const setAddrBarText = (text: string) => {
     setState((prev) => ({ ...prev, addr: text }));
   };
 
-  /*
-  const showLoadingSpinner = (show: boolean) => {
-    const dimmedChild = show ? (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignContent: "center",
-        }}
-      >
-        <Spinner animation="border" variant="primary" />
-      </div>
-    ) : undefined;
-
+  const setRentTime = (startTime: Date, endTime: Date) => {
     setState((prev) => ({
       ...prev,
-      dimmedChild,
-      showLoadingSpinner: show,
+      rentStartTime: startTime,
+      rentEndTime: endTime,
     }));
   };
-  */
 
   const showDimmer = (child: ReactNode) => {
     setState((prev) => ({ ...prev, dimmerChild: child }));
@@ -154,18 +145,35 @@ const VehicleListPage = () => {
     // showDimmer(child);
   };
 
-  const setRentTime = (startTime: Date, endTime: Date) => {
+  const showLoadingSpinner = (show: boolean) => {
+    const dimmerChild = show ? (
+      <div
+        style={{
+          justifySelf: "center",
+          alignSelf: "center",
+        }}
+      >
+        <Spinner animation="border" variant="warning" />
+      </div>
+    ) : undefined;
+
     setState((prev) => ({
       ...prev,
-      rentStartTime: startTime,
-      rentEndTime: endTime,
+      dimmerChild,
+      showLoadingSpinner: show,
     }));
   };
+
+  //------------------------------------------------------------------
 
   const handleChangeAddr = (loc: NaverMapLocation) => {
     const addr = loc.AddrRoad !== "" ? loc.AddrRoad : loc.Addr;
     setAddrBarText(addr);
     showVehicleSelector(-1);
+  };
+
+  const handleClickReserveListBtn = () => {
+    gotoReservationListPage();
   };
 
   const handleClickMarker = (marker: NaverMapMarker) => {
@@ -174,26 +182,6 @@ const VehicleListPage = () => {
 
     const plId = marker.Sn;
     showVehicleSelector(plId);
-  };
-
-  const handleClickReserveListBtn = () => {
-    gotoReservationListPage();
-  };
-
-  const handleClickTimeSelectorOk = async (startTime: Date, endTime: Date) => {
-    // console.log(`startTime: ${_dateTimeToStr(startTime)}`);
-    // console.log(`endTime:   ${_dateTimeToStr(endTime)}`);
-
-    //
-    //await requestVehicleList(startTime, endTime);
-    //
-
-    showTimeSelector(false);
-  };
-
-  const handleClickRentTime = () => {
-    showVehicleSelector(-1);
-    showTimeSelector(true);
   };
 
   const handleSelectVehicle = (plId: number, vehicleId: number) => {
@@ -205,6 +193,21 @@ const VehicleListPage = () => {
     if (pl && vehicle) {
       alert(pl.name + " => " + vehicle.name);
     }
+  };
+
+  const handleClickTimeSelectorOk = async (startTime: Date, endTime: Date) => {
+    // console.log(`startTime: ${_dateTimeToStr(startTime)}`);
+    // console.log(`endTime:   ${_dateTimeToStr(endTime)}`);
+
+    setRentTime(startTime, endTime);
+    showTimeSelector(false);
+
+    await requestVehicleList(startTime, endTime);
+  };
+
+  const handleClickRentTime = () => {
+    showVehicleSelector(-1);
+    showTimeSelector(true);
   };
 
   return (
