@@ -6,7 +6,7 @@ const _reservation_add_test = async (
   start_time: Date,
   end_time: Date
 ): Promise<string> => {
-  return "";
+  return "ok";
 };
 
 // # 예약 추가

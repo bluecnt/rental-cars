@@ -30,16 +30,6 @@ const Dimmer = (props: DimmerProps) => {
       <div className="dimmer-bkgnd" />
       <div className="dimmer-body">{props.children}</div>
     </div>
-
-    // <>
-    //     <div
-    //       style={{
-    //         zIndex: props.zIndex + "",
-    //       }}
-    //       className="dimmer-bkgnd"
-    //     />
-    //     <div style={{ zIndex: props.zIndex + 1 + "" }}>{props.children}</div>
-    //   </>
   );
 };
 

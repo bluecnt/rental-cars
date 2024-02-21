@@ -26,6 +26,16 @@ const VehicleListMap = (props: VehicleListMapProps) => {
 
     /*
     const asyncFunc = async () => {
+      const loc = await NaverMapLocation.fromAddr(
+        "경기 구리시 왕숙천로 339 인창고등학교"
+      );
+      console.log(loc.toString());
+    };
+    asyncFunc();
+    */
+
+    /*
+    const asyncFunc = async () => {
       // console.log("[VehicleListMap] asyncFunc()");
       const locGuriStation = await NaverMapLocation.fromAddr(
         //"건원대로 34번길 32-29"

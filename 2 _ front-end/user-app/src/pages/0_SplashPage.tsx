@@ -5,7 +5,7 @@ import PageContainer from "../components/common/PageContainer";
 import ContentContainer from "../components/common/ContentContainer";
 import { ReactNode, useEffect, useState } from "react";
 import SplashContent from "./0_SplashPage/SplashContent";
-import { is_login } from "../modules/rest-clients/users";
+import { is_login } from "../modules/rest-client/users";
 import { Button } from "react-bootstrap";
 
 interface SplashPageState {

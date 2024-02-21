@@ -39,7 +39,8 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
       "desc",
       "remark",
       //
-      true
+      true,
+      0
     );
 
     const v1 = new VehicleDTO(
@@ -54,7 +55,8 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
       "desc",
       "remark",
       //
-      true
+      true,
+      1
     );
 
     const v2 = new VehicleDTO(
@@ -69,7 +71,8 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
       "desc",
       "remark",
       //
-      true
+      true,
+      2
     );
 
     const vehicles0 = new Array<VehicleDTO>();
@@ -99,7 +102,7 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
   //------------------------------------------------------------------
   {
     const v0 = new VehicleDTO(
-      0,
+      10,
       new Date(),
       "G70",
       "img",
@@ -110,11 +113,12 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
       "desc",
       "remark",
       //
-      false
+      true,
+      3
     );
 
     const v1 = new VehicleDTO(
-      1,
+      11,
       new Date(),
       "G80",
       "img",
@@ -125,11 +129,12 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
       "desc",
       "remark",
       //
-      false
+      false,
+      4
     );
 
     const v2 = new VehicleDTO(
-      2,
+      12,
       new Date(),
       "G90",
       "img",
@@ -140,7 +145,8 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
       "desc",
       "remark",
       //
-      false
+      false,
+      5
     );
 
     const vehicles1 = new Array<VehicleDTO>();
@@ -155,6 +161,46 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
       "경기도 남양주시 경춘로 433",
       37.6033337,
       127.1436109,
+      "desc",
+      "remark",
+      //
+      1,
+      vehicles1
+    );
+
+    pl.push(pl1);
+  }
+
+  //------------------------------------------------------------------
+  // 인창고
+  //------------------------------------------------------------------
+  {
+    const v0 = new VehicleDTO(
+      20,
+      new Date(),
+      "G70",
+      "img",
+      "165허1234",
+      "opts",
+      10000,
+      300,
+      "desc",
+      "remark",
+      //
+      false,
+      6
+    );
+
+    const vehicles1 = new Array<VehicleDTO>();
+    vehicles1.push(v0);
+
+    const pl1 = new ParkingLotsDTO(
+      2,
+      new Date(),
+      "인창고등학교",
+      "경기 구리시 왕숙천로 339 인창고등학교",
+      127.1466198,
+      37.6054986,
       "desc",
       "remark",
       //

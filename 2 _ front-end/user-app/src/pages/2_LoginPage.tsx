@@ -5,12 +5,13 @@ import "./2_LoginPage/2_LoginPage.css";
 import { useNavigate } from "react-router-dom";
 import PageContainer from "../components/common/PageContainer";
 import ContentContainer from "../components/common/ContentContainer";
-import { Alert, Button, FormControl, Modal } from "react-bootstrap";
-import { useEffect, useRef, useState } from "react";
+import { Alert, Button, FormControl } from "react-bootstrap";
+import { useContext, useEffect, useRef, useState } from "react";
 import { _focus, _getValue, _setValue } from "../modules/utils/BlueHtmlElem";
-import { do_login } from "../modules/rest-clients/users";
+import { do_login } from "../modules/rest-client/users";
 import LoginDTO from "../modules/dto/LoginDTO";
 import BsModal from "../modules/bootstrap/BsModal";
+import { DataContext } from "../contexts/DataContext";
 
 interface LoginPageState {
   modalTitle: string;
@@ -19,6 +20,7 @@ interface LoginPageState {
 }
 
 const LoginPage = () => {
+  const dataCtx = useContext(DataContext);
   const [state, setState] = useState<LoginPageState>({
     modalTitle: "BLUECNT Rental Cars",
     modalText: "",
@@ -88,13 +90,15 @@ const LoginPage = () => {
     if (!checkField("user_pw", "비밀번호를 입력하세요")) return;
 
     const dto = getLoginDTO();
-    const msg = await do_login(dto);
-    if (msg === "") {
+    const userDTO = await do_login(dto);
+    if (userDTO.msgFromServer === "") {
+      console.log(userDTO);
+      dataCtx.actions.setUserDTO(userDTO);
       gotoVehicleListPage();
     } else {
       setState((prev) => ({
         ...prev,
-        modalText: msg,
+        modalText: userDTO.msgFromServer,
         modalShow: true,
       }));
     }

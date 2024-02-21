@@ -8,7 +8,7 @@ import { _focus, _getValue, _setValue } from "../modules/utils/BlueHtmlElem";
 import PageContainer from "../components/common/PageContainer";
 import ContentContainer from "../components/common/ContentContainer";
 import { Alert, Button, FormControl } from "react-bootstrap";
-import { do_register } from "../modules/rest-clients/users";
+import { do_register } from "../modules/rest-client/users";
 import { RegisterDTO } from "../modules/dto/RegisterDTO";
 import BsModal from "../modules/bootstrap/BsModal";
 

@@ -8,7 +8,7 @@ import { DataContext } from "../../contexts/DataContext";
 import gn7Img from "./../../images/vehicles/gn7.jpg";
 import { _makeCurrencyStr } from "../../modules/utils/BlueString";
 
-type SelectVehicleEvent = (plId: number, vehicleId: number) => void;
+type SelectVehicleEvent = (regId: number) => void;
 
 interface VehicleSelectorProps {
   parkingLotId: number;
@@ -37,14 +37,22 @@ const VehicleSelector = (props: VehicleSelectorProps) => {
     const vehicleIdDData = t.dataset.vehicleId;
     const vehicleId = Number(vehicleIdDData);
 
-    props.onSelectVehicle(pl ? pl.pl_id : -1, vehicleId);
+    const vehicle = pl?.vehicles.find((v) => v.vehicle_id === vehicleId);
+    if (vehicle?.usable) {
+      //props.onSelectVehicle(pl ? pl.pl_id : -1, vehicleId);
+      props.onSelectVehicle(vehicle.reg_id);
+    }
   };
 
   const vehicle_list = pl?.vehicles.map((vehicle) => {
+    const className = vehicle.usable
+      ? "vehicle-container"
+      : "vehicle-container-disabled";
+
     return (
       <div
         key={vehicle.vehicle_id}
-        className="vehicle-container"
+        className={className}
         data-vehicle-id={vehicle.vehicle_id}
         onClick={handleClickVehicle}
       >
@@ -53,7 +61,7 @@ const VehicleSelector = (props: VehicleSelectorProps) => {
           {/* 차량 이미지 */}
           <div>
             {/* <img src="./images/vehicles/gn7.jpg" width={64}></img> */}
-            <img src={gn7Img} width={64} />
+            <img src={gn7Img} width={64} alt={"차량 이미지"} />
           </div>
 
           {/* 주행 단가 */}
@@ -75,6 +83,9 @@ const VehicleSelector = (props: VehicleSelectorProps) => {
             <b>{_makeCurrencyStr(4 * vehicle.price_per_hour)}</b>원
           </div>
         </div>
+
+        {/* disabled */}
+        {!vehicle.usable && <div className="vehicle-disabled" />}
       </div>
     );
   });

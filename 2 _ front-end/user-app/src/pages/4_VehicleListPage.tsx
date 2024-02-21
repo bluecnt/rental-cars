@@ -14,7 +14,7 @@ import {
 } from "../modules/utils/BlueTime";
 import TimeSelector from "./4_VehicleListPage/5_TimeSelector";
 import NaverMapMarker from "../modules/naver-map/NaverMapMarker";
-import { get_vehicle_list } from "../modules/rest-clients/vehicle-list";
+import { get_vehicle_list } from "../modules/rest-client/vehicle-list";
 import { DataContext } from "../contexts/DataContext";
 import VehicleListAddrBar from "./4_VehicleListPage/0_VehicleListAddrBar";
 import VehicleListMap from "./4_VehicleListPage/1_VehicleListMap";
@@ -22,6 +22,7 @@ import VehicleListTimeBar from "./4_VehicleListPage/2_VehicleListTimeBar";
 import Dimmer from "../components/common/Dimmer";
 import VehicleSelector from "./4_VehicleListPage/6_VehicleSelector";
 import { Spinner } from "react-bootstrap";
+import { reservation_add } from "../modules/rest-client/reservations";
 
 interface VehicleListPageState {
   addr: string;
@@ -184,15 +185,25 @@ const VehicleListPage = () => {
     showVehicleSelector(plId);
   };
 
-  const handleSelectVehicle = (plId: number, vehicleId: number) => {
-    const pl = dataCtx.state.parkingLots.find((pl) => pl.pl_id === plId);
-    const vehicle = pl?.vehicles.find(
-      (vehicle) => vehicle.vehicle_id === vehicleId
-    );
+  //const handleSelectVehicle = (plId: number, vehicleId: number) => {
+  const handleSelectVehicle = async (regId: number) => {
+    // const pl = dataCtx.state.parkingLots.find((pl) => pl.pl_id === plId);
+    // const vehicle = pl?.vehicles.find(
+    //   (vehicle) => vehicle.vehicle_id === vehicleId
+    // );
 
-    if (pl && vehicle) {
-      alert(pl.name + " => " + vehicle.name);
+    //    if (pl && vehicle) {
+    //alert(pl.name + " => " + vehicle.name);
+    //console.log(dataCtx.state.userDTO.cust_id);
+
+    const cust_id = dataCtx.state.userDTO.cust_id;
+    const start_time = state.rentStartTime;
+    const end_time = state.rentEndTime;
+    const msg = await reservation_add(cust_id, regId, start_time, end_time);
+    if (msg === "ok") {
+      alert(msg);
     }
+    //  }
   };
 
   const handleClickTimeSelectorOk = async (startTime: Date, endTime: Date) => {
