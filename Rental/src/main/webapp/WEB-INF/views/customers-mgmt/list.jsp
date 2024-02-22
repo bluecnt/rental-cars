@@ -10,7 +10,8 @@
 	<link rel="stylesheet" href="/resources/customers/css/list.css">
 </head>
 <body>
-<h2>회원정보 리스트</h2>
+	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+	<h2>회원정보 리스트</h2>
 	<form id="searchForm" action="/rental/customers-mgmt" method="get" style="text-align: center;">
 		<label for="카테고리"></label>
 		<select name="category" id="category">
@@ -49,6 +50,7 @@
 				<th>면허번호</th>
 				<th>카드사</th>
 				<th>카드번호</th>
+				<th>승인</th>
 				<th>포인트</th>			
 				<th>기타</th>
 				<th>수정</th>
@@ -67,6 +69,7 @@
 				<td>${customer.license_number}</td>
 				<td>${customer.credit_card_company}</td>
 				<td>${customer.credit_card_number}</td>
+				<td>${customer.accept}</td>
 				<td>${customer.point}</td>
 				<td>${customer.remark}</td>
 				<td><button class="updateBtn" type="button">수정</button></td>
@@ -97,6 +100,6 @@
 	
 	<!-- customers 자바스크립트 경로 -->
 	<script src="${pageContext.request.contextPath}/resources/customers/js/list.js"></script>
-	
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>

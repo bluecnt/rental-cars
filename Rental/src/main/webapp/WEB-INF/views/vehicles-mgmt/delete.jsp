@@ -4,9 +4,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Delete Customer</title>
+    <title>Delete Vehicle</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
     <h3>Delete Vehicle</h3>
 
     <form action="/rental/vehicles-mgmt/delete" method="post">
@@ -17,6 +18,6 @@
 
         <button type="submit">차량삭제</button>
     </form>
-
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>

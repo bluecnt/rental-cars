@@ -7,6 +7,7 @@
     <title>Delete Customer</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
     <h3>Delete Parking-Lots</h3>
 
     <form action="/rental/parking-lots-mgmt/delete" method="post">
@@ -19,5 +20,6 @@
     </form>
 
     <a href="/rental/parking-lots-mgmt">목록으로 돌아가기</a>
+    <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>

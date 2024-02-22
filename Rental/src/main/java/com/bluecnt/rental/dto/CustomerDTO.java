@@ -15,6 +15,8 @@ public class CustomerDTO {
 	private String license_number;
 	private String credit_card_company;
 	private String credit_card_number;
-	private Integer point; 
+	private Integer point;
+	private Integer accept;
 	private String remark;
+	
 }

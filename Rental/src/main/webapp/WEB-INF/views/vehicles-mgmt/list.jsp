@@ -10,7 +10,9 @@
 	<link rel="stylesheet" href="/resources/vehicles/css/list.css">
 </head>
 <body>
-<h2>차량정보 리스트</h2>
+<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+
+	<h2>차량정보 리스트</h2>
 	<form id="searchForm" action="/rental/vehicles-mgmt" method="get" style="text-align: center;">
 		<label for="카테고리"></label>
 		<select name="category" id="category">
@@ -92,6 +94,6 @@
 	
 	<!-- vehicles 자바스크립트 경로 -->
 	<script src="${pageContext.request.contextPath}/resources/vehicles/js/list.js"></script>
-	
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>

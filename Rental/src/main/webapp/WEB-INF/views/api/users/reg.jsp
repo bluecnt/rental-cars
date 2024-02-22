@@ -1,16 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Add New Customer</title>
+<meta charset="UTF-8">
+<title>회원가입 페이지입니다.</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
-
-    <h2>고객정보 추가</h2>
-    <form action="/rental/customers-mgmt/add" method="post">
+	
+    <h2>회원가입</h2>
+    <form action="/rental/users/reg" method="post">
         <input type="hidden" name="join_date" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>" />
         <label for="user_email">메일주소: </label>
         <input type="text" id="user_email" name="user_email" value="dummy@example.com" required />
@@ -40,14 +42,14 @@
         <input type="number" id="point" name="point" value="1000" required />
         <br>
         <label for="accept">가입여부: </label>
-        <input type="number" id="accept" name="accept" value="1" required />
+        <input type="number" id="accept" name="accept" value="0" required />
         <br>
         <label for="remark">기타사항: </label>
         <input type="text" id="remark" name="remark" value="더미 데이터입니다." required />
         <br>
         <button type="submit">정보추가</button>
-    </form>
-
+    </form>	
+	
 	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>

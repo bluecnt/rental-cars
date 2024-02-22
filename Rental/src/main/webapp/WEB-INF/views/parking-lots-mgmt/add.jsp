@@ -7,6 +7,7 @@
     <title>주차장 정보추가</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
     <h2>주차장 정보추가</h2>
     <form action="/rental/parking-lots-mgmt/add" method="post">
@@ -32,6 +33,6 @@
         <br>
         <button type="submit">정보추가</button>
     </form>
-
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -25,4 +25,7 @@ public interface CustomersService {
 	// 고객정보추가
 	int addCustomer(CustomerDTO dto);
 	
+	// 고객 이메일, 비밀번호 확인
+	public List<CustomerDTO> getUserByEP(String user_email, String user_pw, int accept);
+	
 }

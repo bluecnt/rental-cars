@@ -19,6 +19,7 @@
             credit_card_company VARCHAR2(100),
             credit_card_number VARCHAR2(20),
             point NUMBER,
+            accept NUMBER,
             remark VARCHAR2(255)
         )
 	</update>

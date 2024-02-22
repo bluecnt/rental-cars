@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="/resources/parking-lots/css/list.css">
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 <h2>주차장정보 리스트</h2>
 	<form id="searchForm" action="/rental/parking-lots-mgmt" method="get" style="text-align: center;">
 		<label for="카테고리"></label>
@@ -89,6 +90,6 @@
 
 	<!-- parking-lots 자바스크립트 경로 -->
 	<script src="${pageContext.request.contextPath}/resources/parking-lots/js/list.js"></script>
-	 
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>
