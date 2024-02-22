@@ -2,7 +2,6 @@
 
 // [SGLEE:20240205MON_121200] Created
 
-import { useNavigate } from "react-router-dom";
 import PageContainer from "../components/common/PageContainer";
 import ContentContainer from "../components/common/ContentContainer";
 import { ReactNode, useContext, useEffect, useState } from "react";
@@ -23,6 +22,7 @@ import Dimmer from "../components/common/Dimmer";
 import VehicleSelector from "./4_VehicleListPage/6_VehicleSelector";
 import { Spinner } from "react-bootstrap";
 import ReservationPage from "./4_VehicleListPage/7_ReservationPage";
+import ReservationListPage from "./4_VehicleListPage/8_ReservationListPage";
 
 interface VehicleListPageState {
   addr: string;
@@ -34,11 +34,11 @@ interface VehicleListPageState {
   showLoadingSpinner: boolean;
 }
 const VehicleListPage = () => {
-  const DataCtx = useContext(DataContext);
+  const dataCtx = useContext(DataContext);
 
   const rentStartTime = _next30Min();
   const [state, setState] = useState<VehicleListPageState>({
-    addr: DataCtx.state.mapCenterAddr,
+    addr: dataCtx.state.mapCenterAddr,
     rentStartTime,
     rentEndTime: _addTime(rentStartTime, 4),
     //
@@ -46,8 +46,8 @@ const VehicleListPage = () => {
     vehicleSelectorPlId: -1,
     showLoadingSpinner: false,
   });
-  const dataCtx = useContext(DataContext);
-  const nav = useNavigate();
+
+  // const nav = useNavigate();
 
   useEffect(() => {
     console.log("[VehicleListPage] mounted");
@@ -71,9 +71,9 @@ const VehicleListPage = () => {
   //   nav("/reservation");
   // };
 
-  const gotoReservationListPage = () => {
-    nav("/reservation-list");
-  };
+  // const gotoReservationListPage = () => {
+  //   nav("/reservation-list");
+  // };
 
   //------------------------------------------------------------------
 
@@ -163,6 +163,16 @@ const VehicleListPage = () => {
     showDimmer(child);
   };
 
+  const showReservationListPage = (show: boolean, curst_id: number) => {
+    const child = show ? (
+      <ReservationListPage
+        cust_id={curst_id}
+        onClickOk={handleClickReservationListOk}
+      />
+    ) : undefined;
+    showDimmer(child);
+  };
+
   const showLoadingSpinner = (show: boolean) => {
     const dimmerChild = show ? (
       <div
@@ -191,7 +201,8 @@ const VehicleListPage = () => {
   };
 
   const handleClickReserveListBtn = () => {
-    gotoReservationListPage();
+    const userDTO = dataCtx.state.userDTO;
+    showReservationListPage(true, userDTO.cust_id);
   };
 
   const handleClickMarker = (marker: NaverMapMarker) => {
@@ -248,6 +259,11 @@ const VehicleListPage = () => {
     showReservationPage(false, -1, -1, -1);
 
     //
+  };
+
+  const handleClickReservationListOk = () => {
+    showReservationListPage(false, -1);
+    showReservationListPage(true, -1);
   };
 
   return (

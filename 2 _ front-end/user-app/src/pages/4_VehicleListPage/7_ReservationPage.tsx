@@ -1,11 +1,13 @@
 // [SGLEE:20240222THU_114700] Created
 
+import "./7_ReservationPage.css";
+
 import { useContext, useEffect } from "react";
 import { Button } from "react-bootstrap";
-
-import "./7_ReservationPage.css";
 import { DataContext } from "../../contexts/DataContext";
 import { _calcTimeDiff, _dateTimeToStr } from "../../modules/utils/BlueTime";
+import { calcPrice } from "../../modules/rest-client/reservations";
+import { _makeCurrencyStr } from "../../modules/utils/BlueString";
 
 type ButtonClickEvent = () => void;
 
@@ -44,6 +46,13 @@ const ReservationPage = (props: ReservationPageProps) => {
   const timeStart = _dateTimeToStr(props.startTime);
   const timeEnd = _dateTimeToStr(props.endTime);
 
+  const price = calcPrice(
+    props.startTime,
+    props.endTime,
+    vehicle?.price_per_hour as number
+  );
+  const priceStr = _makeCurrencyStr(price) + "원";
+
   return (
     <div className="rp-container">
       <div className="rp-header">예약 및 결제</div>
@@ -51,7 +60,7 @@ const ReservationPage = (props: ReservationPageProps) => {
         {/* 차량 이미지, 이름 */}
         <div
           style={{
-            border: "1px solid blue",
+            // border: "1px solid blue",
             display: "flex",
             gap: "0.5rem",
           }}
@@ -61,6 +70,8 @@ const ReservationPage = (props: ReservationPageProps) => {
           </div>
           <div>
             <b>{vehicle?.name}</b>
+            <br></br>
+            {vehicle?.options}
           </div>
         </div>
 
@@ -91,7 +102,7 @@ const ReservationPage = (props: ReservationPageProps) => {
 
         {/* 결제 수단 */}
         <div className="rp-sect">
-          <div className="rp-sect-name">결제 수간</div>
+          <div className="rp-sect-name">결제 수단</div>
           <div className="rp-sect-value">
             {userDTO.credit_card_company} / {userDTO.credit_card_number}
           </div>
@@ -100,12 +111,14 @@ const ReservationPage = (props: ReservationPageProps) => {
         {/* 최종 결제 내역 */}
         <div className="rp-sect">
           <div className="rp-sect-name">최종 결제 내역</div>
-          <div className="rp-sect-value">?</div>
+          <div className="rp-sect-value">
+            <b>{priceStr}</b>
+          </div>
         </div>
       </div>
       <div className="rp-footer">
         <Button style={{ flex: 1 }} onClick={props.onClickOk}>
-          00,000원 결제
+          결제
         </Button>
         <Button
           variant="secondary"

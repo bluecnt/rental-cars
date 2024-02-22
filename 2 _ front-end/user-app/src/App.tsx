@@ -10,7 +10,6 @@ import InitialPage from "./pages/1_InitialPage";
 import LoginPage from "./pages/2_LoginPage";
 import RegisterPage from "./pages/3_RegisterPage";
 import VehicleListPage from "./pages/4_VehicleListPage";
-import ReservationListPage from "./pages/6_ReservationListPage";
 import GridLayoutTest1 from "./components/test/GridLayoutTest1";
 
 /*
@@ -67,7 +66,7 @@ const App = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/vehicle-list" element={<VehicleListPage />} />
           {/* <Route path="/reservation" element={<ReservationPage />} /> */}
-          <Route path="/reservation-list" element={<ReservationListPage />} />
+          {/* <Route path="/reservation-list" element={<ReservationListPage />} /> */}
         </Routes>
       </BrowserRouter>
     </DataContextProvider>

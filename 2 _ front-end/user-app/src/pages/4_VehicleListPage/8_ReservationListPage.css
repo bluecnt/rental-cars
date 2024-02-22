@@ -1,13 +1,13 @@
 /* 
-[SGLEE:20240222THU_115700] Created
+[SGLEE:20240222THU_141300] Created
 */
 
-.rp-container {
+.rlp-container {
   margin-bottom: 5rem;
 
   padding: 0;
   width: 480px;
-  height: 600px;
+  height: 300px;
 
   border: 2px solid var(--content-border-color);
   background-color: var(--content-back-color);
@@ -22,7 +22,7 @@
   overflow: hidden;
 }
 
-.rp-header {
+.rlp-header {
   /* border: 1px solid blue; */
 
   padding: 0.5rem;
@@ -30,7 +30,7 @@
   font-weight: bold;
 }
 
-.rp-body {
+.rlp-body {
   /* border: 1px solid green; */
 
   padding: 1rem;
@@ -42,7 +42,7 @@
   gap: 1rem;
 }
 
-.rp-footer {
+.rlp-footer {
   /* border: 1px solid red; */
 
   padding: 1rem;
@@ -51,30 +51,29 @@
   gap: 0.5rem;
 }
 
-.rp-sect {
-  /* border: 1px solid blue; */
-
-  background-color: var(--oc-gray-0);
+.rlp-vehicle-container {
+  border: 1px solid blue;
 
   display: flex;
 }
 
-.rp-sect-name {
-  /* border: 1px solid green; */
-
-  font-size: 14pt;
-  /* text-decoration: underline; */
-  font-weight: bold;
+.rlp-vehicle-img {
+  border: 1px solid green;
 }
 
-.rp-sect-value {
-  /* border: 1px solid red; */
+.rlp-vehicle-info {
+  border: 1px solid red;
 
-  margin-left: auto;
+  flex: 1;
 }
 
-.rp-sect-value2 {
-  /* border: 1px solid red; */
+.rlp-vehicle-btns {
+  border: 1px solid magenta;
 
-  padding-left: 1rem;
+  margin: 0.25rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
 }
