@@ -7,6 +7,7 @@
     <title>Add New Customer</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
     <h2>차량정보 추가</h2>
     <form action="/rental/vehicles-mgmt/add" method="post">
@@ -38,6 +39,6 @@
         <br>
         <button type="submit">정보추가</button>
     </form>
-
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -123,6 +123,7 @@ public class CustomersController {
         dto.setCredit_card_company("Company" + i);
         dto.setCredit_card_number("1234-5678-9012-3451");
         dto.setPoint(1000);
+        dto.setAccept(1);
         dto.setRemark("Remark " + i);
         customersService.addCustomer(dto);
     	}

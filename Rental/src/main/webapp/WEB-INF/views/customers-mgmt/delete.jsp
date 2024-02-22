@@ -7,6 +7,7 @@
     <title>Delete Customer</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
     <h3>Delete Customer</h3>
 
     <form action="/rental/customers-mgmt/delete" method="post">
@@ -17,6 +18,6 @@
 
         <button type="submit">회원삭제</button>
     </form>
-
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>

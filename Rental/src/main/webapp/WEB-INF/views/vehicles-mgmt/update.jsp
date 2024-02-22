@@ -11,8 +11,9 @@
 	href="${pageContext.request.contextPath}/resources/vehicles/css/update.css">
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
-	<h2>고객 정보 업데이트</h2>
+	<h2>차량 정보 업데이트</h2>
 	<table border="1">
 		<tr>
 			<th>No</th>
@@ -92,5 +93,6 @@
 		</form>
 	</c:forEach>
 	<a href="/rental/vehicles-mgmt">목록으로 돌아가기</a>
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/customers/css/update.css">
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
     <h2>고객 정보 업데이트</h2>
     <table border="1">
@@ -76,5 +77,6 @@
 	        <br>
     	</form>
     </c:forEach>
+    <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>

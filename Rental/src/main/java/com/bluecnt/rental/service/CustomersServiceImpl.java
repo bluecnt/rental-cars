@@ -60,7 +60,6 @@ public class CustomersServiceImpl implements CustomersService {
 	        return 0; // 삭제 실패
 	    }
 	}
-
 	
 	// 고객정보추가
 	@Override
@@ -70,6 +69,17 @@ public class CustomersServiceImpl implements CustomersService {
 		} catch (Exception e) {
 			log.error("Error adding customer: " + e.getMessage());
 			return 0; // 실패
+		}
+	}
+	
+	// 로그인 고객정보 확인
+	@Override
+	public List<CustomerDTO> getUserByEP(String user_email, String user_pw, int accept) {
+		try {
+			return customersMapper.getUserByEP(user_email, user_pw, accept);
+		} catch (Exception e) {
+			log.error("Error adding customer: " + e.getMessage());
+			return null;
 		}
 	}
 }
