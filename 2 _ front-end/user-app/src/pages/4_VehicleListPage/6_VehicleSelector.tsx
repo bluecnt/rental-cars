@@ -7,10 +7,17 @@ import { DataContext } from "../../contexts/DataContext";
 
 import gn7Img from "./../../images/vehicles/gn7.jpg";
 import { _makeCurrencyStr } from "../../modules/utils/BlueString";
+import { calcPrice } from "../../modules/rest-client/reservations";
 
-type SelectVehicleEvent = (regId: number) => void;
+type SelectVehicleEvent = (
+  regId: number,
+  plId: number,
+  vehicleId: number
+) => void;
 
 interface VehicleSelectorProps {
+  startTime: Date;
+  endTime: Date;
   parkingLotId: number;
   onSelectVehicle: SelectVehicleEvent;
 }
@@ -39,8 +46,7 @@ const VehicleSelector = (props: VehicleSelectorProps) => {
 
     const vehicle = pl?.vehicles.find((v) => v.vehicle_id === vehicleId);
     if (vehicle?.usable) {
-      //props.onSelectVehicle(pl ? pl.pl_id : -1, vehicleId);
-      props.onSelectVehicle(vehicle.reg_id);
+      props.onSelectVehicle(vehicle.reg_id, pl ? pl.pl_id : -1, vehicleId);
     }
   };
 
@@ -48,6 +54,12 @@ const VehicleSelector = (props: VehicleSelectorProps) => {
     const className = vehicle.usable
       ? "vehicle-container"
       : "vehicle-container-disabled";
+
+    const price = calcPrice(
+      props.startTime,
+      props.endTime,
+      vehicle.price_per_hour
+    );
 
     return (
       <div
@@ -80,7 +92,7 @@ const VehicleSelector = (props: VehicleSelectorProps) => {
           <div className="vehicle-opts">{vehicle.options}</div>
           {/* 대여 비용 */}
           <div className="vehicle-price">
-            <b>{_makeCurrencyStr(4 * vehicle.price_per_hour)}</b>원
+            <b>{_makeCurrencyStr(price)}</b>원
           </div>
         </div>
 

@@ -13,8 +13,6 @@
   background-color: var(--content-back-color);
   border-radius: 8px;
 
-  /* overflow: hidden; */
-
   position: absolute;
   justify-self: center;
   align-self: flex-end;

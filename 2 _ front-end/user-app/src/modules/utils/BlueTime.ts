@@ -146,3 +146,16 @@ export const _updateTime = (
   newDateTime.setSeconds(s);
   return newDateTime;
 };
+
+// 시간 차 계산
+export const _calcTimeDiff = (
+  start: Date,
+  end: Date
+): { hours: number; minutes: number } => {
+  const differenceInMilliseconds = Math.abs(end.getTime() - start.getTime());
+  const hours = Math.floor(differenceInMilliseconds / (1000 * 60 * 60));
+  const minutes = Math.floor(
+    (differenceInMilliseconds % (1000 * 60 * 60)) / (1000 * 60)
+  );
+  return { hours, minutes };
+};

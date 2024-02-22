@@ -22,13 +22,13 @@ import VehicleListTimeBar from "./4_VehicleListPage/2_VehicleListTimeBar";
 import Dimmer from "../components/common/Dimmer";
 import VehicleSelector from "./4_VehicleListPage/6_VehicleSelector";
 import { Spinner } from "react-bootstrap";
-import { reservation_add } from "../modules/rest-client/reservations";
+import ReservationPage from "./4_VehicleListPage/7_ReservationPage";
 
 interface VehicleListPageState {
   addr: string;
   rentStartTime: Date;
   rentEndTime: Date;
-
+  //
   dimmerChild: ReactNode;
   vehicleSelectorPlId: number;
   showLoadingSpinner: boolean;
@@ -39,14 +39,12 @@ const VehicleListPage = () => {
   const rentStartTime = _next30Min();
   const [state, setState] = useState<VehicleListPageState>({
     addr: DataCtx.state.mapCenterAddr,
-    rentStartTime: rentStartTime,
-    rentEndTime: _addTime(rentStartTime, 4, 0, 0),
-
-    showLoadingSpinner: false,
-
+    rentStartTime,
+    rentEndTime: _addTime(rentStartTime, 4),
+    //
     dimmerChild: undefined,
-
     vehicleSelectorPlId: -1,
+    showLoadingSpinner: false,
   });
   const dataCtx = useContext(DataContext);
   const nav = useNavigate();
@@ -146,6 +144,25 @@ const VehicleListPage = () => {
     // showDimmer(child);
   };
 
+  const showReservationPage = (
+    show: boolean,
+    regId: number,
+    plId: number,
+    vehicleId: number
+  ) => {
+    const child = show ? (
+      <ReservationPage
+        startTime={state.rentStartTime}
+        endTime={state.rentEndTime}
+        plId={plId}
+        vehicleId={vehicleId}
+        onClickOk={handleClickReservationOk}
+        onClickCancel={handleClickReservationCancel}
+      />
+    ) : undefined;
+    showDimmer(child);
+  };
+
   const showLoadingSpinner = (show: boolean) => {
     const dimmerChild = show ? (
       <div
@@ -186,24 +203,24 @@ const VehicleListPage = () => {
   };
 
   //const handleSelectVehicle = (plId: number, vehicleId: number) => {
-  const handleSelectVehicle = async (regId: number) => {
+  const handleSelectVehicle = async (
+    regId: number,
+    plId: number,
+    vehicleId: number
+  ) => {
     // const pl = dataCtx.state.parkingLots.find((pl) => pl.pl_id === plId);
     // const vehicle = pl?.vehicles.find(
     //   (vehicle) => vehicle.vehicle_id === vehicleId
     // );
-
     //    if (pl && vehicle) {
     //alert(pl.name + " => " + vehicle.name);
     //console.log(dataCtx.state.userDTO.cust_id);
-
-    const cust_id = dataCtx.state.userDTO.cust_id;
-    const start_time = state.rentStartTime;
-    const end_time = state.rentEndTime;
-    const msg = await reservation_add(cust_id, regId, start_time, end_time);
-    if (msg === "ok") {
-      alert(msg);
-    }
+    // const cust_id = dataCtx.state.userDTO.cust_id;
+    // const start_time = state.rentStartTime;
+    // const end_time = state.rentEndTime;
     //  }
+
+    showReservationPage(true, regId, plId, vehicleId);
   };
 
   const handleClickTimeSelectorOk = async (startTime: Date, endTime: Date) => {
@@ -212,13 +229,25 @@ const VehicleListPage = () => {
 
     setRentTime(startTime, endTime);
     showTimeSelector(false);
-
     await requestVehicleList(startTime, endTime);
   };
 
   const handleClickRentTime = () => {
     showVehicleSelector(-1);
     showTimeSelector(true);
+  };
+
+  const handleClickReservationOk = () => {
+    showReservationPage(false, -1, -1, -1);
+    showVehicleSelector(-1);
+
+    //
+  };
+
+  const handleClickReservationCancel = () => {
+    showReservationPage(false, -1, -1, -1);
+
+    //
   };
 
   return (
@@ -242,6 +271,8 @@ const VehicleListPage = () => {
 
         {state.vehicleSelectorPlId > -1 && (
           <VehicleSelector
+            startTime={state.rentStartTime}
+            endTime={state.rentEndTime}
             parkingLotId={state.vehicleSelectorPlId}
             onSelectVehicle={handleSelectVehicle}
           />

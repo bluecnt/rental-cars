@@ -3,6 +3,7 @@
 import "./2_VehicleListTimeBar.css";
 
 import { _dateTimeToStr } from "../../modules/utils/BlueTime";
+import { useEffect } from "react";
 
 type OnClickDiv = () => void;
 
@@ -16,6 +17,15 @@ const VehicleListTimeBar = (props: VehicleListTimeBarProps) => {
   const handleClickCntr = () => {
     props.onClickRentTime();
   };
+
+  useEffect(() => {
+    console.log("[2_VehicleListTimeBar] rendered");
+    // console.log(
+    //   `Time: ${_dateTimeToStr(props.rentStartTime)} ~ ${_dateTimeToStr(
+    //     props.rentEndTime
+    //   )}`
+    // );
+  });
 
   return (
     <div className="time-cntr" onClick={handleClickCntr}>
