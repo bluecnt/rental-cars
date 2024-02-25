@@ -11,6 +11,9 @@ import LoginPage from "./pages/2_LoginPage";
 import RegisterPage from "./pages/3_RegisterPage";
 import VehicleListPage from "./pages/4_VehicleListPage";
 import GridLayoutTest1 from "./components/test/GridLayoutTest1";
+import TestBlueDialog from "./modules/ui/TestBlueDialog";
+import BsModal from "./modules/bootstrap/BsModal";
+import { useState } from "react";
 
 /*
 function App() {
@@ -53,25 +56,25 @@ const App = () => {
 };
 */
 
-const App = () => {
-  console.clear();
+// const App = () => {
+//   console.clear();
 
-  return (
-    <DataContextProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<SplashPage />} />
-          <Route path="/initial" element={<InitialPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/vehicle-list" element={<VehicleListPage />} />
-          {/* <Route path="/reservation" element={<ReservationPage />} /> */}
-          {/* <Route path="/reservation-list" element={<ReservationListPage />} /> */}
-        </Routes>
-      </BrowserRouter>
-    </DataContextProvider>
-  );
-};
+//   return (
+//     <DataContextProvider>
+//       <BrowserRouter>
+//         <Routes>
+//           <Route path="/" element={<SplashPage />} />
+//           <Route path="/initial" element={<InitialPage />} />
+//           <Route path="/login" element={<LoginPage />} />
+//           <Route path="/register" element={<RegisterPage />} />
+//           <Route path="/vehicle-list" element={<VehicleListPage />} />
+//           {/* <Route path="/reservation" element={<ReservationPage />} /> */}
+//           {/* <Route path="/reservation-list" element={<ReservationListPage />} /> */}
+//         </Routes>
+//       </BrowserRouter>
+//     </DataContextProvider>
+//   );
+// };
 
 /*
 const App = () => {
@@ -92,5 +95,27 @@ const App = () => {
   return <GridLayoutTest1 />;
 };
 */
+
+const App = () => {
+  console.clear();
+
+  const [state, setState] = useState<boolean>(true);
+
+  const handleclickModalOkBtn = () => {
+    setState(false);
+  };
+
+  // return (
+  //   <BsModal
+  //     title={"타이틀"}
+  //     text={"텍스트"}
+  //     show={state}
+  //     cancelBtnText="" // 취소 버튼 사용 안 함
+  //     onClickOkBtn={handleclickModalOkBtn}
+  //   />
+  // );
+
+  return <TestBlueDialog />;
+};
 
 export default App;

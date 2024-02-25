@@ -2,7 +2,7 @@
 
 import "./ContentContainer.css";
 
-import { ReactNode } from "react";
+import { ReactNode, useRef } from "react";
 
 export interface ContentContainerProps {
   children: ReactNode;
