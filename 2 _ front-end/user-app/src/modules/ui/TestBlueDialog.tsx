@@ -34,6 +34,7 @@ const TestBlueDialog = () => {
             useBackdrop={false}
             //
             margin="0 0 2rem 0"
+            height="200px"
             justify="center"
             align="flex-end"
             //
@@ -44,7 +45,13 @@ const TestBlueDialog = () => {
               </Button>
             }
           >
-            <Button>버튼</Button>
+            <Button
+              style={{
+                height: "200px",
+              }}
+            >
+              버튼
+            </Button>
           </BlueDialog>
         )}
       </ContentContainer>

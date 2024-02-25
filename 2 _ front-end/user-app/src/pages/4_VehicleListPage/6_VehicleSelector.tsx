@@ -2,12 +2,14 @@
 // [SGLEE:20240215WED_172400] Created
 
 import "./6_VehicleSelector.css";
+
 import { useContext, useEffect } from "react";
 import { DataContext } from "../../contexts/DataContext";
 
 import gn7Img from "./../../images/vehicles/gn7.jpg";
 import { _makeCurrencyStr } from "../../modules/utils/BlueString";
 import { calcPrice } from "../../modules/rest-client/reservations";
+import BlueDialog from "../../modules/ui/BlueDialog";
 
 type SelectVehicleEvent = (
   regId: number,
@@ -103,8 +105,30 @@ const VehicleSelector = (props: VehicleSelectorProps) => {
   });
 
   return (
-    <div className="vl-container">
-      <div className="vl-header">차량 선택</div>
+    // <div className="vl-container">
+    //   <div className="vl-header">차량 선택</div>
+    //   <div className="vl-body">
+    //     {/* 주차장 */}
+    //     <div className="vl-body-parking-lot">
+    //       <b>{pl?.name}</b>&nbsp;
+    //       {/* ({pl?.address}) */}
+    //     </div>
+    //
+    //     {/* 차량 리스트 */}
+    //     <div className="vl-body-vehicle-list">{vehicle_list}</div>
+    //   </div>
+    // </div>
+
+    <BlueDialog
+      useBackdrop={false}
+      //
+      margin="0 0 6rem 0"
+      height="350px"
+      align="flex-end"
+      //
+      title={"차량 선택"}
+      //
+    >
       <div className="vl-body">
         {/* 주차장 */}
         <div className="vl-body-parking-lot">
@@ -115,7 +139,7 @@ const VehicleSelector = (props: VehicleSelectorProps) => {
         {/* 차량 리스트 */}
         <div className="vl-body-vehicle-list">{vehicle_list}</div>
       </div>
-    </div>
+    </BlueDialog>
   );
 };
 

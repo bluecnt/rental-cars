@@ -8,13 +8,16 @@ import {
   _updateDate,
   _updateTime,
 } from "../../modules/utils/BlueTime";
+import BlueDialog from "../../modules/ui/BlueDialog";
 
-type ClickOkEvent = (startTime: Date, endTime: Date) => void;
+type OkButtonClickEvent = (startTime: Date, endTime: Date) => void;
+type CancelButtonClickEvent = () => void;
 
 interface TimeSelectProps {
   startTime: Date;
   endTime: Date;
-  onClickOk: ClickOkEvent;
+  onClickOkBtn: OkButtonClickEvent;
+  onClickCancelBtn: CancelButtonClickEvent;
 }
 
 interface TimeSelectorState {
@@ -81,14 +84,96 @@ const TimeSelector = (props: TimeSelectProps) => {
     }
   };
 
-  const handleClickOk = () => {
-    props.onClickOk(state.startTime, state.endTime);
+  const handleClickOkBtn = () => {
+    props.onClickOkBtn(state.startTime, state.endTime);
+  };
+
+  const handleclickCancelBtn = () => {
+    props.onClickCancelBtn();
   };
 
   return (
-    <div className="container">
-      <div className="header">이용 시간 설정</div>
-      <div className="body">
+    // <div className="container">
+    //   <div className="header">이용 시간 설정</div>
+    //   <div className="body">
+    //     {/* 대여 일시 */}
+    //     <div className="rent-datetime">
+    //       <div className="rent-datetime-title">대여 일시</div>
+    //       <div className="rent-datetime-content-date">
+    //         {/* {_dateToStr(startTimeRef.current)} */}
+    //         <input
+    //           id="startDate"
+    //           type="date"
+    //           value={_dateToStr(state.startTime, true)}
+    //           onInput={handleInputDate}
+    //         ></input>
+    //       </div>
+    //       <div className="rent-datetime-content-time">
+    //         {/* {_timeToStr(startTimeRef.current)} */}
+    //         <input
+    //           id="startTime"
+    //           type="time"
+    //           value={_timeToStr(state.startTime)}
+    //           onInput={handleInputTime}
+    //         ></input>
+    //       </div>
+    //     </div>
+    //     {/* 반납 일시 */}
+    //     <div className="rent-datetime">
+    //       <div className="rent-datetime-title">반납 일시</div>
+    //       <div className="rent-datetime-content-date">
+    //         {/* {_dateToStr(startTimeRef.current)} */}
+    //         <input
+    //           id="endDate"
+    //           type="date"
+    //           value={_dateToStr(state.endTime, true)}
+    //           onInput={handleInputDate}
+    //         ></input>
+    //       </div>
+    //       <div className="rent-datetime-content-time">
+    //         {/* {_timeToStr(startTimeRef.current)} */}
+    //         <input
+    //           id="endTime"
+    //           type="time"
+    //           value={_timeToStr(state.endTime)}
+    //           step={600}
+    //           onInput={handleInputTime}
+    //         ></input>
+    //       </div>
+    //     </div>
+    //   </div>
+    //   <div className="footer">
+    //     <Button onClick={handleClickOk}>확인</Button>
+    //   </div>
+    // </div>
+
+    <BlueDialog
+      placeholderForPage={false}
+      //
+      title="이용 시간 설정"
+      //
+      footerNode={
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            gap: "1rem",
+          }}
+        >
+          <Button style={{ flex: "1" }} onClick={handleClickOkBtn}>
+            확인
+          </Button>
+          <Button
+            style={{ flex: "1" }}
+            variant="secondary"
+            onClick={handleclickCancelBtn}
+          >
+            취소
+          </Button>
+        </div>
+      }
+    >
+      <div className="ts-body">
         {/* 대여 일시 */}
         <div className="rent-datetime">
           <div className="rent-datetime-title">대여 일시</div>
@@ -111,6 +196,7 @@ const TimeSelector = (props: TimeSelectProps) => {
             ></input>
           </div>
         </div>
+
         {/* 반납 일시 */}
         <div className="rent-datetime">
           <div className="rent-datetime-title">반납 일시</div>
@@ -135,10 +221,7 @@ const TimeSelector = (props: TimeSelectProps) => {
           </div>
         </div>
       </div>
-      <div className="footer">
-        <Button onClick={handleClickOk}>확인</Button>
-      </div>
-    </div>
+    </BlueDialog>
   );
 };
 

@@ -16,7 +16,7 @@
   width: calc(100% - 1rem);
   justify-self: flex-end;
   align-self: flex-end;
-  z-index: 1001;
+  /* z-index: 1001; */
 
   display: flex;
 

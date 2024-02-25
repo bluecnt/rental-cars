@@ -30,7 +30,14 @@ interface VehicleListPageState {
   rentEndTime: Date;
   //
   dimmerChild: ReactNode;
+  timeSelectorShow: boolean;
   vehicleSelectorPlId: number;
+  //
+  reservationRegId: number;
+  reservationPlId: number;
+  reservationVehicleId: number;
+  //
+  reservationListShow: boolean;
   showLoadingSpinner: boolean;
 }
 const VehicleListPage = () => {
@@ -43,7 +50,14 @@ const VehicleListPage = () => {
     rentEndTime: _addTime(rentStartTime, 4),
     //
     dimmerChild: undefined,
+    timeSelectorShow: false,
     vehicleSelectorPlId: -1,
+    //
+    reservationRegId: -1,
+    reservationPlId: -1,
+    reservationVehicleId: -1,
+    //
+    reservationListShow: false,
     showLoadingSpinner: false,
   });
 
@@ -118,14 +132,16 @@ const VehicleListPage = () => {
   };
 
   const showTimeSelector = (show: boolean) => {
-    const child = show ? (
-      <TimeSelector
-        startTime={state.rentStartTime}
-        endTime={state.rentEndTime}
-        onClickOk={handleClickTimeSelectorOk}
-      />
-    ) : undefined;
-    showDimmer(child);
+    // const child = show ? (
+    //   <TimeSelector
+    //     startTime={state.rentStartTime}
+    //     endTime={state.rentEndTime}
+    //     onClickOk={handleClickTimeSelectorOk}
+    //   />
+    // ) : undefined;
+    // showDimmer(child);
+
+    setState((prev) => ({ ...prev, timeSelectorShow: show }));
   };
 
   const showVehicleSelector = (plId: number) => {
@@ -145,32 +161,40 @@ const VehicleListPage = () => {
   };
 
   const showReservationPage = (
-    show: boolean,
     regId: number,
     plId: number,
     vehicleId: number
   ) => {
-    const child = show ? (
-      <ReservationPage
-        startTime={state.rentStartTime}
-        endTime={state.rentEndTime}
-        plId={plId}
-        vehicleId={vehicleId}
-        onClickOk={handleClickReservationOk}
-        onClickCancel={handleClickReservationCancel}
-      />
-    ) : undefined;
-    showDimmer(child);
+    // const child = show ? (
+    //   <ReservationPage
+    //     startTime={state.rentStartTime}
+    //     endTime={state.rentEndTime}
+    //     plId={plId}
+    //     vehicleId={vehicleId}
+    //     onClickOk={handleClickReservationOk}
+    //     onClickCancel={handleClickReservationCancel}
+    //   />
+    // ) : undefined;
+    // showDimmer(child);
+
+    setState((prev) => ({
+      ...prev,
+      reservationRegId: regId,
+      reservationPlId: plId,
+      reservationVehicleId: vehicleId,
+    }));
   };
 
-  const showReservationListPage = (show: boolean, curst_id: number) => {
-    const child = show ? (
-      <ReservationListPage
-        cust_id={curst_id}
-        onClickOk={handleClickReservationListOk}
-      />
-    ) : undefined;
-    showDimmer(child);
+  const showReservationListPage = (show: boolean) => {
+    // const child = show ? (
+    //   <ReservationListPage
+    //     cust_id={curst_id}
+    //     onClickOk={handleClickReservationListOk}
+    //   />
+    // ) : undefined;
+    // showDimmer(child);
+
+    setState((prev) => ({ ...prev, reservationListShow: show }));
   };
 
   const showLoadingSpinner = (show: boolean) => {
@@ -200,9 +224,10 @@ const VehicleListPage = () => {
     showVehicleSelector(-1);
   };
 
-  const handleClickReserveListBtn = () => {
-    const userDTO = dataCtx.state.userDTO;
-    showReservationListPage(true, userDTO.cust_id);
+  const handleClickReservationListBtn = () => {
+    //const userDTO = dataCtx.state.userDTO;
+    // showReservationListPage(userDTO.cust_id);
+    showReservationListPage(true);
   };
 
   const handleClickMarker = (marker: NaverMapMarker) => {
@@ -231,10 +256,14 @@ const VehicleListPage = () => {
     // const end_time = state.rentEndTime;
     //  }
 
-    showReservationPage(true, regId, plId, vehicleId);
+    // console.log(regId, plId, vehicleId);
+    showReservationPage(regId, plId, vehicleId);
   };
 
-  const handleClickTimeSelectorOk = async (startTime: Date, endTime: Date) => {
+  const handleClickTimeSelectorOkBtn = async (
+    startTime: Date,
+    endTime: Date
+  ) => {
     // console.log(`startTime: ${_dateTimeToStr(startTime)}`);
     // console.log(`endTime:   ${_dateTimeToStr(endTime)}`);
 
@@ -243,62 +272,103 @@ const VehicleListPage = () => {
     await requestVehicleList(startTime, endTime);
   };
 
+  const handleClickTimeSelectorCancelBtn = () => {
+    showTimeSelector(false);
+  };
+
   const handleClickRentTime = () => {
     showVehicleSelector(-1);
     showTimeSelector(true);
   };
 
   const handleClickReservationOk = () => {
-    showReservationPage(false, -1, -1, -1);
+    showReservationPage(-1, -1, -1);
     showVehicleSelector(-1);
-
-    //
+    showReservationListPage(true);
   };
 
   const handleClickReservationCancel = () => {
-    showReservationPage(false, -1, -1, -1);
-
-    //
+    showReservationPage(-1, -1, -1);
   };
 
   const handleClickReservationListOk = () => {
-    showReservationListPage(false, -1);
-    showReservationListPage(true, -1);
+    showReservationListPage(false);
   };
 
   return (
     <PageContainer>
       <ContentContainer>
-        <VehicleListMap
-          onChangeAddr={handleChangeAddr}
-          onClickMarker={handleClickMarker}
-        />
-
-        <VehicleListAddrBar
-          addr={state.addr}
-          onClickReserveListBtn={handleClickReserveListBtn}
-        />
-
-        <VehicleListTimeBar
-          rentStartTime={state.rentStartTime}
-          rentEndTime={state.rentEndTime}
-          onClickRentTime={handleClickRentTime}
-        />
-
-        {state.vehicleSelectorPlId > -1 && (
-          <VehicleSelector
-            startTime={state.rentStartTime}
-            endTime={state.rentEndTime}
-            parkingLotId={state.vehicleSelectorPlId}
-            onSelectVehicle={handleSelectVehicle}
+        <div
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            display: "grid",
+          }}
+        >
+          <VehicleListMap
+            onChangeAddr={handleChangeAddr}
+            onClickMarker={handleClickMarker}
           />
-        )}
 
-        <Dimmer
-          targetSizeElemId="content-container"
-          zIndex={1010}
-          children={state.dimmerChild}
-        />
+          <VehicleListAddrBar
+            addr={state.addr}
+            onClickReserveListBtn={handleClickReservationListBtn}
+          />
+
+          <VehicleListTimeBar
+            rentStartTime={state.rentStartTime}
+            rentEndTime={state.rentEndTime}
+            onClickRentTime={handleClickRentTime}
+          />
+
+          {/* 이용 시간 설정  */}
+          {state.timeSelectorShow && (
+            <TimeSelector
+              startTime={state.rentStartTime}
+              endTime={state.rentEndTime}
+              onClickOkBtn={handleClickTimeSelectorOkBtn}
+              onClickCancelBtn={handleClickTimeSelectorCancelBtn}
+            />
+          )}
+
+          {/* 차량 선택 */}
+          {state.vehicleSelectorPlId > -1 && (
+            <VehicleSelector
+              startTime={state.rentStartTime}
+              endTime={state.rentEndTime}
+              parkingLotId={state.vehicleSelectorPlId}
+              onSelectVehicle={handleSelectVehicle}
+            />
+          )}
+
+          {/* 예약 및 결제 */}
+          {state.reservationRegId > -1 && (
+            <ReservationPage
+              startTime={state.rentStartTime}
+              endTime={state.rentEndTime}
+              regId={state.reservationRegId}
+              plId={state.reservationPlId}
+              vehicleId={state.reservationVehicleId}
+              onClickOk={handleClickReservationOk}
+              onClickCancel={handleClickReservationCancel}
+            />
+          )}
+
+          {/* 예약 목록 */}
+          {state.reservationListShow && (
+            <ReservationListPage
+              cust_id={dataCtx.state.userDTO.cust_id}
+              onClickOk={handleClickReservationListOk}
+            />
+          )}
+
+          <Dimmer
+            targetSizeElemId="content-container"
+            zIndex={1010}
+            children={state.dimmerChild}
+          />
+        </div>
       </ContentContainer>
     </PageContainer>
   );

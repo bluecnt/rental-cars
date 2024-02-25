@@ -5,6 +5,7 @@ import "./8_ReservationListPage.css";
 import { ReactNode, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { reservations_get } from "../../modules/rest-client/reservations";
+import BlueDialog from "../../modules/ui/BlueDialog";
 
 type ButtonClickEvent = () => void;
 
@@ -42,15 +43,30 @@ const ReservationListPage = (props: ReservationListPageProps) => {
   });
 
   return (
-    <div className="rlp-container">
-      <div className="rlp-header">예약 내역</div>
+    // <div className="rlp-container">
+    //   <div className="rlp-header">예약 내역</div>
+    //   <div className="rlp-body">{state.body}</div>
+    //   <div className="rlp-footer">
+    //     <Button style={{ flex: 1 }} onClick={props.onClickOk}>
+    //       확인
+    //     </Button>
+    //   </div>
+    // </div>
+
+    <BlueDialog
+      //
+      title="예약 내역"
+      //
+      footerNode={
+        <div className="rlp-footer">
+          <Button style={{ flex: 1 }} onClick={props.onClickOk}>
+            확인
+          </Button>
+        </div>
+      }
+    >
       <div className="rlp-body">{state.body}</div>
-      <div className="rlp-footer">
-        <Button style={{ flex: 1 }} onClick={props.onClickOk}>
-          확인
-        </Button>
-      </div>
-    </div>
+    </BlueDialog>
   );
 };
 

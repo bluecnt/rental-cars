@@ -114,7 +114,11 @@ const VehicleListMap = (props: VehicleListMapProps) => {
       style={{
         // alignSelf: "stretch",
         // flex: "1",
-        margin: "-1rem",
+        // margin: "-1rem",
+
+        position: "absolute",
+        width: "100%",
+        height: "100%",
       }}
     />
   );

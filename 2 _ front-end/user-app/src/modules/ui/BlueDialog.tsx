@@ -10,6 +10,7 @@ interface BlueDialogProps {
 
   margin?: string;
   width?: string; // 400px
+  height?: string;
   justify?: string; // center
   align?: string; // center
 
@@ -66,6 +67,7 @@ const BlueDialog = (props: BlueDialogProps) => {
           style={{
             margin: props.margin,
             width: props.width ?? "400px",
+            height: props.height,
             justifySelf: props.justify ?? "center",
             alignSelf: props.align ?? "center",
           }}

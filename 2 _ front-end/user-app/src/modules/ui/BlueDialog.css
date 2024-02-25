@@ -53,8 +53,10 @@
   border-radius: 8px;
 
   overflow: hidden;
-
   pointer-events: auto;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .blue-dlg-header {
@@ -66,7 +68,14 @@
 }
 
 .blue-dlg-body {
+  /* border: 2px solid blue; */
+
   padding: 1rem;
+
+  flex: 1;
+  overflow: hidden;
+
+  display: flex;
 }
 
 .blue-dlg-footer {

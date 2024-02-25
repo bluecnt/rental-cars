@@ -33,7 +33,7 @@
 .rlp-body {
   /* border: 1px solid green; */
 
-  padding: 1rem;
+  /* padding: 1rem; */
 
   flex: 1;
 
@@ -45,7 +45,7 @@
 .rlp-footer {
   /* border: 1px solid red; */
 
-  padding: 1rem;
+  flex: 1;
 
   display: flex;
   gap: 0.5rem;

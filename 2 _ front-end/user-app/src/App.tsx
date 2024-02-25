@@ -56,25 +56,25 @@ const App = () => {
 };
 */
 
-// const App = () => {
-//   console.clear();
+const App = () => {
+  console.clear();
 
-//   return (
-//     <DataContextProvider>
-//       <BrowserRouter>
-//         <Routes>
-//           <Route path="/" element={<SplashPage />} />
-//           <Route path="/initial" element={<InitialPage />} />
-//           <Route path="/login" element={<LoginPage />} />
-//           <Route path="/register" element={<RegisterPage />} />
-//           <Route path="/vehicle-list" element={<VehicleListPage />} />
-//           {/* <Route path="/reservation" element={<ReservationPage />} /> */}
-//           {/* <Route path="/reservation-list" element={<ReservationListPage />} /> */}
-//         </Routes>
-//       </BrowserRouter>
-//     </DataContextProvider>
-//   );
-// };
+  return (
+    <DataContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<SplashPage />} />
+          <Route path="/initial" element={<InitialPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/vehicle-list" element={<VehicleListPage />} />
+          {/* <Route path="/reservation" element={<ReservationPage />} /> */}
+          {/* <Route path="/reservation-list" element={<ReservationListPage />} /> */}
+        </Routes>
+      </BrowserRouter>
+    </DataContextProvider>
+  );
+};
 
 /*
 const App = () => {
@@ -96,6 +96,7 @@ const App = () => {
 };
 */
 
+/*
 const App = () => {
   console.clear();
 
@@ -114,8 +115,8 @@ const App = () => {
   //     onClickOkBtn={handleclickModalOkBtn}
   //   />
   // );
-
   return <TestBlueDialog />;
 };
+*/
 
 export default App;
