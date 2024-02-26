@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bluecnt.rental.mapper.VehiclesMapper">
+	
+	<!-- 차량 총 대수 출력 -->
+	<select id="countVehicle" resultType="int">
+		SELECT COUNT (*) FROM Vehicles
+	</select>
+	
+	<!-- 페이징 처리 후 차량정보 조회 -->
+	<select id="selectVehicles" resultType="com.bluecnt.rental.dto.VehicleDTO">
+		SELECT *
+	    FROM (
+	        SELECT ROWNUM RN, A.*
+	        FROM (
+	            SELECT *
+	            FROM Vehicles
+	            ORDER BY vehicle_id DESC
+        	) A
+		)
+    	WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- 페이징 처리 후 카테고리선택 및 직접입력조회 -->
+	<select id="searchVehicles" resultType="com.bluecnt.rental.dto.VehicleDTO">
+	    SELECT *
+	    FROM (
+	        SELECT ROWNUM RN, A.*
+	        FROM (
+	            SELECT *
+	            FROM Vehicles
+	            WHERE
+	            <choose>
+	                <when test="category == 'name'">
+	                    name LIKE '%' || #{searchText} || '%'
+	                </when>
+	                <when test="category == 'plate_number'">
+	                    plate_number LIKE '%' || #{searchText} || '%'
+	                </when>
+	            </choose>
+	            ORDER BY vehicle_id DESC
+	        ) A
+	    )
+	    WHERE RN BETWEEN #{PagingVO.start} AND #{PagingVO.end}
+	</select>
+	
+	<!-- 차량정보 수정 페이지에서 단일 차량정보를 가져오는 쿼리 -->
+    <select id="getVehicleById" resultType="com.bluecnt.rental.dto.VehicleDTO">
+        SELECT *
+        FROM vehicles
+        WHERE vehicle_id = #{VehicleDTO.vehicle_id}
+    </select>
+	
+	<update id="updateVehicle" parameterType="com.bluecnt.rental.dto.VehicleDTO">
+	    UPDATE Vehicles
+	    SET
+	        name = #{name},
+	        v_img = #{v_img},
+	        plate_number = #{plate_number},
+	        options = #{options},
+	        price_per_hour = #{price_per_hour, jdbcType=INTEGER},
+	        price_per_km = #{price_per_km, jdbcType=INTEGER},
+	        v_desc = #{v_desc},
+	        remark = #{remark}
+	    WHERE vehicle_id = #{vehicle_id}
+	</update>
+	
+	<insert id="addVehicle" parameterType="com.bluecnt.rental.dto.VehicleDTO">
+		<selectKey keyProperty="vehicle_id" resultType="int" order="BEFORE">
+        	SELECT vehicles_seq.nextval as vehicle_id FROM dual
+    	</selectKey>
+		INSERT INTO Vehicles (
+			vehicle_id,
+			name,
+			reg_date,
+	        v_img,
+	        plate_number, 
+	        options,
+	        price_per_hour,
+	        price_per_km, 
+	        v_desc,
+	        remark)
+        VALUES (
+        	#{vehicle_id},
+        	#{name},
+        	CURRENT_DATE, 
+        	#{v_img},
+        	#{plate_number},
+        	#{options},
+        	#{price_per_hour},
+        	#{price_per_km},
+        	#{v_desc},
+        	#{remark})
+    </insert>
+	
+	<delete id="deleteVehicle" parameterType="int">
+        DELETE FROM Vehicles
+        WHERE vehicle_id = #{vehicle_id}
+    </delete>
+    
+</mapper>
