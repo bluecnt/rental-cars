@@ -99,5 +99,5 @@
         DELETE FROM Vehicles
         WHERE vehicle_id = #{vehicle_id}
     </delete>
-	
+    
 </mapper>

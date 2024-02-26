@@ -20,10 +20,10 @@
         <input type="text" id="address" name="address" value="구리시 교문동" required />
         <br>
         <label for="latitude">위도: </label>
-        <input type="number" id="latitude" name="latitude" value="0" required />
+        <input type="text" id="latitude" name="latitude" value="123.456" required />
         <br>
         <label for="longitude">경도: </label>
-        <input type="number" id="longitude" name="longitude" value="0" required />
+        <input type="text" id="longitude" name="longitude" value="123.0" required />
         <br>
         <label for="pl_desc">설명: </label>
         <input type="text" id="pl_desc" name="pl_desc" value="설명" required />

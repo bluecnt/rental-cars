@@ -58,8 +58,8 @@
 	    SET
 	        name = #{name},
 	        address = #{address},
-	        latitude = #{latitude, jdbcType=INTEGER},
-	        longitude = #{longitude, jdbcType=INTEGER},
+	        latitude = #{latitude},
+	        longitude = #{longitude},
 	        pl_desc = #{pl_desc}
 	    WHERE pl_id = #{pl_id}
 	</update>

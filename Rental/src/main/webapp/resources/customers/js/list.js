@@ -1,4 +1,5 @@
 const btn1 = document.getElementById('btn1');
+const acceptBtns = document.querySelectorAll('.acceptBtn');
 const updateBtns = document.querySelectorAll('.updateBtn');
 const deleteBtns = document.querySelectorAll('.deleteBtn');
 	
@@ -14,6 +15,20 @@ const deleteBtns = document.querySelectorAll('.deleteBtn');
 		var currPage = (new URLSearchParams(window.location.search)).get('currPage');
 	    location.href=`/rental/customers-mgmt?currPage=${currPage}&cntPerPage=${sel}`;
 	}
+
+	acceptBtns.forEach(button => {
+	    button.addEventListener('click', () => {
+	        const custIdCell = button.parentElement.parentElement.querySelector('td:first-child');
+	        const custId = custIdCell && custIdCell.innerText ? custIdCell.innerText.trim() : null;
+	        
+	        if (custId) {
+	            const acceptUrl = "/rental/customers-mgmt/accept/" + custId;
+	            location.href = acceptUrl;
+	        } else {
+	            console.error("고객 ID를 찾을 수 없습니다.");
+	        }
+	    });
+	});
 	
 	updateBtns.forEach(button => {
 	    button.addEventListener('click', () => {

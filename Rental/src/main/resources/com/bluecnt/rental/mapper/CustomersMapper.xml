@@ -67,7 +67,6 @@
 	        credit_card_number = #{credit_card_number},
 	        point = #{point, jdbcType=INTEGER},
 	        accept = #{accept, jdbcType=INTEGER},
-	        sso_login = #{sso_login, jdbcType=INTEGER},
 	        remark = #{remark}
 	    WHERE cust_id = #{cust_id}
 	</update>
@@ -110,5 +109,20 @@
         DELETE FROM Customers
         WHERE cust_id = #{cust_id}
     </delete>
+    
+	<update id="acceptCust" parameterType="com.bluecnt.rental.dto.CustomerDTO">
+	    UPDATE Customers
+	    SET
+	        user_pw = #{user_pw},
+	        name = #{name},
+	        phone_number = #{phone_number},
+	        license_number = #{license_number},
+	        credit_card_company = #{credit_card_company},
+	        credit_card_number = #{credit_card_number},
+	        point = #{point, jdbcType=INTEGER},
+	        accept = #{accept, jdbcType=INTEGER},
+	        remark = #{remark}
+	    WHERE cust_id = #{cust_id}
+	</update>
 	
 </mapper>

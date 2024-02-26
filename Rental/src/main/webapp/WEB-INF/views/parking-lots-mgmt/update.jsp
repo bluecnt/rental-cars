@@ -57,12 +57,12 @@
 	        <br>
 	        <label for="latitude">위도: ${parkinglot.latitude}</label>
 	        <br>
-	        <input type="number" id="latitude" name="latitude" value="${parkinglot.latitude}"/>
+	        <input type="text" id="latitude" name="latitude" value="${parkinglot.latitude}"/>
 	        <button type="submit">수정</button>
 	        <br>
 	        <label for="longitude">경도: ${parkinglot.longitude}</label>
 	        <br>
-	        <input type="number" id="longitude" name="longitude" value="${parkinglot.longitude}"/>
+	        <input type="text" id="longitude" name="longitude" value="${parkinglot.longitude}"/>
 	        <button type="submit">변경</button>
 	        <br>
 	        <label for="desc">설명: ${parkinglot.desc}</label>

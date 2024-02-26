@@ -50,9 +50,9 @@
 				<th>면허번호</th>
 				<th>카드사</th>
 				<th>카드번호</th>
-				<th>승인</th>
 				<th>포인트</th>			
 				<th>기타</th>
+				<th>승인</th>
 				<th>수정</th>
 				<th>삭제</th>
 			</tr>
@@ -69,9 +69,15 @@
 				<td>${customer.license_number}</td>
 				<td>${customer.credit_card_company}</td>
 				<td>${customer.credit_card_number}</td>
-				<td>${customer.accept}</td>
 				<td>${customer.point}</td>
 				<td>${customer.remark}</td>
+				<td>
+            		<c:choose>
+		                <c:when test="${customer.accept == 0}">대기</c:when>
+		                <c:when test="${customer.accept == 1}">완료</c:when>
+		                <c:otherwise>${customer.accept}</c:otherwise>
+            		</c:choose>
+        		</td>
 				<td><button class="updateBtn" type="button">수정</button></td>
 				<td><button class="deleteBtn" type="button">삭제</button></td>
 			</tr>

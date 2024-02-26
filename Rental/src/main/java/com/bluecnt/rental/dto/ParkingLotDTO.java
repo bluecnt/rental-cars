@@ -8,8 +8,8 @@ public class ParkingLotDTO {
 	private String reg_date;
 	private String name;
 	private String address;
-	private Integer latitude;
-	private Integer longitude;
+	private String latitude;
+	private String longitude;
 	private String pl_desc;
 	private String remark;
 }

@@ -67,8 +67,9 @@ public class VehiclesServiceImpl implements VehiclesService {
 		try {
 			return vehiclesMapper.addVehicle(dto);
 		} catch (Exception e) {
-			log.error("Error adding customer: " + e.getMessage());
+			log.error("Error adding vehicle: " + e.getMessage());
 			return 0; // 실패
 		}
 	}
+	
 }

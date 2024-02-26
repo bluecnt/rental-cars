@@ -72,14 +72,10 @@ public class CustomersServiceImpl implements CustomersService {
 		}
 	}
 	
-	// 로그인 고객정보 확인
+	// 회원가입 승인
 	@Override
-	public List<CustomerDTO> getUserByEP(String user_email, String user_pw, int accept) {
-		try {
-			return customersMapper.getUserByEP(user_email, user_pw, accept);
-		} catch (Exception e) {
-			log.error("Error adding customer: " + e.getMessage());
-			return null;
-		}
+	public void acceptCust(CustomerDTO dto) {
+		customersMapper.acceptCust(dto);
 	}
+	
 }

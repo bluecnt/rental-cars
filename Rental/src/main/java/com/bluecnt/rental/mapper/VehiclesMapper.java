@@ -25,4 +25,7 @@ public interface VehiclesMapper {
 	// 차량정보추가
 	int addVehicle(VehicleDTO dto);
 	
+	// api에서 차량 리스트 조회
+	public List<VehicleDTO> vehicleList(VehicleDTO dto);
+	
 }

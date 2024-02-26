@@ -6,13 +6,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Update Customer</title>
+    <title>Accept Customer</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/customers/css/update.css">
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
-    <h2>고객 정보 업데이트</h2>
+    <h2>고객 승인 관리</h2>
     <table border="1">
 		<tr>
 			<th>No</th>
@@ -46,7 +46,7 @@
 		</c:forEach>
 	</table>
 	  <c:forEach items="${customer}" var="customer">
-		<form action="/rental/customers-mgmt/update/${cust_id}" method="post">
+		<form action="/rental/customers-mgmt/accept/${cust_id}" method="post">
 	        <input type="hidden" name="join_date" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>" />
 	        <br>
 	        <label for="user_email">메일주소: ${customer.user_email}</label>
@@ -91,9 +91,9 @@
 	        <input type="text" id="remark" name="remark" value="${customer.remark}"/>
 	        <button type="submit">수정</button>
 	        <br>
-	        <label for="accept">승인상태: ${customer.accept}</label>
+	        <label for="accept">승인여부: ${customer.accept}</label>
 	        <br>
-	        <input type="text" id="accept" name="accept" value="${customer.accept}"/>
+	        <input type="number" id="accept" name="accept" value="${customer.accept}"/>
 	        <button type="submit">수정</button>
 	        <br>
     	</form>
