@@ -44,11 +44,11 @@ const _reservation_get_test = (): Promise<ReservationDTO[]> => {
         "아반떼CN7",
         new Date(2024, 2, 22, 16, 0, 0),
         new Date(2024, 2, 22, 20, 0, 0),
-        0
+        2
       );
       const dtos: ReservationDTO[] = [dto];
       resolve(dtos);
-    }, 1000);
+    }, 100);
   });
 };
 

@@ -2,48 +2,10 @@
 [SGLEE:20240222THU_141300] Created
 */
 
-.rlp-container {
-  margin-bottom: 5rem;
-
-  padding: 0;
-  width: 480px;
-  height: 300px;
-
-  border: 2px solid var(--content-border-color);
-  background-color: var(--content-back-color);
-  border-radius: 8px;
-
-  position: absolute;
-  justify-self: center;
-  align-self: center;
-
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.rlp-header {
-  /* border: 1px solid blue; */
+.rlp-vehicle-container {
+  border: 1px solid var(--oc-blue-2);
 
   padding: 0.5rem;
-  background-color: var(--oc-blue-0);
-  font-weight: bold;
-}
-
-.rlp-body {
-  /* border: 1px solid green; */
-
-  /* padding: 1rem; */
-
-  flex: 1;
-
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.rlp-footer {
-  /* border: 1px solid red; */
 
   flex: 1;
 
@@ -51,24 +13,29 @@
   gap: 0.5rem;
 }
 
-.rlp-vehicle-container {
-  border: 1px solid blue;
+.rlp-vehicle-img {
+  /* border: 1px solid green; */
 
   display: flex;
-}
-
-.rlp-vehicle-img {
-  border: 1px solid green;
+  align-items: center;
 }
 
 .rlp-vehicle-info {
-  border: 1px solid red;
+  /* border: 1px solid red; */
 
   flex: 1;
 }
 
+.rlp-v-info-name {
+  font-weight: bold;
+}
+
+.rlp-v-info-time {
+  color: gray;
+}
+
 .rlp-vehicle-btns {
-  border: 1px solid magenta;
+  /* border: 1px solid magenta; */
 
   margin: 0.25rem;
 
