@@ -44,6 +44,7 @@
 			<tr>
 				<th>차량ID</th>
 				<th>등록일</th>
+				<th>이름</th>
 				<th>이미지</th>
 				<th>차량번호</th>
 				<th>차량옵션</th>
@@ -62,6 +63,7 @@
 				<td>${vehicle.name}</td>
 				<td>${vehicle.v_img}</td>
 				<td>${vehicle.plate_number}</td>
+				<td>${vehicle.options}</td>
 				<td>${vehicle.price_per_hour}</td>
 				<td>${vehicle.price_per_km}</td>
 				<td>${vehicle.v_desc}</td>

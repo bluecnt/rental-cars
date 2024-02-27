@@ -1,5 +1,8 @@
 package com.bluecnt.rental.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -108,22 +111,120 @@ public class VehiclesMgmtController {
     public String addVehicle(VehicleDTO dto) {
     	log.info("POST add vehicle: " + dto.toString());
     	
-    	// 추가할 차량 숫자를 count에서 설정할 수 있다
-    	int count = 50;
-    	
+        Date currentDate = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String regDate = formatter.format(currentDate);
+        
     	// 차량 정보를 생성하여 DTO에 설정
-    	for (int i = 0; i < count; i++) {
-    	dto.setReg_date("2024-02-14");
-        dto.setName("소나타" + 11 * i);
-        dto.setV_img("자연" + i);
-        dto.setPlate_number(i + "허" + 123 + "" + i);
-        dto.setOptions("에어백");
-        dto.setPrice_per_hour(i);
-        dto.setPrice_per_km(i);
-        dto.setV_desc("기타" + i);
-        dto.setRemark("Remark " + i);
+    	dto.setReg_date(regDate);
+        dto.setName("올뉴아반떼");
+        dto.setV_img("/resources/vehicles/images/" + dto.getName() + ".jpg");
+        dto.setPlate_number("");
+        dto.setOptions("");
+        dto.setPrice_per_hour(10000);
+        dto.setPrice_per_km(230);
+        dto.setV_desc("");
+        dto.setRemark("");
         vehiclesService.addVehicle(dto);
-    	}
+        
+    	dto.setReg_date(regDate);
+        dto.setName("올뉴스포티지");
+        dto.setV_img("/resources/vehicles/images/" + dto.getName() + ".jpg");
+        dto.setPlate_number("");
+        dto.setOptions("");
+        dto.setPrice_per_hour(10000);
+        dto.setPrice_per_km(250);
+        dto.setV_desc("");
+        dto.setRemark("");
+        vehiclesService.addVehicle(dto);
+        
+    	dto.setReg_date(regDate);
+        dto.setName("셀토스");
+        dto.setV_img("/resources/vehicles/images/" + dto.getName() + ".jpg");
+        dto.setPlate_number("");
+        dto.setOptions("");
+        dto.setPrice_per_hour(10000);
+        dto.setPrice_per_km(240);
+        dto.setV_desc("");
+        dto.setRemark("");
+        vehiclesService.addVehicle(dto);
+        
+    	dto.setReg_date(regDate);
+        dto.setName("K8");
+        dto.setV_img("/resources/vehicles/images/" + dto.getName() + ".jpg");
+        dto.setPlate_number("");
+        dto.setOptions("");
+        dto.setPrice_per_hour(15000);
+        dto.setPrice_per_km(260);
+        dto.setV_desc("");
+        dto.setRemark("");
+        vehiclesService.addVehicle(dto);
+        
+    	dto.setReg_date(regDate);
+        dto.setName("디올뉴그랜저");
+        dto.setV_img("/resources/vehicles/images/" + dto.getName() + ".jpg");
+        dto.setPlate_number("");
+        dto.setOptions("");
+        dto.setPrice_per_hour(15000);
+        dto.setPrice_per_km(260);
+        dto.setV_desc("");
+        dto.setRemark("");
+        vehiclesService.addVehicle(dto);
+        
+    	dto.setReg_date(regDate);
+        dto.setName("G70");
+        dto.setV_img("/resources/vehicles/images/" + dto.getName() + ".jpg");
+        dto.setPlate_number("");
+        dto.setOptions("");
+        dto.setPrice_per_hour(15000);
+        dto.setPrice_per_km(260);
+        dto.setV_desc("");
+        dto.setRemark("");
+        vehiclesService.addVehicle(dto);
+        
+    	dto.setReg_date(regDate);
+        dto.setName("GV70");
+        dto.setV_img("/resources/vehicles/images/" + dto.getName() + ".jpg");
+        dto.setPlate_number("");
+        dto.setOptions("");
+        dto.setPrice_per_hour(30000);
+        dto.setPrice_per_km(300);
+        dto.setV_desc("");
+        dto.setRemark("");
+        vehiclesService.addVehicle(dto);
+        
+    	dto.setReg_date(regDate);
+        dto.setName("G80");
+        dto.setV_img("/resources/vehicles/images/" + dto.getName() + ".jpg");
+        dto.setPlate_number("");
+        dto.setOptions("");
+        dto.setPrice_per_hour(30000);
+        dto.setPrice_per_km(300);
+        dto.setV_desc("");
+        dto.setRemark("");
+        vehiclesService.addVehicle(dto);
+        
+    	dto.setReg_date(regDate);
+        dto.setName("GV80");
+        dto.setV_img("/resources/vehicles/images/" + dto.getName() + ".jpg");
+        dto.setPlate_number("");
+        dto.setOptions("");
+        dto.setPrice_per_hour(30000);
+        dto.setPrice_per_km(300);
+        dto.setV_desc("");
+        dto.setRemark("");
+        vehiclesService.addVehicle(dto);
+        
+    	dto.setReg_date(regDate);
+        dto.setName("G90");
+        dto.setV_img("/resources/vehicles/images/" + dto.getName() + ".jpg");
+        dto.setPlate_number("");
+        dto.setOptions("");
+        dto.setPrice_per_hour(30000);
+        dto.setPrice_per_km(300);
+        dto.setV_desc("");
+        dto.setRemark("");
+        vehiclesService.addVehicle(dto);
     	
     	return "redirect:/vehicles-mgmt"; // 추가 후 목록 페이지로 리다이렉트
     }

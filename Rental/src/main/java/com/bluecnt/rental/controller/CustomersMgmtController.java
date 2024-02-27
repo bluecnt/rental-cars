@@ -1,5 +1,8 @@
 package com.bluecnt.rental.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -108,22 +111,27 @@ public class CustomersMgmtController {
     public String addCustomer(CustomerDTO dto) {
     	log.info("POST add customer: " + dto.toString());
     	
+    	
+        Date currentDate = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String joinDate = formatter.format(currentDate);
+        
     	// 추가할 고객 숫자를 count에서 설정할 수 있다
-    	int count = 100;
+    	int count = 20;
     	
     	// 고객 정보를 생성하여 DTO에 설정
-    	for (int i = 0; i < count; i++) {
-    	dto.setJoin_date("2024-02-14");
-        dto.setUser_email("abcd" + i + "@domain.com");
-        dto.setUser_pw("password" + i);
-        dto.setName("CU12 " + i + i);
+    	for (int i = 1; i < count; i++) {
+    	dto.setJoin_date(joinDate);
+        dto.setUser_email("blue" + i + "@domain.com");
+        dto.setUser_pw("1234");
+        dto.setName("blue" + i);
         dto.setBirthday("2000-01-01");
-        dto.setPhone_number("010" + i);
-        dto.setLicense_number("ABC123456");
+        dto.setPhone_number("010-1234-5678");
+        dto.setLicense_number("13-11-123456-78");
         dto.setCredit_card_company("Company" + i);
         dto.setCredit_card_number("1234-5678-9012-3451");
         dto.setPoint(1000);
-        dto.setAccept(1);
+        dto.setAccept(0);
         dto.setRemark("Remark " + i);
         customersService.addCustomer(dto);
     	}

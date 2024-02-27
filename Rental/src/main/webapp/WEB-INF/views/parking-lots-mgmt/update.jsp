@@ -16,27 +16,21 @@
     <table border="1">
 		<tr>
 			<th>No</th>
-			<th>이메일</th>
-			<th>가입일</th>
+			<th>등록일</th>
 			<th>이름</th>
-			<th>생년월일</th>
-			<th>휴대폰</th>
-			<th>면허번호</th>
-			<th>카드사</th>
-			<th>카드번호</th>
-			<th>설명</th>			
-			<th>기타</th>
+			<th>주소</th>
+			<th>위도</th>
+			<th>경도</th>
+			<th>설명</th>
 		</tr>
 		<c:forEach items="${parkinglots}" var="parkinglot">
 		<tr>
 			<td>${parkinglot.pl_id}</td>
-			<td>${parkinglot.user_email}</td>
-			<fmt:parseDate value="${customer.join_date}" var="joinDate" pattern="yyyy-MM-dd HH:mm:ss"/> 
+			<fmt:parseDate value="${parkinglot.reg_date}" var="reg_Date" pattern="yyyy-MM-dd HH:mm:ss"/> 
 	 			<td><fmt:formatDate value="${joinDate}" pattern="yy/MM/dd"/></td>
 			<td>${parkinglot.name}</td>
 			<td>${parkinglot.latitude}</td>
 			<td>${parkinglot.longitude}</td>
-			<td>${parkinglot.credit_card_company}</td>
 			<td>${parkinglot.pl_desc}</td>
 			<td>${parkinglot.remark}</td>
 		</tr>
@@ -65,9 +59,9 @@
 	        <input type="text" id="longitude" name="longitude" value="${parkinglot.longitude}"/>
 	        <button type="submit">변경</button>
 	        <br>
-	        <label for="desc">설명: ${parkinglot.desc}</label>
+	        <label for="pl_desc">설명: ${parkinglot.pl_desc}</label>
 	        <br>
-	        <input type="text" id="desc" name="desc" value="${parkinglot.desc}"/>
+	        <input type="text" id="pl_desc" name="pl_desc" value="${parkinglot.pl_desc}"/>
 	        <button type="submit">변경</button>
 	        <br>
 	        <label for="remark">비고: ${parkinglot.remark}</label>

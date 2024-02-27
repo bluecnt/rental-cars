@@ -14,16 +14,16 @@
         <input type="hidden" name="reg_date" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>" />
         <br>
         <label for="name">이름: </label>
-        <input type="text" id="name" name="name" value="구리" required />
+        <input type="text" id="name" name="name" value="구리시공유주차장" required />
         <br>
         <label for="address">주소: </label>
-        <input type="text" id="address" name="address" value="구리시 교문동" required />
+        <input type="text" id="address" name="address" value="경기구리시 인창동 675-2" required />
         <br>
         <label for="latitude">위도: </label>
-        <input type="text" id="latitude" name="latitude" value="123.456" required />
+        <input type="text" id="latitude" name="latitude" value="123" required />
         <br>
         <label for="longitude">경도: </label>
-        <input type="text" id="longitude" name="longitude" value="123.0" required />
+        <input type="text" id="longitude" name="longitude" value="456" required />
         <br>
         <label for="pl_desc">설명: </label>
         <input type="text" id="pl_desc" name="pl_desc" value="설명" required />

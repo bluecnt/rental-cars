@@ -1,5 +1,8 @@
 package com.bluecnt.rental.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -105,20 +108,90 @@ public class ParkingLotsMgmtController {
     public String addParkingLot(ParkingLotDTO dto) {
     	log.info("POST add parkinglot: " + dto.toString());
     	
-    	// 추가할 주차장 숫자를 count에서 설정할 수 있다
-    	int count = 10;
-    	
-    	// 주차장 정보를 생성하여 DTO에 설정
-    	for (int i = 0; i < count; i++) {
-    	dto.setReg_date("2024-02-14");
-        dto.setName("PL" + i + "구리" + 10 + i );
-        dto.setAddress("구리시 이젠" + i + "동");
-        dto.setLatitude("123.45" + i);
-        dto.setLongitude("123." + i);
-        dto.setPl_desc("기타" + i);
-        dto.setRemark("Remark " + i);
+        Date currentDate = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String regDate = formatter.format(currentDate);
+        
+        // 주차장 정보를 생성하여 DTO에 설정
+        dto.setReg_date(regDate);
+        dto.setName("구리시공유주차장");
+        dto.setAddress("경기구리시 인창동 675-2");
+        dto.setLatitude("123");
+        dto.setLongitude("456");
+        dto.setPl_desc("");
         parkinglotsService.addParkingLot(dto);
-    	}
+        
+        dto.setReg_date(regDate);
+        dto.setName("구리역주차장");
+        dto.setAddress("경기구리시 건원대로34번길 32-29");
+        dto.setLatitude("123");
+        dto.setLongitude("456");
+        dto.setPl_desc("");
+        parkinglotsService.addParkingLot(dto);
+        
+        dto.setReg_date(regDate);
+        dto.setName("제1공영노외주차장");
+        dto.setAddress("경기구리시 건원대로34번길 32-29");
+        dto.setLatitude("123");
+        dto.setLongitude("456");
+        dto.setPl_desc("");
+        parkinglotsService.addParkingLot(dto);
+        
+        dto.setReg_date(regDate);
+        dto.setName("인창동우리주차장");
+        dto.setAddress("경기구리시 경춘로227번길 6-26");
+        dto.setLatitude("123");
+        dto.setLongitude("456");
+        dto.setPl_desc("");
+        parkinglotsService.addParkingLot(dto);
+        
+        dto.setReg_date(regDate);
+        dto.setName("제1공영주차장");
+        dto.setAddress("경기구리시 인창동 605-172");
+        dto.setLatitude("123");
+        dto.setLongitude("456");
+        dto.setPl_desc("");
+        parkinglotsService.addParkingLot(dto);
+        
+        dto.setReg_date(regDate);
+        dto.setName("구리전통시장공영주차장");
+        dto.setAddress("경기구리시 검배로6번길 31");
+        dto.setLatitude("123");
+        dto.setLongitude("456");
+        dto.setPl_desc("");
+        parkinglotsService.addParkingLot(dto);
+        
+        dto.setReg_date(regDate);
+        dto.setName("제5공영주차장");
+        dto.setAddress("경기구리시 경춘로248번길 88");
+        dto.setLatitude("123");
+        dto.setLongitude("456");
+        dto.setPl_desc("");
+        parkinglotsService.addParkingLot(dto);
+        
+        dto.setReg_date(regDate);
+        dto.setName("제2공영주차장");
+        dto.setAddress("경기구리시 안골로40");
+        dto.setLatitude("123");
+        dto.setLongitude("456");
+        dto.setPl_desc("");
+        parkinglotsService.addParkingLot(dto);
+        
+        dto.setReg_date(regDate);
+        dto.setName("대한주차장");
+        dto.setAddress("경기구리시 안골로85번길 13-5주차관리소");
+        dto.setLatitude("123");
+        dto.setLongitude("456");
+        dto.setPl_desc("");
+        parkinglotsService.addParkingLot(dto);
+        
+        dto.setReg_date(regDate);
+        dto.setName("중앙민영주차장");
+        dto.setAddress("경기구리시 경춘로 218-5");
+        dto.setLatitude("123");
+        dto.setLongitude("456");
+        dto.setPl_desc("");
+        parkinglotsService.addParkingLot(dto);
     	
     	return "redirect:/parking-lots-mgmt"; // 추가 후 목록 페이지로 리다이렉트
     }

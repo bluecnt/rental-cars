@@ -46,7 +46,7 @@ header ul li input {
 	<header style="border-bottom: 1px solid #ccc; padding: 15px 0; text-align: left">
 		<div class="category" style="margin-left: 100px;">
 			<ul>
-				<li><a href="/"><img src="resources/img/logo.png"></a></li>
+				<li><a href="./"><img src="resources/img/logo.png"></a></li>
 				<!-- 아래 li는 로그인 / 비로그인 상태를 구분할때 예시 -->
 				<!-- <li><a href='/rental/customers-mgmt' ${category eq 'cu' ? "class='active'" : '' } >고객관리</a></li> -->
 				<li><a href='/rental/customers-mgmt'>고객관리</a></li>
