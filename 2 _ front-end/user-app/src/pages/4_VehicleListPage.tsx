@@ -23,6 +23,8 @@ import VehicleSelector from "./4_VehicleListPage/6_VehicleSelector";
 import { Spinner } from "react-bootstrap";
 import ReservationPage from "./4_VehicleListPage/7_ReservationPage";
 import ReservationListPage from "./4_VehicleListPage/8_ReservationListPage";
+import { ParkingLotsDTO } from "../modules/dto/ParkingLotDTO";
+import { reservation_add } from "../modules/rest-client/reservations";
 
 interface VehicleListPageState {
   addr: string;
@@ -103,7 +105,6 @@ const VehicleListPage = () => {
     showLoadingSpinner(true);
 
     const pl = await get_vehicle_list(startTime, endTime);
-    // console.log(pl);
     if (Array.isArray(pl)) {
       dataCtx.actions.setParkingLots(pl);
     } else {
@@ -281,10 +282,19 @@ const VehicleListPage = () => {
     showTimeSelector(true);
   };
 
-  const handleClickReservationOk = () => {
+  const handleClickReservationOk = async (
+    cust_id: number,
+    reg_id: number,
+    start_time: Date,
+    end_time: Date
+  ) => {
     showReservationPage(-1, -1, -1);
     showVehicleSelector(-1);
+
+    // 일단 ok로 처리
+    await reservation_add(cust_id, reg_id, start_time, end_time);
     showReservationListPage(true);
+    //
   };
 
   const handleClickReservationCancel = () => {

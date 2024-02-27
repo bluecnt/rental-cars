@@ -10,6 +10,12 @@ import { calcPrice } from "../../modules/rest-client/reservations";
 import { _makeCurrencyStr } from "../../modules/utils/BlueString";
 import BlueDialog from "../../modules/ui/BlueDialog";
 
+type OkButtonClickEvent = (
+  cust_id: number,
+  reg_id: number,
+  start_time: Date,
+  end_time: Date
+) => void;
 type ButtonClickEvent = () => void;
 
 interface ReservationPageProps {
@@ -18,7 +24,7 @@ interface ReservationPageProps {
   regId: number;
   plId: number;
   vehicleId: number;
-  onClickOk: ButtonClickEvent;
+  onClickOk: OkButtonClickEvent;
   onClickCancel: ButtonClickEvent;
 }
 
@@ -54,6 +60,16 @@ const ReservationPage = (props: ReservationPageProps) => {
     vehicle?.price_per_hour as number
   );
   const priceStr = _makeCurrencyStr(price) + "원";
+
+  const handleClickOkBtn = () => {
+    console.error("==========");
+
+    const cust_id = 0;
+    const reg_id = 0;
+    const start_time = new Date();
+    const end_time = new Date();
+    props.onClickOk(cust_id, reg_id, start_time, end_time);
+  };
 
   return (
     // <div className="rp-container">
@@ -140,7 +156,7 @@ const ReservationPage = (props: ReservationPageProps) => {
       //
       footerNode={
         <div className="rp-footer">
-          <Button style={{ flex: 1 }} onClick={props.onClickOk}>
+          <Button style={{ flex: 1 }} onClick={handleClickOkBtn}>
             결제
           </Button>
           <Button

@@ -20,7 +20,7 @@ export default class UserDTO {
   msgFromServer: string;
 
   constructor(
-    cust_id = 0,
+    cust_id = -1,
     //
     join_date = new Date(),
     user_email = "",

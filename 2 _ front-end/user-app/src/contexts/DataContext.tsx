@@ -51,6 +51,7 @@ const DataContextProvider = (props: DataContextProviderProps) => {
     actions: {
       setUserDTO: (userDTO: UserDTO) => {
         setState((prev) => ({ ...prev, userDTO }));
+        console.log(userDTO);
       },
       // setRentTime: (startTime: Date, endTime: Date) => {
       //   setState((prev) => ({

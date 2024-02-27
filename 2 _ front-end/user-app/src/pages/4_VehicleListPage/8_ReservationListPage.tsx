@@ -83,11 +83,9 @@ const ReservationListPage = (props: ReservationListPageProps) => {
       title="예약 내역"
       //
       footerNode={
-        <div className="rlp-footer">
-          <Button style={{ flex: 1 }} onClick={props.onClickOk}>
-            확인
-          </Button>
-        </div>
+        <Button style={{ flex: 1 }} onClick={props.onClickOk}>
+          확인
+        </Button>
       }
     >
       {/*
@@ -100,8 +98,8 @@ const ReservationListPage = (props: ReservationListPageProps) => {
       </div>
       */}
 
-      {state.data?.map((dto) => (
-        <div className="rlp-vehicle-container">
+      {state.data?.map((dto, idx) => (
+        <div key={idx} className="rlp-vehicle-container">
           {/* 차량 이미지 */}
           <div className="rlp-vehicle-img">
             <img src="./images/vehicles/gn7.jpg" width={96} alt=""></img>
@@ -109,9 +107,7 @@ const ReservationListPage = (props: ReservationListPageProps) => {
           {/* 차량 정보 */}
           <div className="rlp-vehicle-info">
             {/* 차량 이름 */}
-            <div className="rlp-v-info-name">
-              {state.data?.[0].vehicle_name}
-            </div>
+            <div className="rlp-v-info-name">{dto.vehicle_name}</div>
             {/* 이용 시간 */}
             <div className="rlp-v-info-time">
               대여: {_dateTimeToStr(dto.vehicle_start_time)} <br></br>

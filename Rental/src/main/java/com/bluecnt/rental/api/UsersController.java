@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bluecnt.rental.dto.CustomerDTO;
+import com.bluecnt.rental.dto.LoginDTO;
 import com.bluecnt.rental.service.CustomersService;
 
 import lombok.extern.log4j.Log4j;
@@ -27,19 +28,10 @@ public class UsersController {
 	
 	// # 로그인
 	@PostMapping(value="/login",produces = "application/json; charset=UTF-8") 
-	public ResponseEntity<Map<String,Object>> postLogin(@RequestBody CustomerDTO dto) {
-		dto.setUser_email("test");
-		dto.setUser_pw("1234");
-		log.info("postLogin dto: " + dto);
+	public ResponseEntity<Map<String,Object>> postLogin(@RequestBody LoginDTO dto) {
+		Map<String, Object> resp = this.getLoginDummyData(dto);
 		
-		Map<String, String> data = new LinkedHashMap<>();
-		Map<String, Object> resp = new LinkedHashMap<>();
-		data.put("user_email", dto.getUser_email());
-		data.put("user_pw", dto.getUser_pw());
-		
-	    resp.put("result", "ok");
-	    resp.put("message", "~");
-	    resp.put("data", data);
+		System.out.println(dto.toString());
 
         return ResponseEntity.status(HttpStatus.OK).body(resp);
 	}
@@ -70,33 +62,37 @@ public class UsersController {
     // # 회원 가입 요청
     @PostMapping(value="/registration",produces = "application/json; charset=UTF-8")
     public ResponseEntity<Map<String, Object>> postReg(@RequestBody CustomerDTO dto) {
-    	log.info("POST reg customer: " + dto.toString());
+    	Map<String, Object> resp = this.getRestrationDummyData(dto);
     	
-    	// 고객 정보를 생성하여 DTO에 설정
-        dto.setUser_email("abcd@domain.com");
-        dto.setUser_pw("pass1234");
-        dto.setJoin_date("2024-02-14");
-        dto.setName("한국인");
-        dto.setBirthday("2000-01-01");
-        dto.setPhone_number("010-5212-1424");
-        dto.setLicense_number("21-19-174133-01");
-        dto.setCredit_card_company("Company");
-        dto.setCredit_card_number("1234-5678-9012-3451");
-        dto.setPoint(1000);
-        dto.setAccept(0);
-        dto.setRemark("특이사항");
-        
-        // 기존에 있던 customersService.addCustomer를 
-        // 이용하면 실제로 더미데이터가 들어가는걸 볼 수 있다 
-        customersService.addCustomer(dto);
-		Map<String, Object> resp = new LinkedHashMap<>();
-		
-	    resp.put("result", "ok");
-	    resp.put("message", "승인 요청 중..");
+    	System.out.println(dto.toString());
     	
         // 회원가입 성공 시 200 OK
         return ResponseEntity.status(HttpStatus.OK).body(resp);
     }
     
+    
+    private Map<String, Object> getLoginDummyData(LoginDTO dto) {
+		Map<String, Object> data = new LinkedHashMap<>();
+		Map<String, Object> resp = new LinkedHashMap<>();
+		
+		data.put("cust_id", 0);
+		data.put("credit_card_company", "국민카드");
+		data.put("credit_card_number", "0000-0000-0000-0000");		
+		
+	    resp.put("result", "ok");
+	    resp.put("message", "~");
+	    resp.put("data", data);
+	    
+	    return resp;
+    }
+    
+    private Map<String, Object> getRestrationDummyData(CustomerDTO dto) {
+		Map<String, Object> resp = new LinkedHashMap<>();
+		
+	    resp.put("result", "ok");
+	    resp.put("message", "승인 요청 중..");
+	    
+	    return resp;
+    }
 }
     

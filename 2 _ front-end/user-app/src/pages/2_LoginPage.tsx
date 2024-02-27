@@ -91,8 +91,8 @@ const LoginPage = () => {
 
     const dto = getLoginDTO();
     const userDTO = await do_login(dto);
-    if (userDTO.msgFromServer === "") {
-      console.log(userDTO);
+    if (userDTO.cust_id > -1) {
+      // console.log(userDTO);
       dataCtx.actions.setUserDTO(userDTO);
       gotoVehicleListPage();
     } else {

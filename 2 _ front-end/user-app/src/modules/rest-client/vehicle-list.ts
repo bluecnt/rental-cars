@@ -16,8 +16,10 @@
       - Addrs:    [0] '경기도 남양주시 다산동 4056-1 도농역'
 */
 
+import axios from "axios";
 import { ParkingLotsDTO } from "../dto/ParkingLotDTO";
 import { VehicleDTO } from "../dto/VehicleDTO";
+import { _dateTimeToStr } from "../utils/BlueTime";
 
 // 테스트 데이터
 const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
@@ -140,7 +142,7 @@ const _get_test_data = async (): Promise<ParkingLotsDTO[]> => {
       "img",
       "165허1289",
       "opts",
-      1200,
+      12000,
       320,
       "desc",
       "remark",
@@ -224,9 +226,19 @@ export const get_vehicle_list = async (
   startTime: Date,
   endTime: Date
 ): Promise<ParkingLotsDTO[] | string> => {
-  return await _get_test_data();
+  //return await _get_test_data();
 
-  //
+  const addr = "구리역";
+  const startTime2 = _dateTimeToStr(startTime);
+  const endTime2 = _dateTimeToStr(endTime);
+  const params = `address=${addr}&radius=3km&start_time=${startTime2}&end_time=${endTime2}`;
+  try {
+    const resp = await axios.get("/rental/api/vehicle-list?" + params);
+    // console.log(resp.data);
+    return resp.data.data.parking_lots;
+  } catch (err) {
+    console.error(err);
+  }
 
-  //return "";
+  return "/ERROR/";
 };
