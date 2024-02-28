@@ -31,12 +31,27 @@ const ReservationListPage = (props: ReservationListPageProps) => {
     // console.log("[ReservationListPage] mounted");
 
     const asyncFunc = async () => {
-      const dtos = await reservations_get(props.cust_id);
+      const data = await reservations_get(props.cust_id);
+      const dtos: ReservationDTO[] = [];
+
+      data.forEach((dto) => {
+        const _dto = dto as any;
+        const dto2 = new ReservationDTO(
+          _dto.rent_id,
+          _dto.vehicle.img,
+          _dto.vehicle.name,
+          _dto.vehicle.start_time,
+          _dto.vehicle.end_time,
+          _dto.vehicle.driving_status
+        );
+        dtos.push(dto2);
+      });
+      //console.log(dtos);
       setState((prev) => ({ ...prev, data: dtos }));
     };
 
     asyncFunc();
-  }, [props.cust_id]);
+  }, []);
 
   useEffect(() => {
     // console.log("[ReservationListPage] rendered");
@@ -107,11 +122,11 @@ const ReservationListPage = (props: ReservationListPageProps) => {
           {/* 차량 정보 */}
           <div className="rlp-vehicle-info">
             {/* 차량 이름 */}
-            <div className="rlp-v-info-name">{dto.vehicle_name}</div>
+            <div className="rlp-v-info-name">{dto.name}</div>
             {/* 이용 시간 */}
             <div className="rlp-v-info-time">
-              대여: {_dateTimeToStr(dto.vehicle_start_time)} <br></br>
-              반납: {_dateTimeToStr(dto.vehicle_end_time)}
+              대여: {_dateTimeToStr(new Date(dto.start_time))} <br></br>
+              반납: {_dateTimeToStr(new Date(dto.end_time))}
             </div>
           </div>
           {/* 차량 제어 버튼 */}
@@ -123,7 +138,7 @@ const ReservationListPage = (props: ReservationListPageProps) => {
               data-rent-id={1}
               data-control="start"
               // /(1) 운행 중/이 아닌 경우에는 활성화
-              disabled={!(dto.vehicle_driving_status !== 1)}
+              disabled={!(dto.driving_status !== 1)}
             >
               운행 시작
             </Button>
@@ -135,7 +150,7 @@ const ReservationListPage = (props: ReservationListPageProps) => {
               data-rent-id={dto.rent_id}
               data-control="stop"
               // /(1) 운행 중/인 경우에만 활성화
-              disabled={!(dto.vehicle_driving_status === 1)}
+              disabled={!(dto.driving_status === 1)}
             >
               운행 종료
             </Button>

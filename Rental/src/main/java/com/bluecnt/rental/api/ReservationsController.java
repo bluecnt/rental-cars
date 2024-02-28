@@ -38,7 +38,8 @@ public class ReservationsController {
 	// # 예약 리스트 얻기
 	@GetMapping(value = "/reservations", produces = "application/json; charset=UTF-8")
 	public ResponseEntity<Map<String, Object>> getReservationsList(@RequestParam int cust_id) {
-
+		System.out.println("cust_id: " + cust_id);
+		
 		Map<String, Object> resp = this.getReservationListDummyData(cust_id);
 
 		return ResponseEntity.status(HttpStatus.OK).body(resp);
@@ -67,8 +68,8 @@ public class ReservationsController {
 		v_data.put("img", "~");
 		v_data.put("name", "아반떼CN7");
 		v_data.put("start_time", "2024-02-27T20:00:00+09:00");
-		v_data.put("start_time", "2024-02-27T21:00:00+09:00");
-		v_data.put("driving_state", 0);
+		v_data.put("end_time", "2024-02-27T21:00:00+09:00");
+		v_data.put("driving_status", 0);
 
 		item.put("vehicle", v_data);
 		
